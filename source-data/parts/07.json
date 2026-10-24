@@ -1,0 +1,220 @@
+{
+  "part_type": "contests",
+  "data": [
+    {
+      "id": "2022-new-taipei",
+      "title": "2022年新北市長選舉",
+      "election_date": "2022-11-26",
+      "geography": "新北市",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 1846531,
+      "selected_candidates": [
+        "侯友宜",
+        "林佳龍"
+      ],
+      "selected_candidate_votes": 1846531,
+      "candidates": [
+        {
+          "name": "林佳龍",
+          "running_mate": null,
+          "ballot_number": 1,
+          "party": "民主進步黨",
+          "votes": 693976,
+          "official_reported_percent": 37.58,
+          "valid_vote_percent": 37.58268883652644,
+          "elected": false
+        },
+        {
+          "name": "侯友宜",
+          "running_mate": null,
+          "ballot_number": 2,
+          "party": "中國國民黨",
+          "votes": 1152555,
+          "official_reported_percent": 62.42,
+          "valid_vote_percent": 62.41731116347356,
+          "elected": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/C1/00/05cc7b904c7a30cc7c88d5b10898c98e/C/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C1.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=C1&amp;legisId=00&amp;themeId=05cc7b904c7a30cc7c88d5b10898c98e&amp;dataLevel=C&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": false,
+      "verified_poll_count": 6,
+      "notes": []
+    },
+    {
+      "id": "2022-taipei",
+      "title": "2022年臺北市長選舉",
+      "election_date": "2022-11-26",
+      "geography": "臺北市",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 1360951,
+      "selected_candidates": [
+        "蔣萬安",
+        "陳時中",
+        "黃珊珊"
+      ],
+      "selected_candidate_votes": 1352289,
+      "candidates": [
+        {
+          "name": "張家豪",
+          "running_mate": null,
+          "ballot_number": 1,
+          "party": "台灣動物保護黨",
+          "votes": 2367,
+          "official_reported_percent": 0.17,
+          "valid_vote_percent": 0.17392249978140287,
+          "elected": false
+        },
+        {
+          "name": "王文娟",
+          "running_mate": null,
+          "ballot_number": 2,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 451,
+          "official_reported_percent": 0.03,
+          "valid_vote_percent": 0.03313859205805352,
+          "elected": false
+        },
+        {
+          "name": "鄭匡宇",
+          "running_mate": null,
+          "ballot_number": 3,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 386,
+          "official_reported_percent": 0.03,
+          "valid_vote_percent": 0.02836252003194825,
+          "elected": false
+        },
+        {
+          "name": "黃聖峰",
+          "running_mate": null,
+          "ballot_number": 4,
+          "party": "台澎黨",
+          "votes": 256,
+          "official_reported_percent": 0.02,
+          "valid_vote_percent": 0.018810375979737698,
+          "elected": false
+        },
+        {
+          "name": "童文薰",
+          "running_mate": null,
+          "ballot_number": 5,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 2425,
+          "official_reported_percent": 0.18,
+          "valid_vote_percent": 0.17818422558931218,
+          "elected": false
+        },
+        {
+          "name": "蔣萬安",
+          "running_mate": null,
+          "ballot_number": 6,
+          "party": "中國國民黨",
+          "votes": 575590,
+          "official_reported_percent": 42.29,
+          "valid_vote_percent": 42.293219961629774,
+          "elected": true
+        },
+        {
+          "name": "蘇煥智",
+          "running_mate": null,
+          "ballot_number": 7,
+          "party": "台灣維新",
+          "votes": 1851,
+          "official_reported_percent": 0.14,
+          "valid_vote_percent": 0.13600783569724406,
+          "elected": false
+        },
+        {
+          "name": "黃珊珊",
+          "running_mate": null,
+          "ballot_number": 8,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 342141,
+          "official_reported_percent": 25.14,
+          "valid_vote_percent": 25.139847062825922,
+          "elected": false
+        },
+        {
+          "name": "施奉先",
+          "running_mate": null,
+          "ballot_number": 9,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 383,
+          "official_reported_percent": 0.03,
+          "valid_vote_percent": 0.028142085938435698,
+          "elected": false
+        },
+        {
+          "name": "唐新民",
+          "running_mate": null,
+          "ballot_number": 10,
+          "party": "共和黨",
+          "votes": 316,
+          "official_reported_percent": 0.02,
+          "valid_vote_percent": 0.023219057849988723,
+          "elected": false
+        },
+        {
+          "name": "謝立康",
+          "running_mate": null,
+          "ballot_number": 11,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 227,
+          "official_reported_percent": 0.02,
+          "valid_vote_percent": 0.016679513075783036,
+          "elected": false
+        },
+        {
+          "name": "陳時中",
+          "running_mate": null,
+          "ballot_number": 12,
+          "party": "民主進步黨",
+          "votes": 434558,
+          "official_reported_percent": 31.93,
+          "valid_vote_percent": 31.9304662695424,
+          "elected": false
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/C1/00/05cc7b904c7a30cc7c88d5b10898c98e/C/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C1.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=C1&amp;legisId=00&amp;themeId=05cc7b904c7a30cc7c88d5b10898c98e&amp;dataLevel=C&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": true,
+      "verified_poll_count": 32,
+      "notes": []
+    }
+  ]
+}

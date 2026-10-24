@@ -1,0 +1,352 @@
+{
+  "part_type": "polls",
+  "data": [
+    {
+      "id": "2020-president-tvbs",
+      "contest_id": "2020-president",
+      "brand": "TVBS",
+      "executor": "TVBS民意調查中心",
+      "commissioner": "TVBS",
+      "funder": "TVBS",
+      "design_and_analysis": null,
+      "comparison_unit_id": "tvbs__tvbs-poll-center",
+      "product_type": "voting_intention_poll",
+      "candidate_set": [
+        "蔡英文",
+        "韓國瑜",
+        "宋楚瑜"
+      ],
+      "fieldwork_start": "2019-12-29",
+      "fieldwork_end": "2019-12-29",
+      "publication_date": "2019-12-30",
+      "date_timezone": "Asia/Taipei",
+      "sample_size_total": 1030,
+      "sample_size_support_question": null,
+      "population": "全國22縣市年滿20歲民眾",
+      "mode": "市話、手機雙底冊人員電話訪問",
+      "sampling_frame": "市話末4碼、手機末5碼隨機抽樣",
+      "weighting": "電話使用行為、性別、年齡、地區、教育程度加權",
+      "reported_margin_of_error_pp": 3,
+      "reported_confidence_level": 0.95,
+      "support_denominator": "有投票意願的受訪者",
+      "raw_support_percent": {
+        "蔡英文": 45,
+        "韓國瑜": 29,
+        "宋楚瑜": 7
+      },
+      "raw_means": "報告刊載、尚未依本網站候選人集合再正規化的支持度；可能已經原報告人口加權，不是未加權逐筆樣本。",
+      "undecided_percent": 19,
+      "explicit_final_poll_label": true,
+      "selection_label": "來源明示封關民調",
+      "latest_available_guaranteed": false,
+      "verification_status": "verified_primary",
+      "aggregate_source_eligible": true,
+      "sources": [
+        {
+          "title": "TVBS2019年12月29日封關民調原發布新聞",
+          "url": "https://news.tvbs.com.tw/politics/1255966",
+          "kind": "primary_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "核心全數重核；支持分母限定有投票意願。"
+        },
+        {
+          "title": "維基百科歷史民調表（發現索引）",
+          "url": "https://zh.wikipedia.org/wiki/2020年中華民國總統選舉民意調查",
+          "kind": "secondary_table_index",
+          "access_method": "complete_public_table_index",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "保存原表參考連結與數值；二手索引不代表一手核實。"
+        },
+        {
+          "title": "索引原始參考連結（可讀性另待核對）",
+          "url": "https://cc.tvbs.com.tw/portal/file/poll_center/2019/20191230/a136da8dbd0dd9b2ff1b35ebb05637e7.pdf",
+          "kind": "original_link_from_secondary_index",
+          "access_method": "not_independently_checked",
+          "checked_at": null
+        }
+      ],
+      "notes": [
+        "總樣本1030不等於投票意願子樣本數，後者未核實。",
+        "補查原文並保留逐欄來源；未核實或來源衝突欄位不補值。"
+      ],
+      "days_before_election": 13,
+      "published_before_election": true,
+      "within_default_30_day_window": true,
+      "calculation": {
+        "candidate_set": [
+          "蔡英文",
+          "韓國瑜",
+          "宋楚瑜"
+        ],
+        "poll_selected_support_total": 81,
+        "election_selected_votes_total": 14300940,
+        "raw_official_percent_same_candidates": {
+          "蔡英文": 57.13072707108764,
+          "韓國瑜": 38.613678541410565,
+          "宋楚瑜": 4.255594387501801
+        },
+        "normalized_poll_percent": {
+          "蔡英文": 55.55555555555556,
+          "韓國瑜": 35.80246913580247,
+          "宋楚瑜": 8.641975308641975
+        },
+        "normalized_official_percent": {
+          "蔡英文": 57.13072707108764,
+          "韓國瑜": 38.613678541410565,
+          "宋楚瑜": 4.255594387501801
+        },
+        "raw_mae_pp": 8.162937074998801,
+        "normalized_mae_pp": 2.9242539474267777,
+        "precision": "full_precision_before_display_rounding",
+        "is_provisional": false
+      },
+      "is_last_verified_eligible_in_dataset": true,
+      "default_aggregate_eligible": true,
+      "team_continuity_verified": false,
+      "primary_mae_pp": 2.9242539474267777,
+      "question": "蔡賴、韓張、宋余三組正副總統搭檔支持度",
+      "source_enrichment": {
+        "checked_at": "2026-10-18",
+        "previous_verification_status": "verified_primary",
+        "record_id": "president-early-0267",
+        "evidence_tier": "primary_fulltext",
+        "field_evidence": {
+          "population": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "samplingFrame": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "weighting": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "reportedMarginOfError": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "reportedConfidenceLevel": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "commissioner": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "funder": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "sampleSizeSupportQuestion": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "supportDenominator": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "undecided": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "question": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "context": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "shares": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "fieldworkEnd": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "publishedAt": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "executor": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "sampleSize": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          },
+          "method": {
+            "url": "https://news.tvbs.com.tw/politics/1255966"
+          }
+        },
+        "verification_problems": []
+      }
+    },
+    {
+      "id": "2020-president-formosa",
+      "contest_id": "2020-president",
+      "brand": "美麗島電子報",
+      "executor": "畢肯市場研究股份有限公司",
+      "commissioner": "美麗島電子報",
+      "funder": "美麗島電子報",
+      "design_and_analysis": "戴立安",
+      "comparison_unit_id": "formosa__beacon",
+      "product_type": "voting_intention_poll",
+      "candidate_set": [
+        "蔡英文",
+        "韓國瑜",
+        "宋楚瑜"
+      ],
+      "fieldwork_start": "2019-12-25",
+      "fieldwork_end": "2019-12-26",
+      "publication_date": "2019-12-30",
+      "date_timezone": "Asia/Taipei",
+      "sample_size_total": 1072,
+      "sample_size_support_question": 1072,
+      "population": "設籍於全國22縣市且年滿20歲民眾",
+      "mode": "CATI市話訪問",
+      "sampling_frame": "住宅電話名冊輔助隨機跳號，末2碼隨機替換",
+      "weighting": "性別、戶籍地、年齡、教育程度反覆加權（raking）",
+      "reported_margin_of_error_pp": 3,
+      "reported_confidence_level": 0.95,
+      "support_denominator": "全體受訪者（包含不投票及未明確回答）",
+      "raw_support_percent": {
+        "蔡英文": 48.2,
+        "韓國瑜": 20.3,
+        "宋楚瑜": 10.3
+      },
+      "raw_means": "報告刊載、尚未依本網站候選人集合再正規化的支持度；可能已經原報告人口加權，不是未加權逐筆樣本。",
+      "undecided_percent": 12.3,
+      "explicit_final_poll_label": true,
+      "selection_label": "來源明示封關民調",
+      "latest_available_guaranteed": false,
+      "verification_status": "verified_primary",
+      "aggregate_source_eligible": true,
+      "sources": [
+        {
+          "title": "美麗島2019年12月國政民調官方原發布",
+          "url": "https://m.my-formosa.com.tw/DOC_152977.htm",
+          "kind": "primary_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "完整調查說明及支持度段可讀。"
+        },
+        {
+          "title": "維基百科歷史民調表（發現索引）",
+          "url": "https://zh.wikipedia.org/wiki/2020年中華民國總統選舉民意調查",
+          "kind": "secondary_table_index",
+          "access_method": "complete_public_table_index",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "保存原表參考連結與數值；二手索引不代表一手核實。"
+        }
+      ],
+      "notes": [
+        "來源自述依法可發布的最後一期；後續非公開追蹤與最終預測未納入。",
+        "補查原文並保留逐欄來源；未核實或來源衝突欄位不補值。"
+      ],
+      "days_before_election": 16,
+      "published_before_election": true,
+      "within_default_30_day_window": true,
+      "calculation": {
+        "candidate_set": [
+          "蔡英文",
+          "韓國瑜",
+          "宋楚瑜"
+        ],
+        "poll_selected_support_total": 78.8,
+        "election_selected_votes_total": 14300940,
+        "raw_official_percent_same_candidates": {
+          "蔡英文": 57.13072707108764,
+          "韓國瑜": 38.613678541410565,
+          "宋楚瑜": 4.255594387501801
+        },
+        "normalized_poll_percent": {
+          "蔡英文": 61.16751269035534,
+          "韓國瑜": 25.761421319796955,
+          "宋楚瑜": 13.071065989847716
+        },
+        "normalized_official_percent": {
+          "蔡英文": 57.13072707108764,
+          "韓國瑜": 38.613678541410565,
+          "宋楚瑜": 4.255594387501801
+        },
+        "raw_mae_pp": 11.096270408332133,
+        "normalized_mae_pp": 8.568171481075742,
+        "precision": "full_precision_before_display_rounding",
+        "is_provisional": false
+      },
+      "is_last_verified_eligible_in_dataset": true,
+      "default_aggregate_eligible": true,
+      "team_continuity_verified": false,
+      "primary_mae_pp": 8.568171481075742,
+      "other_percent": 9,
+      "other_responses": {
+        "不投票或投廢票": 9
+      },
+      "question": "蔡賴、韓張、宋余三組正副總統搭檔支持度",
+      "source_enrichment": {
+        "checked_at": "2026-10-18",
+        "previous_verification_status": "verified_primary",
+        "record_id": "president-early-0273",
+        "evidence_tier": "primary_fulltext",
+        "field_evidence": {
+          "executor": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "publishedAt": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "method": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "population": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "samplingFrame": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "weighting": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "reportedMarginOfError": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "reportedConfidenceLevel": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "commissioner": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "funder": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "designAndAnalysis": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "sampleSizeSupportQuestion": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "supportDenominator": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "undecided": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "other": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "question": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "sourceUrl": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "evidenceTier": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "missingFields": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "shares": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "fieldworkEnd": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          },
+          "sampleSize": {
+            "url": "https://m.my-formosa.com.tw/DOC_152977.htm"
+          }
+        },
+        "verification_problems": []
+      }
+    }
+  ]
+}

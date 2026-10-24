@@ -1,0 +1,139 @@
+{
+  "part_type": "contests",
+  "data": [
+    {
+      "id": "2018-kaohsiung",
+      "title": "2018年高雄市長選舉",
+      "election_date": "2018-11-24",
+      "geography": "高雄市",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 1656907,
+      "selected_candidates": [
+        "陳其邁",
+        "韓國瑜"
+      ],
+      "selected_candidate_votes": 1634784,
+      "candidates": [
+        {
+          "name": "韓國瑜",
+          "running_mate": null,
+          "ballot_number": 1,
+          "party": "中國國民黨",
+          "votes": 892545,
+          "official_reported_percent": 53.86,
+          "valid_vote_percent": 53.868141060421614,
+          "elected": true
+        },
+        {
+          "name": "陳其邁",
+          "running_mate": null,
+          "ballot_number": 2,
+          "party": "民主進步黨",
+          "votes": 742239,
+          "official_reported_percent": 44.79,
+          "valid_vote_percent": 44.79666028328687,
+          "elected": false
+        },
+        {
+          "name": "璩美鳳",
+          "running_mate": null,
+          "ballot_number": 3,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 7998,
+          "official_reported_percent": 0.48,
+          "valid_vote_percent": 0.48270663350447557,
+          "elected": false
+        },
+        {
+          "name": "蘇盈貴",
+          "running_mate": null,
+          "ballot_number": 4,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 14125,
+          "official_reported_percent": 0.85,
+          "valid_vote_percent": 0.8524920227870363,
+          "elected": false
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/C1/00/a0222f6529a3ff2192a1a04f209eaac3/C/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C1.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=C1&amp;legisId=00&amp;themeId=a0222f6529a3ff2192a1a04f209eaac3&amp;dataLevel=C&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": false,
+      "verified_poll_count": 4,
+      "notes": []
+    },
+    {
+      "id": "2018-new-taipei",
+      "title": "2018年新北市長選舉",
+      "election_date": "2018-11-24",
+      "geography": "新北市",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 2038822,
+      "selected_candidates": [
+        "蘇貞昌",
+        "侯友宜"
+      ],
+      "selected_candidate_votes": 2038822,
+      "candidates": [
+        {
+          "name": "蘇貞昌",
+          "running_mate": null,
+          "ballot_number": 1,
+          "party": "民主進步黨",
+          "votes": 873692,
+          "official_reported_percent": 42.85,
+          "valid_vote_percent": 42.852784598165016,
+          "elected": false
+        },
+        {
+          "name": "侯友宜",
+          "running_mate": null,
+          "ballot_number": 2,
+          "party": "中國國民黨",
+          "votes": 1165130,
+          "official_reported_percent": 57.14,
+          "valid_vote_percent": 57.147215401834984,
+          "elected": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/C1/00/a0222f6529a3ff2192a1a04f209eaac3/C/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C1.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=C1&amp;legisId=00&amp;themeId=a0222f6529a3ff2192a1a04f209eaac3&amp;dataLevel=C&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": false,
+      "verified_poll_count": 12,
+      "notes": []
+    }
+  ]
+}

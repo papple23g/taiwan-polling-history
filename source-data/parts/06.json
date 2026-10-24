@@ -1,0 +1,171 @@
+{
+  "part_type": "contests",
+  "data": [
+    {
+      "id": "2020-president",
+      "title": "2020年總統副總統選舉",
+      "election_date": "2020-01-11",
+      "geography": "全國",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 14300940,
+      "selected_candidates": [
+        "蔡英文",
+        "韓國瑜",
+        "宋楚瑜"
+      ],
+      "selected_candidate_votes": 14300940,
+      "candidates": [
+        {
+          "name": "宋楚瑜",
+          "running_mate": "余湘",
+          "ballot_number": 1,
+          "party": "親民黨",
+          "votes": 608590,
+          "official_reported_percent": 4.26,
+          "valid_vote_percent": 4.255594387501801,
+          "elected": false
+        },
+        {
+          "name": "韓國瑜",
+          "running_mate": "張善政",
+          "ballot_number": 2,
+          "party": "中國國民黨",
+          "votes": 5522119,
+          "official_reported_percent": 38.61,
+          "valid_vote_percent": 38.613678541410565,
+          "elected": false
+        },
+        {
+          "name": "蔡英文",
+          "running_mate": "賴清德",
+          "ballot_number": 3,
+          "party": "民主進步黨",
+          "votes": 8170231,
+          "official_reported_percent": 57.13,
+          "valid_vote_percent": 57.13072707108764,
+          "elected": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/P0/00/1f7d9f4f6bfe06fdaf4db7df2ed4d60c/N/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_P0.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=P0&amp;legisId=00&amp;themeId=1f7d9f4f6bfe06fdaf4db7df2ed4d60c&amp;dataLevel=N&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": true,
+      "verified_poll_count": 39,
+      "notes": []
+    },
+    {
+      "id": "2022-hsinchu-city",
+      "title": "2022年新竹市長選舉",
+      "election_date": "2022-11-26",
+      "geography": "新竹市",
+      "official_status": "CEC_final_results_database",
+      "valid_votes": 217941,
+      "selected_candidates": [
+        "高虹安",
+        "沈慧虹",
+        "林耕仁"
+      ],
+      "selected_candidate_votes": 215276,
+      "candidates": [
+        {
+          "name": "黃源甫",
+          "running_mate": null,
+          "ballot_number": 1,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 1049,
+          "official_reported_percent": 0.48,
+          "valid_vote_percent": 0.48132292684717426,
+          "elected": false
+        },
+        {
+          "name": "龔偉綸",
+          "running_mate": null,
+          "ballot_number": 2,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 508,
+          "official_reported_percent": 0.23,
+          "valid_vote_percent": 0.23309060709090992,
+          "elected": false
+        },
+        {
+          "name": "林耕仁",
+          "running_mate": null,
+          "ballot_number": 3,
+          "party": "中國國民黨",
+          "votes": 39391,
+          "official_reported_percent": 18.07,
+          "valid_vote_percent": 18.074157684878017,
+          "elected": false
+        },
+        {
+          "name": "李驥羣",
+          "running_mate": null,
+          "ballot_number": 4,
+          "party": "無黨籍及未經政黨推薦",
+          "votes": 1108,
+          "official_reported_percent": 0.51,
+          "valid_vote_percent": 0.5083944737337169,
+          "elected": false
+        },
+        {
+          "name": "沈慧虹",
+          "running_mate": null,
+          "ballot_number": 5,
+          "party": "民主進步黨",
+          "votes": 77764,
+          "official_reported_percent": 35.68,
+          "valid_vote_percent": 35.68121647601874,
+          "elected": false
+        },
+        {
+          "name": "高虹安",
+          "running_mate": null,
+          "ballot_number": 6,
+          "party": "台灣民眾黨",
+          "votes": 98121,
+          "official_reported_percent": 45.02,
+          "valid_vote_percent": 45.02181783143144,
+          "elected": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://db.cec.gov.tw/static/elections/data/tickets/ELC/C2/00/63615098f5afa8ec53159c4a86fc01d3/C/00_000_00_000_0000.json",
+          "title": "中選會選舉資料庫：候選人得票數",
+          "kind": "official_election_data",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "逐筆核對候選人票數；總統副總統同票號只計一組票數，避免重複加總。"
+        },
+        {
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C2.json",
+          "title": "中選會選舉資料庫：選舉清單",
+          "kind": "official_election_metadata",
+          "access_method": "official_public_json",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "核對選舉識別碼、日期、種類。"
+        }
+      ],
+      "official_browser_url": "https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&amp;typeId=ELC&amp;subjectId=C2&amp;legisId=00&amp;themeId=63615098f5afa8ec53159c4a86fc01d3&amp;dataLevel=C&amp;prvCode=00&amp;cityCode=000&amp;areaCode=00&amp;deptCode=000&amp;liCode=0000",
+      "priority_poll_scope": false,
+      "verified_poll_count": 9,
+      "notes": []
+    }
+  ]
+}

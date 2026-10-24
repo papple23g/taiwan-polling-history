@@ -1,0 +1,41 @@
+name: 資料更正
+description: 回報民調數值、日期、來源或計算疑問
+title: "[資料更正] "
+body:
+  - type: markdown
+    attributes:
+      value: "回報內容會公開，請勿提供個人敏感資訊。請附可公開查閱的來源，以便核對。"
+  - type: input
+    id: election
+    attributes:
+      label: 選舉
+      placeholder: 例如：2024 總統選舉
+    validations:
+      required: true
+  - type: input
+    id: institution
+    attributes:
+      label: 民調機構
+    validations:
+      required: true
+  - type: input
+    id: fieldwork-date
+    attributes:
+      label: 調查日期
+      description: 未知時請填「未知」，不要以發布日期代填。
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 疑似錯誤與建議更正
+      description: 請列出網站目前數值、來源所載數值及對應欄位；若有民調 ID，也請附上。
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 公開來源
+      description: 請提供網址與段落、表格或頁碼；若網址無法開啟，請註明限制。
+    validations:
+      required: true

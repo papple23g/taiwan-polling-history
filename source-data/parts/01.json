@@ -1,0 +1,163 @@
+{
+  "part_type": "metadata",
+  "data": {
+    "schema_version": "1.3.0",
+    "title": "選情劉伯溫：已核實歷史民調資料",
+    "verified_at": "2026-10-18",
+    "scope": {
+      "priority_contests": [
+        "2018-taipei",
+        "2020-president",
+        "2022-taipei",
+        "2024-president"
+      ],
+      "original_project_contest_count": 13,
+      "official_contests_verified": 14,
+      "poll_contests_verified": 13,
+      "supplied_raw_records_assessed": 109,
+      "verified_poll_records": 360,
+      "incomplete_or_excluded_supplied_records": 8,
+      "matrix_only_missing_records": null,
+      "coverage_statement": "中選會官方結果14場；民調收錄789筆（一手核實360、待核實429），涵蓋14場選舉。另存365筆候選情境、22筆來源衝突及逐筆來源；未知欄位不補造。",
+      "expanded_contests": [
+        "2018-kaohsiung",
+        "2018-new-taipei",
+        "2018-taichung",
+        "2022-hsinchu-city",
+        "2022-new-taipei",
+        "2022-taoyuan"
+      ],
+      "indexed_poll_records": 429,
+      "total_poll_records": 789,
+      "wikipedia_index_records": 83,
+      "wikipedia_matched_existing": 3,
+      "expanded_2024_original_verified": [
+        "2024-president-wiki-mirrornews-dadi-2023-12-31-oqbpbi",
+        "2024-president-wiki-zmedia-sanshui-2023-12-29-nkcszd",
+        "2024-president-wiki-ftnn-self-2023-12-29-149cjto"
+      ],
+      "poll_contests_with_records": 14,
+      "historical_candidate_context_records": 365,
+      "held_source_conflict_records": 22,
+      "historical_catalogue_records_assessed": 1215,
+      "historical_imported_records": 691,
+      "verification_review_records": 1119,
+      "verification_review_counts": {
+        "primary_verified": 522,
+        "secondary_cross_checked": 0,
+        "partial": 542,
+        "blocked": 7,
+        "conflict": 48
+      }
+    },
+    "methodology": {
+      "metric": "MAE",
+      "unit": "percentage_points",
+      "default_window_days": 30,
+      "window_date_field": "fieldwork_end",
+      "window_rule": "0 &lt; election_date - fieldwork_end &lt;= 30 calendar days; publication_date must precede election_date",
+      "raw_formula": "mean(abs(poll_reported_percent[c] - votes[c]/all_valid_votes*100)) for the same selected candidate set",
+      "normalized_formula": "mean(abs(poll_reported_percent[c]/sum_selected_poll_percent*100 - votes[c]/sum_selected_votes*100)) for the same selected candidate set",
+      "candidate_set_rule": "每場明列候選人集合；原始與正規化檢視使用相同集合；不得默默只正規化民調而不正規化選舉結果。",
+      "raw_caveat": "原始民調支持度的分母可包含未決定者，正式得票率分母為有效票；原始MAE僅供描述，不能解讀為同分母的估票準確度。",
+      "selection_rule": "每品牌＋執行者＋選舉先限已核實、選前公開且窗口內紀錄；優先選來源明示封關者，若多筆封關取訪問結束日最新者（同日再比發布日）；無明示封關則取最後可核實紀錄並標示不保證最後一份。",
+      "selection_scope": "只涵蓋此資料集已核實紀錄；未完成該品牌全部歷次民調的窮盡式查核。",
+      "minimum_common_contests": 3,
+      "aggregate_rule": "同場比較只在相同選舉交集且至少3場時提供跨場平均；每場等權，缺漏不補0，不以各品牌不同場次平均作排行。",
+      "identity_rule": "保留品牌、委託者、出資者、執行公司、設計分析者；同執行公司不同委託品牌不可直接合併。",
+      "team_continuity_rule": "相同品牌或公司名稱不等於團隊、人員與方法連續；本資料未查核完整人事變動。",
+      "product_exclusions": [
+        "綜合預測模型",
+        "選後才公布的民調或推估",
+        "原始來源不足",
+        "候選人集合無法對齊"
+      ],
+      "unknown_rule": "null表示來源未載、未取得或未核實；不以猜測補齊。",
+      "interpretation": "此為選前公開民調與事後結果的描述性誤差；不是預測、因果評估或永久民調品質排名。",
+      "small_difference_caveat": "微小MAE差距可能低於原報告四捨五入誤差，且未提供跨場平均的不確定區間；不宣稱統計顯著。",
+      "verified_core_fields": "民調納入須核對主要候選人支持度、調查結束日、選前發布日、實施單位、有效樣本與方式；ETtoday新增紀錄以同集團完整轉載與獨立同期報導交叉核對，並保留原始發布者連結的可讀性限制。；2024新增鏡新聞、震傳媒、鋒燦傳媒之封關民調直接核對發布者原文。；2024新增鏡新聞、震傳媒、鋒燦傳媒之封關民調直接核對發布者原文。",
+      "official_percent_rule": "以官方整數票數重算，不使用官方欄位可能已截尾或四捨五入的百分比作計算；官方刊載百分比僅並列供核對。",
+      "default_score": "normalized_mae_pp",
+      "primary_score": "normalized_mae_pp",
+      "raw_view_score_rule": "切換原始支持度顯示只改資料呈現；主要分數與跨場比較仍使用正規化MAE。raw_mae_pp僅為另行標示的描述性診斷，不取代主要分數。",
+      "selection_tie_breaker": "如結束日與發布日仍相同且不是同筆轉載，須人工核對版本，不任意以較準者選取。",
+      "index_source_rule": "維基、新聞全文與搜尋摘要分層保存，逐筆附原始與索引URL。候選支持度可對齊時提供試算MAE；僅核心欄位完成一手核實且符合條件者取得正式分數與跨場資格。索引日期不代填調查日，未知保持null；來源不可讀的限制逐筆保留。"
+    },
+    "common_contest_comparisons": [
+      {
+        "label": "5場共同選舉的已核實資料比較",
+        "common_contest_ids": [
+          "2024-president",
+          "2022-taipei",
+          "2020-president",
+          "2018-new-taipei",
+          "2018-taipei"
+        ],
+        "eligible_units": [
+          {
+            "comparison_unit_id": "tvbs__tvbs-poll-center",
+            "brand": "TVBS",
+            "executor": "TVBS民意調查中心",
+            "common_contest_ids": [
+              "2024-president",
+              "2022-taipei",
+              "2020-president",
+              "2018-new-taipei",
+              "2018-taipei"
+            ],
+            "common_contest_count": 5,
+            "normalized_mean_mae_pp": 1.9790271783820181,
+            "raw_mean_mae_pp": 6.201329888654109,
+            "record_ids": [
+              "2024-president-tvbs",
+              "2022-taipei-tvbs",
+              "2020-president-tvbs",
+              "2018-new-taipei-tvbs",
+              "2018-taipei-tvbs"
+            ],
+            "primary_mean_mae_pp": 1.9790271783820181
+          },
+          {
+            "comparison_unit_id": "formosa__beacon",
+            "brand": "美麗島電子報",
+            "executor": "畢肯市場研究股份有限公司",
+            "common_contest_ids": [
+              "2024-president",
+              "2022-taipei",
+              "2020-president",
+              "2018-new-taipei",
+              "2018-taipei"
+            ],
+            "common_contest_count": 5,
+            "normalized_mean_mae_pp": 5.976351689491718,
+            "raw_mean_mae_pp": 9.071329888654109,
+            "record_ids": [
+              "2024-president-formosa",
+              "2022-taipei-formosa",
+              "2020-president-formosa",
+              "2018-new-taipei-history-59f76bdf8139",
+              "2018-taipei-formosa"
+            ],
+            "primary_mean_mae_pp": 5.976351689491718
+          }
+        ],
+        "coverage_warning": "限於所選機構都有合格資料的相同選舉交集；缺漏不補零，不作整體機構排名。",
+        "method_change_warning": "TVBS刊載的母體／投票意願篩選及電話框架有差異；美麗島2024為滾動3日，跨年比較仍受方法與選情差異影響。",
+        "primary_score": "normalized_mean_mae_pp"
+      }
+    ],
+    "frozen_at": "2026-10-17T01:00:00+08:00",
+    "data_changes": [
+      {
+        "date": "2026-10-18",
+        "title": "全量來源核對與 MAE 試算顯示",
+        "description": "逐筆核對1119筆既有待核紀錄，保留原始ID、來源定位、更正與限制。可計算者提供試算MAE，正式分數仍須一手核心欄位核實。候選情境365筆、來源衝突22筆分開保存。",
+        "source": {
+          "title": "TVBS官方歷史民調索引",
+          "url": "https://www.tvbs.com.tw/poll-center",
+          "checked_at": "2026-10-18"
+        }
+      }
+    ]
+  }
+}

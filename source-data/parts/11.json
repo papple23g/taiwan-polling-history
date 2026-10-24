@@ -1,0 +1,340 @@
+{
+  "part_type": "polls",
+  "data": [
+    {
+      "id": "2022-taipei-ettoday",
+      "contest_id": "2022-taipei",
+      "brand": "ETtoday",
+      "executor": "ETtoday民調雲",
+      "commissioner": "ETtoday民調雲",
+      "funder": null,
+      "design_and_analysis": "ETtoday民調雲",
+      "comparison_unit_id": "ettoday__ettoday-poll-cloud",
+      "product_type": "voting_intention_poll",
+      "candidate_set": [
+        "蔣萬安",
+        "陳時中",
+        "黃珊珊"
+      ],
+      "fieldwork_start": "2022-11-11",
+      "fieldwork_end": "2022-11-14",
+      "publication_date": "2022-11-15",
+      "date_timezone": "Asia/Taipei",
+      "sample_size_total": 1935,
+      "sample_size_support_question": null,
+      "population": "設籍臺北市且年滿20歲民眾（自建會員抽樣框）",
+      "mode": "網路調查＋CATI電話調查",
+      "sampling_frame": "ETtoday民調雲及東森購物自建會員資料庫；按戶籍標記及年齡篩選，等比分層抽樣",
+      "weighting": "性別、戶籍地、年齡、教育程度反覆加權（raking）",
+      "reported_margin_of_error_pp": 2.23,
+      "reported_confidence_level": 0.95,
+      "support_denominator": null,
+      "raw_support_percent": {
+        "蔣萬安": 37.9,
+        "陳時中": 29.4,
+        "黃珊珊": 22.5
+      },
+      "raw_means": "報告刊載、尚未依本網站候選人集合再正規化的支持度；可能已經原報告人口加權，不是未加權逐筆樣本。",
+      "undecided_percent": null,
+      "explicit_final_poll_label": true,
+      "selection_label": "來源明示封關民調",
+      "latest_available_guaranteed": false,
+      "verification_status": "verified_primary",
+      "aggregate_source_eligible": true,
+      "sources": [
+        {
+          "title": "ETtoday 2022年臺北市長選舉 2022年11月14日 原始全文",
+          "url": "https://www.ettoday.net/news/20221115/2380360.htm",
+          "kind": "primary_poll_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "核對支持度與調查方法；欄位原文逐項列於 fieldEvidence。讀到全文本身不作升級依據。"
+        },
+        {
+          "title": "維基百科歷史民調表（發現索引）",
+          "url": "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+          "kind": "secondary_table_index",
+          "access_method": "complete_public_table_index",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "保存原表參考連結與數值；二手索引不代表一手核實。"
+        }
+      ],
+      "notes": [
+        "抽樣框為自建會員庫，不等同一般電話隨機抽樣；刊載的誤差為發布者聲稱，不能用來涵蓋會員覆蓋偏誤。",
+        "補查原文並保留逐欄來源；未核實或來源衝突欄位不補值。"
+      ],
+      "days_before_election": 12,
+      "published_before_election": true,
+      "within_default_30_day_window": true,
+      "calculation": {
+        "candidate_set": [
+          "蔣萬安",
+          "陳時中",
+          "黃珊珊"
+        ],
+        "poll_selected_support_total": 89.8,
+        "election_selected_votes_total": 1352289,
+        "raw_official_percent_same_candidates": {
+          "蔣萬安": 42.293219961629774,
+          "陳時中": 31.9304662695424,
+          "黃珊珊": 25.139847062825922
+        },
+        "normalized_poll_percent": {
+          "蔣萬安": 42.20489977728285,
+          "陳時中": 32.73942093541203,
+          "黃珊珊": 25.05567928730512
+        },
+        "normalized_official_percent": {
+          "蔣萬安": 42.56412645521778,
+          "陳時中": 32.1349948124994,
+          "黃珊珊": 25.30087873228282
+        },
+        "raw_mae_pp": 3.1878444313326995,
+        "normalized_mae_pp": 0.4029507486084232,
+        "precision": "full_precision_before_display_rounding",
+        "is_provisional": false
+      },
+      "is_last_verified_eligible_in_dataset": true,
+      "default_aggregate_eligible": true,
+      "team_continuity_verified": false,
+      "primary_mae_pp": 0.4029507486084232,
+      "source_enrichment": {
+        "checked_at": "2026-10-18",
+        "previous_verification_status": "verified_primary",
+        "record_id": "local-2022-0071",
+        "evidence_tier": "primary_fulltext",
+        "field_evidence": {
+          "shares": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "candidateSet": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "fieldworkStart": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "fieldworkEnd": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "sampleSize": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "executor": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "method": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "commissioner": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "designAndAnalysis": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "samplingFrame": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "population": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "reportedMarginOfError": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "weighting": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "publishedAt": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "reportedConfidenceLevel": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          },
+          "questionSample": {
+            "url": "https://www.ettoday.net/news/20221115/2380360.htm"
+          }
+        },
+        "verification_problems": []
+      }
+    },
+    {
+      "id": "2022-taipei-tvbs",
+      "contest_id": "2022-taipei",
+      "brand": "TVBS",
+      "executor": "TVBS民意調查中心",
+      "commissioner": null,
+      "funder": "TVBS",
+      "design_and_analysis": null,
+      "comparison_unit_id": "tvbs__tvbs-poll-center",
+      "product_type": "voting_intention_poll",
+      "candidate_set": [
+        "蔣萬安",
+        "陳時中",
+        "黃珊珊"
+      ],
+      "fieldwork_start": null,
+      "fieldwork_end": "2022-11-14",
+      "publication_date": "2022-11-15",
+      "date_timezone": "Asia/Taipei",
+      "sample_size_total": 966,
+      "sample_size_support_question": null,
+      "population": "臺北市年滿20歲民眾",
+      "mode": "人員電話訪問",
+      "sampling_frame": "電話號碼後4碼電腦隨機抽樣",
+      "weighting": "依母體性別、年齡、地區、教育程度加權",
+      "reported_margin_of_error_pp": 3.2,
+      "reported_confidence_level": 0.95,
+      "support_denominator": null,
+      "raw_support_percent": {
+        "蔣萬安": 36,
+        "陳時中": 25,
+        "黃珊珊": 24
+      },
+      "raw_means": "報告刊載、尚未依本網站候選人集合再正規化的支持度；可能已經原報告人口加權，不是未加權逐筆樣本。",
+      "undecided_percent": null,
+      "explicit_final_poll_label": true,
+      "selection_label": "來源明示封關民調",
+      "latest_available_guaranteed": false,
+      "verification_status": "verified_primary",
+      "aggregate_source_eligible": true,
+      "sources": [
+        {
+          "title": "TVBS 2022年臺北市長選舉 2022年11月14日 原始全文",
+          "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf",
+          "kind": "primary_poll_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "核對支持度與調查方法；欄位原文逐項列於 fieldEvidence。讀到全文本身不作升級依據。"
+        },
+        {
+          "title": "TVBS封關民調／蔣萬安36%力壓陳時中25% 北市投票率預估6成1",
+          "url": "https://news.tvbs.com.tw/politics/1962942",
+          "kind": "primary_publisher_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "同一機構新聞明確顯示發布時間及同波支持度；未使用PDF路徑推定日期。"
+        },
+        {
+          "title": "維基百科歷史民調表（發現索引）",
+          "url": "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+          "kind": "secondary_table_index",
+          "access_method": "complete_public_table_index",
+          "checked_at": "2026-10-18",
+          "evidence_summary": "保存原表參考連結與數值；二手索引不代表一手核實。"
+        },
+        {
+          "url": "https://cc.tvbs.com.tw/portal/file/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf",
+          "title": "TVBS選前10天封關民調報告",
+          "kind": "primary_poll_report",
+          "access_method": "search_index_excerpt_only",
+          "checked_at": "2026-10-15",
+          "evidence_summary": "搜尋索引列訪問主區間11月12日至14日、有效樣本966及電話訪問；PDF直接存取回403，未聲稱讀過完整PDF。"
+        }
+      ],
+      "notes": [
+        "訪問結束日11月14日一致；起日因發布者新聞文字另寫11月11日下午、PDF索引主區間為11月12日至14日而留null，未擅自更正。",
+        "可讀新聞未明示支持度的投票意願篩選分母；保留null。",
+        "補查原文並保留逐欄來源；未核實或來源衝突欄位不補值。"
+      ],
+      "days_before_election": 12,
+      "published_before_election": true,
+      "within_default_30_day_window": true,
+      "calculation": {
+        "candidate_set": [
+          "蔣萬安",
+          "陳時中",
+          "黃珊珊"
+        ],
+        "poll_selected_support_total": 85,
+        "election_selected_votes_total": 1352289,
+        "raw_official_percent_same_candidates": {
+          "蔣萬安": 42.293219961629774,
+          "陳時中": 31.9304662695424,
+          "黃珊珊": 25.139847062825922
+        },
+        "normalized_poll_percent": {
+          "蔣萬安": 42.35294117647059,
+          "陳時中": 29.411764705882355,
+          "黃珊珊": 28.235294117647058
+        },
+        "normalized_official_percent": {
+          "蔣萬安": 42.56412645521778,
+          "陳時中": 32.1349948124994,
+          "黃珊珊": 25.30087873228282
+        },
+        "raw_mae_pp": 4.787844431332698,
+        "normalized_mae_pp": 1.956276923576161,
+        "precision": "full_precision_before_display_rounding",
+        "is_provisional": false
+      },
+      "fieldwork_start_conflict": {
+        "report_main_range": [
+          "2022-11-12",
+          "2022-11-14"
+        ],
+        "news_additional_afternoon_date": "2022-11-11",
+        "effect": "不影響以訪問結束日計算的30天篩選"
+      },
+      "is_last_verified_eligible_in_dataset": true,
+      "default_aggregate_eligible": true,
+      "team_continuity_verified": false,
+      "primary_mae_pp": 1.956276923576161,
+      "source_enrichment": {
+        "checked_at": "2026-10-18",
+        "previous_verification_status": "verified_primary",
+        "record_id": "local-2022-0072",
+        "evidence_tier": "primary_fulltext",
+        "field_evidence": {
+          "shares": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "candidateSet": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "fieldworkEnd": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "sampleSize": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "executor": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "method": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "population": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "samplingFrame": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "weighting": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "funder": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "publishedAt": {
+            "url": "https://news.tvbs.com.tw/politics/1962942"
+          },
+          "reportedMarginOfError": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "reportedConfidenceLevel": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "questionSample": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "fieldworkStart": {
+            "url": "https://www-asset.tvbs.com.tw/poll_center/2022/20221115/45934fde0e465f3e54984f01ecf58387.pdf"
+          },
+          "sourceConflict": {
+            "url": "https://news.tvbs.com.tw/politics/1962942"
+          }
+        },
+        "verification_problems": []
+      }
+    }
+  ]
+}
