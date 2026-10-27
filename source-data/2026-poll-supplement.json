@@ -1,0 +1,1528 @@
+{
+  "collectedAt": "2026-10-25T00:00:00+08:00",
+  "scope": "原發布者及公開報導的選定題目；不是完整民調清冊，也不代表參考站隱藏紀錄的身分已確認。",
+  "records": [
+    {
+      "id": "2026-03-19-tvbs-yilan",
+      "city": "yilan",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260323/19c44cdc976c0baac442963d0f74e3bd.pdf",
+      "indexAsOf": null,
+      "executorLabel": "TVBS民意調查中心",
+      "metadata": {
+        "發布單位": "TVBS",
+        "負責調查單位": "TVBS民意調查中心",
+        "委託單位": "未揭露",
+        "經費來源": "TVBS",
+        "調查期間": "2026/3/13–2026/3/19",
+        "發布日期": "2026/3/19",
+        "母體": "20歲以上宜蘭縣民",
+        "樣本數": "有效樣本 1,042 人",
+        "抽樣誤差": "±3.0 個百分點（95% 信心水準）",
+        "訪問方式": "人員電話訪問，晚間18:30至22:00",
+        "抽樣說明": "市內電話號碼後四碼電腦隨機抽樣",
+        "加權方式": "依母體性別、年齡、地區、教育程度加權"
+      },
+      "sources": [
+        {
+          "url": "https://www-asset.tvbs.com.tw/poll_center/2026/20260323/19c44cdc976c0baac442963d0f74e3bd.pdf",
+          "title": "2026宜蘭縣長選情民調"
+        }
+      ],
+      "accessMethod": "public_pdf_text_and_table_read",
+      "locator": "PDF調查說明及全體結果表",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意願",
+          "responses": [
+            {
+              "label": "一定會",
+              "percent": 59
+            },
+            {
+              "label": "可能會",
+              "percent": 24
+            },
+            {
+              "label": "不一定",
+              "percent": 6
+            },
+            {
+              "label": "不會",
+              "percent": 11
+            }
+          ],
+          "locator": "PDF第5頁表1",
+          "denominator": "20歲以上宜蘭縣民",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260323/19c44cdc976c0baac442963d0f74e3bd.pdf"
+        },
+        {
+          "label": "投票意向｜吳宗憲／林國漳／陳琬惠",
+          "responses": [
+            {
+              "label": "吳宗憲",
+              "percent": 28
+            },
+            {
+              "label": "林國漳",
+              "percent": 33
+            },
+            {
+              "label": "陳琬惠",
+              "percent": 8
+            },
+            {
+              "label": "未決定",
+              "percent": 31
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "PDF第5頁表2",
+          "denominator": "20歲以上有投票意願宜蘭縣民；支持題實際人數未載明",
+          "scenario": "藍綠白三人，姓名隨機輪替",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260323/19c44cdc976c0baac442963d0f74e3bd.pdf"
+        },
+        {
+          "label": "投票意向｜陳琬惠不參選的兩人情境",
+          "responses": [
+            {
+              "label": "吳宗憲",
+              "percent": 35
+            },
+            {
+              "label": "林國漳",
+              "percent": 38
+            },
+            {
+              "label": "未決定",
+              "percent": 27
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "假設陳琬惠不參選的獨立候選情境，與同波三人題分開保存。",
+          "locator": "PDF第8頁表3",
+          "denominator": "20歲以上有投票意願宜蘭縣民；支持題實際人數未載明",
+          "scenario": "假設陳琬惠沒有參選，吳宗憲／林國漳兩人",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260323/19c44cdc976c0baac442963d0f74e3bd.pdf"
+        }
+      ],
+      "sourceSha256": "42b13642e78b0436e73f8bf8253dfed4308540c2804786f37ab8a8500599d77a"
+    },
+    {
+      "id": "2026-03-18-myformosa-yilan",
+      "city": "yilan",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www.my-formosa.com.tw/DOC_224420.htm",
+      "indexAsOf": null,
+      "executorLabel": "畢肯市場研究公司",
+      "metadata": {
+        "發布單位": "美麗島電子報",
+        "委託單位": "美麗島電子報",
+        "負責調查單位": "畢肯市場研究公司",
+        "主持人": "戴立安（問卷設計與分析）",
+        "經費來源": "未揭露",
+        "調查期間": "2026/3/16–3/18",
+        "發布日期": "2026/3/19",
+        "樣本數": "有效樣本 1,070 人",
+        "抽樣誤差": "±3.0 個百分點（95% 信心水準）",
+        "母體": "設籍宜蘭縣年滿20歲的民眾",
+        "訪問方式": "訪員進行電腦輔助電話訪問（CATI）",
+        "抽樣說明": "住宅電話簿等比分層隨機抽樣，末2碼隨機跳號",
+        "加權方式": "依性別、行政區、年齡、教育程度進行比例估計法反覆加權"
+      },
+      "sources": [
+        {
+          "url": "https://www.my-formosa.com.tw/DOC_224420.htm",
+          "title": "美麗島民調：2026宜蘭縣長選舉可能人選支持度民調"
+        }
+      ],
+      "accessMethod": "public_html_selected_fields_read",
+      "locator": "調查方法與全體受訪者結果；交叉子群體另列時不混入",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "縣長適任度（複選）",
+          "responses": [
+            {
+              "label": "吳宗憲",
+              "percent": 31.9
+            },
+            {
+              "label": "陳琬惠",
+              "percent": 19.3
+            },
+            {
+              "label": "林國漳",
+              "percent": 35.3
+            },
+            {
+              "label": "未明確回答",
+              "percent": 40.4
+            }
+          ],
+          "locator": "問卷Q1",
+          "note": "複選題；不正規化為100%。",
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        },
+        {
+          "label": "投票意向｜吳宗憲／林國漳／陳琬惠",
+          "responses": [
+            {
+              "label": "吳宗憲",
+              "percent": 26.6
+            },
+            {
+              "label": "林國漳",
+              "percent": 33
+            },
+            {
+              "label": "陳琬惠",
+              "percent": 7.9
+            },
+            {
+              "label": "不投票/投廢票",
+              "percent": 7.5
+            },
+            {
+              "label": "未明確回答",
+              "percent": 25
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "問卷Q2",
+          "denominator": "全體成功完訪1070人；提示三位姓名及黨籍",
+          "scenario": "藍綠白三人，選項電腦隨機排序",
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        },
+        {
+          "label": "投票意向｜藍白合吳宗憲",
+          "responses": [
+            {
+              "label": "吳宗憲",
+              "percent": 33
+            },
+            {
+              "label": "林國漳",
+              "percent": 35.8
+            },
+            {
+              "label": "不投票/投廢票",
+              "percent": 7.7
+            },
+            {
+              "label": "未明確回答",
+              "percent": 23.5
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "假設藍白共同推出吳宗憲的獨立情境，不與同波三人題混用。",
+          "locator": "問卷Q3",
+          "scenario": "藍白合吳宗憲對民進黨林國漳",
+          "originalOptionLabels": [
+            "藍白合吳宗憲",
+            "民進黨林國漳",
+            "不投票/投廢票",
+            "未明確回答"
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        },
+        {
+          "label": "投票意向｜藍白合陳琬惠",
+          "responses": [
+            {
+              "label": "陳琬惠",
+              "percent": 26.7
+            },
+            {
+              "label": "林國漳",
+              "percent": 35.8
+            },
+            {
+              "label": "不投票/投廢票",
+              "percent": 11.5
+            },
+            {
+              "label": "未明確回答",
+              "percent": 25.9
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "假設藍白共同推出陳琬惠，與固定比較集合不同。",
+          "locator": "問卷Q4",
+          "scenario": "藍白合陳琬惠對民進黨林國漳",
+          "originalOptionLabels": [
+            "藍白合陳琬惠",
+            "民進黨林國漳",
+            "不投票/投廢票",
+            "未明確回答"
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        },
+        {
+          "label": "政黨輪替偏好",
+          "responses": [
+            {
+              "label": "給國民黨繼續做縣長",
+              "percent": 23.6
+            },
+            {
+              "label": "換成民進黨做做看",
+              "percent": 30.4
+            },
+            {
+              "label": "換成民眾黨做做看",
+              "percent": 6.5
+            },
+            {
+              "label": "未明確回答",
+              "percent": 39.5
+            }
+          ],
+          "locator": "問卷Q5",
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        },
+        {
+          "label": "政治人物好感度（複選）",
+          "responses": [
+            {
+              "label": "賴清德",
+              "percent": 40.6
+            },
+            {
+              "label": "蔣萬安",
+              "percent": 53.5
+            },
+            {
+              "label": "林姿妙",
+              "percent": 41.3
+            },
+            {
+              "label": "鄭麗文",
+              "percent": 20.8
+            },
+            {
+              "label": "柯文哲",
+              "percent": 25.1
+            },
+            {
+              "label": "未明確回答",
+              "percent": 16.4
+            }
+          ],
+          "locator": "問卷Q6",
+          "note": "複選題；不正規化為100%。",
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_224420.htm"
+        }
+      ]
+    },
+    {
+      "id": "2026-01-16-tvbs-new-taipei",
+      "city": "new-taipei",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf",
+      "indexAsOf": null,
+      "executorLabel": "TVBS民意調查中心",
+      "metadata": {
+        "發布單位": "TVBS",
+        "負責調查單位": "TVBS民意調查中心",
+        "委託單位": "未揭露",
+        "經費來源": "TVBS",
+        "調查期間": "2026/1/6–2026/1/16",
+        "發布日期": "未載明",
+        "母體": "20歲以上新北市民",
+        "樣本數": "有效樣本 997 人",
+        "抽樣誤差": "±3.1 個百分點（95% 信心水準）",
+        "訪問方式": "人員電話訪問，晚間18:30至22:00",
+        "抽樣說明": "市內電話號碼後四碼電腦隨機抽樣",
+        "加權方式": "依母體性別、年齡、地區、教育程度加權"
+      },
+      "sources": [
+        {
+          "url": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf",
+          "title": "2026新北市長可能人選民調"
+        }
+      ],
+      "accessMethod": "public_pdf_text_and_table_read",
+      "locator": "PDF調查說明及全體結果表",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜藍白合李四川／蘇巧慧",
+          "responses": [
+            {
+              "label": "李四川",
+              "percent": 47
+            },
+            {
+              "label": "蘇巧慧",
+              "percent": 32
+            },
+            {
+              "label": "未決定",
+              "percent": 20
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "PDF第6頁表2",
+          "scenario": "藍白共同推出李四川；不是三人參選情境",
+          "denominator": "20歲以上新北市民",
+          "note": "原報告合計99%，保留四捨五入結果，不改為21%。",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf"
+        },
+        {
+          "label": "投票意向｜藍白合劉和然／蘇巧慧",
+          "responses": [
+            {
+              "label": "劉和然",
+              "percent": 29
+            },
+            {
+              "label": "蘇巧慧",
+              "percent": 38
+            },
+            {
+              "label": "未決定",
+              "percent": 33
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "國民黨／民眾黨改推劉和然的不同候選情境。",
+          "locator": "PDF第9頁表3",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf"
+        },
+        {
+          "label": "投票意向｜藍白合黃國昌／蘇巧慧",
+          "responses": [
+            {
+              "label": "黃國昌",
+              "percent": 33
+            },
+            {
+              "label": "蘇巧慧",
+              "percent": 39
+            },
+            {
+              "label": "未決定",
+              "percent": 28
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "國民黨／民眾黨改推黃國昌的不同候選情境。",
+          "locator": "PDF第9頁表4",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf"
+        },
+        {
+          "label": "投票意向｜藍白可能人選互比",
+          "responses": [
+            {
+              "label": "李四川",
+              "percent": 44
+            },
+            {
+              "label": "劉和然",
+              "percent": 7
+            },
+            {
+              "label": "黃國昌",
+              "percent": 18
+            },
+            {
+              "label": "未決定",
+              "percent": 32
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "藍白可能人選互比，未包含主要比較集合的蘇巧慧。",
+          "locator": "PDF第10頁表5",
+          "note": "四捨五入合計101%，不調整。",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf"
+        },
+        {
+          "label": "侯友宜施政滿意度",
+          "responses": [
+            {
+              "label": "非常滿意",
+              "percent": 17
+            },
+            {
+              "label": "還算滿意",
+              "percent": 50
+            },
+            {
+              "label": "不太滿意",
+              "percent": 13
+            },
+            {
+              "label": "很不滿意",
+              "percent": 4
+            },
+            {
+              "label": "沒意見",
+              "percent": 17
+            }
+          ],
+          "locator": "PDF第10頁表6，115/1/16欄",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260121/f549e8011d885ed630573b7f936eff9c.pdf"
+        }
+      ],
+      "sourceSha256": "a0319a79d344d93284739cbbc4dee78c39e5a41b971eeaecac842a1f58f11cca",
+      "publicationNote": "官方民調索引標示115/1/16，報告正文卻提到1/19的發言；實際發布日尚未裁定，保留未知，不以PDF路徑日期代填。"
+    },
+    {
+      "id": "2026-01-22-tvbs-taichung",
+      "city": "taichung",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf",
+      "indexAsOf": null,
+      "executorLabel": "TVBS民意調查中心",
+      "metadata": {
+        "發布單位": "TVBS",
+        "負責調查單位": "TVBS民意調查中心",
+        "委託單位": "未揭露",
+        "經費來源": "TVBS",
+        "調查期間": "2026/1/19–2026/1/22",
+        "發布日期": "2026/1/22",
+        "母體": "20歲以上台中市民",
+        "樣本數": "有效樣本 1,037 人",
+        "抽樣誤差": "±3.0 個百分點（95% 信心水準）",
+        "訪問方式": "人員電話訪問，晚間18:30至22:00",
+        "抽樣說明": "市內電話號碼後四碼電腦隨機抽樣",
+        "加權方式": "依母體性別、年齡、地區、教育程度加權"
+      },
+      "sources": [
+        {
+          "url": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf",
+          "title": "2026台中市長可能人選民調"
+        }
+      ],
+      "accessMethod": "public_pdf_text_and_table_read",
+      "locator": "PDF調查說明及全體結果表",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜江啟臣／何欣純",
+          "responses": [
+            {
+              "label": "江啟臣",
+              "percent": 46
+            },
+            {
+              "label": "何欣純",
+              "percent": 31
+            },
+            {
+              "label": "未決定",
+              "percent": 23
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "PDF第6頁表2，115/1/22欄",
+          "scenario": "國民黨江啟臣對民進黨何欣純",
+          "denominator": "20歲以上台中市民",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf"
+        },
+        {
+          "label": "投票意向｜楊瓊瓔／何欣純",
+          "responses": [
+            {
+              "label": "楊瓊瓔",
+              "percent": 36
+            },
+            {
+              "label": "何欣純",
+              "percent": 34
+            },
+            {
+              "label": "未決定",
+              "percent": 30
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "國民黨改推楊瓊瓔的不同候選情境。",
+          "locator": "PDF第9頁表3",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf"
+        },
+        {
+          "label": "投票意向｜國民黨人選互比",
+          "responses": [
+            {
+              "label": "江啟臣",
+              "percent": 54
+            },
+            {
+              "label": "楊瓊瓔",
+              "percent": 20
+            },
+            {
+              "label": "未決定",
+              "percent": 26
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "國民黨黨內人選互比，沒有何欣純。",
+          "locator": "PDF第9頁表4",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf"
+        },
+        {
+          "label": "盧秀燕施政滿意度",
+          "responses": [
+            {
+              "label": "非常滿意",
+              "percent": 24
+            },
+            {
+              "label": "還算滿意",
+              "percent": 36
+            },
+            {
+              "label": "不太滿意",
+              "percent": 14
+            },
+            {
+              "label": "很不滿意",
+              "percent": 11
+            },
+            {
+              "label": "沒意見",
+              "percent": 15
+            }
+          ],
+          "locator": "PDF第10頁表5，115/1/22欄",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260123/e81df25f05002ab1c3e1dbf68d1d320b.pdf"
+        }
+      ],
+      "sourceSha256": "52d1594fe9325a02df9feaf8765c1c8423859a372a2b867dc43a1364c3d084a8"
+    },
+    {
+      "id": "2026-02-04-tvbs-hsinchu-city",
+      "city": "hsinchu-city",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260206/008741205265e8613fa0d2ba0607b0ce.pdf",
+      "indexAsOf": null,
+      "executorLabel": "TVBS民意調查中心",
+      "metadata": {
+        "發布單位": "TVBS",
+        "負責調查單位": "TVBS民意調查中心",
+        "委託單位": "未揭露",
+        "經費來源": "TVBS",
+        "調查期間": "2026/1/29–2026/2/4",
+        "發布日期": "2026/2/4",
+        "母體": "20歲以上新竹市民",
+        "樣本數": "有效樣本 953 人",
+        "抽樣誤差": "±3.2 個百分點（95% 信心水準）",
+        "訪問方式": "人員電話訪問，晚間18:30至22:00",
+        "抽樣說明": "市內電話號碼後四碼電腦隨機抽樣",
+        "加權方式": "依母體性別、年齡、地區、教育程度加權"
+      },
+      "sources": [
+        {
+          "url": "https://www-asset.tvbs.com.tw/poll_center/2026/20260206/008741205265e8613fa0d2ba0607b0ce.pdf",
+          "title": "2026新竹市長可能人選民調"
+        }
+      ],
+      "accessMethod": "public_pdf_text_and_table_read",
+      "locator": "PDF調查說明及全體結果表",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜高虹安／林志潔",
+          "responses": [
+            {
+              "label": "高虹安",
+              "percent": 50
+            },
+            {
+              "label": "林志潔",
+              "percent": 28
+            },
+            {
+              "label": "未決定",
+              "percent": 22
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "PDF第5頁表1",
+          "scenario": "當時假設民進黨推派林志潔，與現行莊競程集合不同",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260206/008741205265e8613fa0d2ba0607b0ce.pdf"
+        },
+        {
+          "label": "投票意向｜高虹安／林志潔／王婉諭",
+          "responses": [
+            {
+              "label": "高虹安",
+              "percent": 48
+            },
+            {
+              "label": "林志潔",
+              "percent": 25
+            },
+            {
+              "label": "王婉諭",
+              "percent": 6
+            },
+            {
+              "label": "未決定",
+              "percent": 20
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "林志潔／王婉諭的獨立候選情境，與莊競程集合不同。",
+          "locator": "PDF第8頁表2",
+          "note": "四捨五入合計99%，不調整。",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260206/008741205265e8613fa0d2ba0607b0ce.pdf"
+        },
+        {
+          "label": "高虹安復職後施政滿意度",
+          "responses": [
+            {
+              "label": "非常滿意",
+              "percent": 14
+            },
+            {
+              "label": "還算滿意",
+              "percent": 36
+            },
+            {
+              "label": "不太滿意",
+              "percent": 13
+            },
+            {
+              "label": "很不滿意",
+              "percent": 11
+            },
+            {
+              "label": "沒意見",
+              "percent": 26
+            }
+          ],
+          "locator": "PDF第8頁表3",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/poll_center/2026/20260206/008741205265e8613fa0d2ba0607b0ce.pdf"
+        }
+      ],
+      "sourceSha256": "c21e0744ff9df7e6b11320d058a7ce83c7830221880b50fca71a62412c20237e"
+    },
+    {
+      "id": "2026-10-15-tvbs-taipei-debate",
+      "city": "taipei",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf",
+      "indexAsOf": null,
+      "executorLabel": "TVBS民意調查中心",
+      "metadata": {
+        "發布單位": "TVBS",
+        "負責調查單位": "TVBS民意調查中心",
+        "委託單位": "未揭露",
+        "經費來源": "TVBS",
+        "調查期間": "2026/10/12–2026/10/15",
+        "發布日期": "2026/10/17",
+        "母體": "20歲以上台北市民",
+        "樣本數": "有效樣本 1,131 人",
+        "抽樣誤差": "±2.9 個百分點（95% 信心水準）",
+        "訪問方式": "人員電話訪問，晚間18:30至22:00",
+        "抽樣說明": "市內電話號碼後四碼電腦隨機抽樣",
+        "加權方式": "依母體性別、年齡、地區、教育程度加權"
+      },
+      "sources": [
+        {
+          "url": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf",
+          "title": "台北市長電視辯論民調"
+        }
+      ],
+      "accessMethod": "public_pdf_text_and_table_read",
+      "locator": "PDF調查說明及全體結果表",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "知道台北市長電視辯論",
+          "responses": [
+            {
+              "label": "知道",
+              "percent": 74
+            },
+            {
+              "label": "不知道",
+              "percent": 26
+            }
+          ],
+          "locator": "PDF第10頁表1",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf"
+        },
+        {
+          "label": "辯論收看意願",
+          "responses": [
+            {
+              "label": "會",
+              "percent": 60
+            },
+            {
+              "label": "不一定",
+              "percent": 14
+            },
+            {
+              "label": "不會",
+              "percent": 26
+            }
+          ],
+          "locator": "PDF第11頁表2，115/10/15欄",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf"
+        },
+        {
+          "label": "辯論表現預期",
+          "responses": [
+            {
+              "label": "沈伯洋",
+              "percent": 41
+            },
+            {
+              "label": "蔣萬安",
+              "percent": 30
+            },
+            {
+              "label": "不知道/沒有意見",
+              "percent": 30
+            }
+          ],
+          "locator": "PDF第6頁及附錄表3",
+          "note": "辯論表現預期不是候選人支持度；合計101%不調整。",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf"
+        },
+        {
+          "label": "松山機場遷建方案態度",
+          "responses": [
+            {
+              "label": "非常支持",
+              "percent": 13
+            },
+            {
+              "label": "還算支持",
+              "percent": 18
+            },
+            {
+              "label": "不太支持",
+              "percent": 19
+            },
+            {
+              "label": "非常不支持",
+              "percent": 22
+            },
+            {
+              "label": "沒意見",
+              "percent": 28
+            }
+          ],
+          "locator": "PDF第8頁及附錄表4",
+          "excerptSourceUrl": "https://www-asset.tvbs.com.tw/uploads/opinion-polls/1553/1792234752_2026_______________________________________.pdf"
+        }
+      ],
+      "sourceSha256": "d918cfaa2c695d135a781bd7468525733cf7ee4259ab7663e60b9b536ef94d9b"
+    },
+    {
+      "id": "2026-08-20-myformosa-hsinchu",
+      "city": "hsinchu",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://my-formosa.com.tw/DOC_228684.htm",
+      "indexAsOf": null,
+      "executorLabel": "未揭露",
+      "metadata": {
+        "發布單位": "美麗島電子報",
+        "負責調查單位": "未揭露",
+        "委託單位": "未揭露",
+        "經費來源": "未揭露",
+        "調查期間": "2026/8/18–8/20",
+        "發布日期": "2026/8/28",
+        "母體": "戶籍新竹縣、年滿20歲且具有投票權的民眾",
+        "樣本數": "有效樣本 1,070 人",
+        "抽樣誤差": "±3.00 個百分點（95% 信心水準）",
+        "加權方式": "依戶籍地、性別、年齡及教育程度進行Raking加權"
+      },
+      "sources": [
+        {
+          "url": "https://my-formosa.com.tw/DOC_228684.htm",
+          "title": "2026年新竹縣長選情評估調查"
+        }
+      ],
+      "accessMethod": "public_html_selected_fields_read",
+      "locator": "調查方法與全體受訪者結果；交叉子群體另列時不混入",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀美麗島公開的同波交叉表彙整分析，僅收錄全體的第4至6題；未取得完整原始問卷，實際執行者、訪問方式與經費未知，維持待核實。",
+      "questions": [
+        {
+          "label": "縣長適任度（複選）",
+          "responses": [
+            {
+              "label": "鄭朝方",
+              "percent": 51.2
+            },
+            {
+              "label": "徐欣瑩",
+              "percent": 43
+            },
+            {
+              "label": "未明確回答",
+              "percent": 27.8
+            }
+          ],
+          "locator": "第4題全體；複選",
+          "excerptSourceUrl": "https://my-formosa.com.tw/DOC_228684.htm"
+        },
+        {
+          "label": "投票意向｜徐欣瑩／鄭朝方",
+          "responses": [
+            {
+              "label": "徐欣瑩",
+              "percent": 41.4
+            },
+            {
+              "label": "鄭朝方",
+              "percent": 38.1
+            },
+            {
+              "label": "不投票／廢票",
+              "percent": 4.9
+            },
+            {
+              "label": "未明確回答",
+              "percent": 15.6
+            }
+          ],
+          "type": "voting_intention",
+          "locator": "第5題全體",
+          "scenario": "徐欣瑩與鄭朝方兩人對決",
+          "denominator": "全體有效樣本1070人",
+          "excerptSourceUrl": "https://my-formosa.com.tw/DOC_228684.htm"
+        },
+        {
+          "label": "投票意向｜加入陳見賢的三人假設",
+          "responses": [
+            {
+              "label": "徐欣瑩",
+              "percent": 38.7
+            },
+            {
+              "label": "鄭朝方",
+              "percent": 33.6
+            },
+            {
+              "label": "陳見賢",
+              "percent": 12.6
+            },
+            {
+              "label": "不投票／廢票",
+              "percent": 3.1
+            },
+            {
+              "label": "未明確回答",
+              "percent": 12
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "假設加入陳見賢的獨立候選情境；保留於來源目錄，不與同波兩人題混用。",
+          "locator": "第6題全體",
+          "excerptSourceUrl": "https://my-formosa.com.tw/DOC_228684.htm"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-21-mnews-keelung",
+      "city": "keelung",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www.mnews.tw/story/20261023nm001",
+      "indexAsOf": null,
+      "executorLabel": "大地民意研究股份有限公司",
+      "metadata": {
+        "發布單位": "鏡新聞",
+        "負責調查單位": "大地民意研究股份有限公司",
+        "委託單位": "鏡新聞",
+        "經費來源": "鏡新聞",
+        "主持人": "翁紹桓",
+        "調查期間": "2026/10/18–10/21",
+        "發布日期": "2026/10/23",
+        "樣本數": "有效樣本 1,075 人",
+        "抽樣誤差": "±2.99 個百分點（95% 信心水準）",
+        "母體": "戶籍設於基隆市且年滿20歲以上的民眾",
+        "訪問方式": "市話訪問",
+        "抽樣說明": "依基隆市各行政區人口比例抽出電話號碼",
+        "加權方式": "依內政部人口資料的性別、年齡、教育程度及行政區進行Raking加權"
+      },
+      "sources": [
+        {
+          "url": "https://www.mnews.tw/story/20261023nm001",
+          "title": "鏡新聞：2026年基隆市長民意調查"
+        }
+      ],
+      "accessMethod": "public_html_selected_fields_read",
+      "locator": "調查方法與全體受訪者結果；交叉子群體另列時不混入",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀原發布者公開報告並核對所收錄題目的日期、選項、支持度及分母；題名為本站分類，完整原始問卷與所有核心欄位尚未獨立核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意願",
+          "responses": [
+            {
+              "label": "一定會投票",
+              "percent": 60.3
+            },
+            {
+              "label": "可能會投票",
+              "percent": 26.1
+            },
+            {
+              "label": "可能不會投票",
+              "percent": 5.2
+            },
+            {
+              "label": "一定不會投票",
+              "percent": 5.3
+            },
+            {
+              "label": "未表態",
+              "percent": 3.1
+            }
+          ],
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        },
+        {
+          "label": "投票意向｜全體受訪者三人支持度",
+          "responses": [
+            {
+              "label": "童子瑋",
+              "percent": 37
+            },
+            {
+              "label": "謝國樑",
+              "percent": 36.3
+            },
+            {
+              "label": "魏造文",
+              "percent": 0.8
+            },
+            {
+              "label": "未表態",
+              "percent": 25.9
+            }
+          ],
+          "type": "voting_intention",
+          "scenario": "提示童子瑋、謝國樑與魏造文三位人選",
+          "denominator": "全體有效受訪者1075人",
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        },
+        {
+          "label": "投票意向｜有投票意願者三人支持度",
+          "responses": [
+            {
+              "label": "童子瑋",
+              "percent": 40.5
+            },
+            {
+              "label": "謝國樑",
+              "percent": 38.1
+            },
+            {
+              "label": "魏造文",
+              "percent": 0.5
+            },
+            {
+              "label": "未表態",
+              "percent": 20.9
+            }
+          ],
+          "type": "voting_intention",
+          "catalogueOnly": true,
+          "catalogueReason": "有投票意願者為不同分母，獨立保存，不與全體題混用。",
+          "denominator": "一定會或可能會投票者；實際人數未載明",
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        },
+        {
+          "label": "當選看好度",
+          "responses": [
+            {
+              "label": "謝國樑",
+              "percent": 40.2
+            },
+            {
+              "label": "童子瑋",
+              "percent": 31.8
+            },
+            {
+              "label": "未表態",
+              "percent": 28
+            }
+          ],
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        },
+        {
+          "label": "謝國樑團隊施政滿意度",
+          "responses": [
+            {
+              "label": "非常滿意",
+              "percent": 12.3
+            },
+            {
+              "label": "有些滿意",
+              "percent": 34.4
+            },
+            {
+              "label": "有些不滿意",
+              "percent": 19.4
+            },
+            {
+              "label": "非常不滿意",
+              "percent": 16.5
+            },
+            {
+              "label": "未表態",
+              "percent": 17.4
+            }
+          ],
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        },
+        {
+          "label": "是否同意換人執政",
+          "responses": [
+            {
+              "label": "非常同意",
+              "percent": 27.8
+            },
+            {
+              "label": "還算同意",
+              "percent": 22.9
+            },
+            {
+              "label": "不太同意",
+              "percent": 16
+            },
+            {
+              "label": "非常不同意",
+              "percent": 15
+            },
+            {
+              "label": "未表態",
+              "percent": 18.3
+            }
+          ],
+          "excerptSourceUrl": "https://www.mnews.tw/story/20261023nm001"
+        }
+      ]
+    },
+    {
+      "id": "2026-09-13-cnews-hsinchu-city",
+      "city": "hsinchu-city",
+      "sourceType": "primary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://cnews.com.tw/%E3%80%90%E5%8C%AF%E6%B5%81%E6%B0%91%E8%AA%BF%E3%80%914-2-%E6%9C%80%E6%96%B0%E6%96%B0%E7%AB%B9%E5%B8%82%E9%95%B7%E9%81%B8%E6%83%85%E6%B0%91%E8%AA%BF-%E4%B8%8B%E5%B1%86%E6%96%B0%E7%AB%B9%E5%B8%82/",
+      "indexAsOf": null,
+      "executorLabel": "CNEWS匯流新聞網民調中心",
+      "metadata": {
+        "發布單位": "CNEWS匯流新聞網",
+        "負責調查單位": "CNEWS匯流新聞網民調中心",
+        "委託單位": "未揭露",
+        "經費來源": "CNEWS匯流新聞網",
+        "調查期間": "2026/9/10–9/13",
+        "發布日期": "2026/9/22",
+        "樣本數": "有效樣本 1,070 人",
+        "抽樣誤差": "±3.00 個百分點（95% 信心水準）",
+        "母體": "戶籍在新竹市且年滿20歲的一般民眾",
+        "訪問方式": "市話調查",
+        "抽樣說明": "中華電信市內號碼簿為母體清冊，尾數兩位隨機撥出，分層比例隨機抽樣",
+        "加權方式": "依戶籍地、性別、年齡進行Raking加權"
+      },
+      "sources": [
+        {
+          "url": "https://cnews.com.tw/%E3%80%90%E5%8C%AF%E6%B5%81%E6%B0%91%E8%AA%BF%E3%80%914-2-%E6%9C%80%E6%96%B0%E6%96%B0%E7%AB%B9%E5%B8%82%E9%95%B7%E9%81%B8%E6%83%85%E6%B0%91%E8%AA%BF-%E4%B8%8B%E5%B1%86%E6%96%B0%E7%AB%B9%E5%B8%82/",
+          "title": "CNEWS匯流民調4-2：新竹市長選情"
+        }
+      ],
+      "accessMethod": "public_reader_recovered_html",
+      "locator": "調查方法與全體受訪者結果；交叉子群體另列時不混入",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "CNEWS原頁直接讀取403，透過Jina Reader取得標示相同原始URL、標題、2026-09-22發布時間的全文；已核對方法與支持度，也與TVBS同波報導相符。完整原始問卷仍未核全，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜高虹安／莊競程／何志勇",
+          "responses": [
+            {
+              "label": "高虹安",
+              "percent": 49.5
+            },
+            {
+              "label": "莊競程",
+              "percent": 25.7
+            },
+            {
+              "label": "何志勇",
+              "percent": 6.1
+            },
+            {
+              "label": "未明確回答",
+              "percent": 18.7
+            }
+          ],
+          "type": "voting_intention",
+          "scenario": "明天投票，三位已登記候選人",
+          "denominator": "全體有效樣本1070人",
+          "excerptSourceUrl": "https://cnews.com.tw/%E3%80%90%E5%8C%AF%E6%B5%81%E6%B0%91%E8%AA%BF%E3%80%914-2-%E6%9C%80%E6%96%B0%E6%96%B0%E7%AB%B9%E5%B8%82%E9%95%B7%E9%81%B8%E6%83%85%E6%B0%91%E8%AA%BF-%E4%B8%8B%E5%B1%86%E6%96%B0%E7%AB%B9%E5%B8%82/"
+        },
+        {
+          "label": "高虹安競選連任支持度",
+          "responses": [
+            {
+              "label": "很支持",
+              "percent": 30.7
+            },
+            {
+              "label": "還算支持",
+              "percent": 35.1
+            },
+            {
+              "label": "不太支持",
+              "percent": 11.1
+            },
+            {
+              "label": "很不支持",
+              "percent": 14.4
+            },
+            {
+              "label": "無意見",
+              "percent": 8.7
+            }
+          ],
+          "excerptSourceUrl": "https://cnews.com.tw/%E3%80%90%E5%8C%AF%E6%B5%81%E6%B0%91%E8%AA%BF%E3%80%914-2-%E6%9C%80%E6%96%B0%E6%96%B0%E7%AB%B9%E5%B8%82%E9%95%B7%E9%81%B8%E6%83%85%E6%B0%91%E8%AA%BF-%E4%B8%8B%E5%B1%86%E6%96%B0%E7%AB%B9%E5%B8%82/"
+        }
+      ],
+      "recoveryUrl": "https://r.jina.ai/https://cnews.com.tw/%E3%80%90%E5%8C%AF%E6%B5%81%E6%B0%91%E8%AA%BF%E3%80%914-2-%E6%9C%80%E6%96%B0%E6%96%B0%E7%AB%B9%E5%B8%82%E9%95%B7%E9%81%B8%E6%83%85%E6%B0%91%E8%AA%BF-%E4%B8%8B%E5%B1%86%E6%96%B0%E7%AB%B9%E5%B8%82/"
+    },
+    {
+      "id": "2026-07-12-key-chiayi-city",
+      "city": "chiayi-city",
+      "sourceType": "secondary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/",
+      "indexAsOf": null,
+      "executorLabel": "關鍵調查有限公司",
+      "metadata": {
+        "發布單位": "關鍵調查有限公司",
+        "負責調查單位": "關鍵調查有限公司",
+        "委託單位": "未揭露",
+        "經費來源": "未揭露",
+        "調查期間": "2026/7/10–7/12",
+        "發布日期": "2026/7/20",
+        "樣本數": "有效樣本 1,069 人",
+        "抽樣誤差": "±3.0 個百分點（95% 信心水準）",
+        "母體": "嘉義市年滿20歲且具有投票權民眾",
+        "訪問方式": "市內電話訪問，晚間18:00至21:30",
+        "抽樣說明": "分層比例隨機抽樣",
+        "加權方式": "依戶籍地、性別及年齡進行Raking加權"
+      },
+      "sources": [
+        {
+          "url": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/",
+          "title": "警政時報轉載：嘉義市長選情關鍵調查"
+        }
+      ],
+      "accessMethod": "public_html_selected_fields_read",
+      "locator": "調查方法與全體受訪者結果；交叉子群體另列時不混入",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀警政時報轉載全文，核對調查日期、候選情境、全部三項支持度及方法；未取得關鍵調查完整原報告，經費與委託者未知，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜王美惠／張啓楷",
+          "responses": [
+            {
+              "label": "王美惠",
+              "percent": 41.5
+            },
+            {
+              "label": "張啓楷",
+              "percent": 38
+            },
+            {
+              "label": "無法選出任何一位候選人",
+              "percent": 20.5
+            }
+          ],
+          "type": "voting_intention",
+          "scenario": "王美惠對藍白共同推派張啟楷",
+          "originalOptionLabels": [
+            "王美惠",
+            "張啟楷",
+            "無法選出任何一位候選人"
+          ],
+          "note": "原報導張啟楷對應既有同一人物張啓楷；原始選項文字另存。",
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/"
+        },
+        {
+          "label": "當選看好度",
+          "responses": [
+            {
+              "label": "王美惠",
+              "percent": 43.4
+            },
+            {
+              "label": "張啟楷",
+              "percent": 37.5
+            },
+            {
+              "label": "無法判斷",
+              "percent": 19.1
+            }
+          ],
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/"
+        },
+        {
+          "label": "候選人知名度（複選）",
+          "responses": [
+            {
+              "label": "知道王美惠",
+              "percent": 47.4
+            },
+            {
+              "label": "知道張啟楷",
+              "percent": 34.3
+            },
+            {
+              "label": "不知道目前有哪些人參選",
+              "percent": 49.3
+            }
+          ],
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/",
+          "note": "報導可同時知道兩人，非互斥選項；不正規化。"
+        },
+        {
+          "label": "王美惠學經歷適任度",
+          "responses": [
+            {
+              "label": "非常適合",
+              "percent": 18
+            },
+            {
+              "label": "還算適合",
+              "percent": 29.2
+            },
+            {
+              "label": "不適合",
+              "percent": 33.8
+            },
+            {
+              "label": "沒有意見",
+              "percent": 19
+            }
+          ],
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/"
+        },
+        {
+          "label": "張啟楷學經歷適任度",
+          "responses": [
+            {
+              "label": "非常適合",
+              "percent": 9.1
+            },
+            {
+              "label": "還算適合",
+              "percent": 34.1
+            },
+            {
+              "label": "不適合",
+              "percent": 29.4
+            },
+            {
+              "label": "沒有意見",
+              "percent": 27.4
+            }
+          ],
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/"
+        },
+        {
+          "label": "政黨認同（報導部分選項）",
+          "responses": [
+            {
+              "label": "民進黨",
+              "percent": 30.5
+            },
+            {
+              "label": "國民黨",
+              "percent": 23.2
+            },
+            {
+              "label": "台灣民眾黨",
+              "percent": 12.2
+            },
+            {
+              "label": "不偏任何政黨",
+              "percent": 15.8
+            },
+            {
+              "label": "沒有明確政黨傾向",
+              "percent": 14.2
+            }
+          ],
+          "excerptSourceUrl": "https://www.tcpttw.com/other/other_local/2026/07/20/292282/",
+          "note": "報導僅列五項，合計95.9%；未列選項未知，不以差額反推或補值。"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-23-storm-hualien",
+      "city": "hualien",
+      "sourceType": "secondary_report",
+      "supplement": true,
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://news.tvbs.com.tw/politics/3271039",
+      "indexAsOf": null,
+      "executorLabel": "風傳媒民調中心",
+      "metadata": {
+        "發布單位": "風傳媒",
+        "負責調查單位": "風傳媒民調中心",
+        "調查期間": "2026/7/21–7/23",
+        "發布日期": "2026/7/29",
+        "樣本數": "有效樣本 1,068 人",
+        "抽樣誤差": "±3.0 個百分點（95% 信心水準）",
+        "委託單位": "未揭露",
+        "經費來源": "未揭露",
+        "母體": "未載明",
+        "訪問方式": "電腦輔助電話訪問（CATI）"
+      },
+      "sources": [
+        {
+          "title": "TVBS報導風傳媒花蓮縣長三人調查",
+          "url": "https://news.tvbs.com.tw/politics/3271039"
+        }
+      ],
+      "accessMethod": "public_html_selected_fields_read",
+      "locator": "正文支持度段及文末調查方法段",
+      "checkedFields": [
+        "shares",
+        "candidateSet",
+        "fieldworkStart",
+        "fieldworkEnd",
+        "sampleSize"
+      ],
+      "sourceSummary": "已讀TVBS轉述風傳媒調查的全文，核對7月21至23日、1068樣本、三位候選人及全部五個選項；原發布者完整報告、母體、經費與支持題分母尚未確認，維持待核實。",
+      "questions": [
+        {
+          "label": "投票意向｜游淑貞／魏嘉賢／張峻",
+          "type": "voting_intention",
+          "scenario": "花蓮縣長三人參選",
+          "responses": [
+            {
+              "label": "游淑貞",
+              "percent": 30.1
+            },
+            {
+              "label": "魏嘉賢",
+              "percent": 22.1
+            },
+            {
+              "label": "張峻",
+              "percent": 12.5
+            },
+            {
+              "label": "不投票/投廢票",
+              "percent": 6
+            },
+            {
+              "label": "未明確回答",
+              "percent": 29.2
+            }
+          ],
+          "excerptSourceUrl": "https://news.tvbs.com.tw/politics/3271039",
+          "note": "四捨五入合計99.9%，不調整；支持題實際分母未知。"
+        }
+      ]
+    }
+  ]
+}

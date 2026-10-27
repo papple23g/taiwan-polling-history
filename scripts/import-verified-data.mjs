@@ -1,18 +1,24 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, mkdir } from 'node:fs/promises';
+import { writeDataFile as writeFile } from './write-data-file.mjs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { evaluatePoll, commonElectionComparison } from '../src/domain.mjs';
+import { writeRuntimeData } from './build-runtime-data.mjs';
 
 const source = item => item ? { ...item, title: item.title, url: item.url?.replaceAll('&amp;', '&'), accessedAt: item.checked_at || null } : null;
 const sameSet = (a, b) => a.length === b.length && a.every(id => b.includes(id));
 export function adaptVerifiedData(raw) {
   if (!Array.isArray(raw?.contests) || !Array.isArray(raw?.polls)) throw new Error('Expected complete public source JSON with contests and polls arrays.');
+  for (const contest of raw.contests) {
+    if (!['completed', 'pre_result'].includes(contest.phase ?? 'completed')) throw new Error(`Unknown election phase: ${contest.id}`);
+    if (contest.phase === 'pre_result' && (contest.valid_votes != null || contest.candidates.some(candidate => candidate.votes != null))) throw new Error(`Pre-result votes must remain null: ${contest.id}`);
+  }
   const elections = raw.contests.map(c => ({
     id: c.id, label: c.title, year: Number(c.election_date.slice(0,4)), date: c.election_date, region: c.geography,
-    office: c.id.endsWith('president') ? '總統副總統' : '縣市長', status: 'verified',
+    office: c.office ?? (c.id.endsWith('president') ? '總統副總統' : '縣市長'), status: c.phase === 'pre_result' ? 'pending' : 'verified', phase: c.phase ?? 'completed',
     candidates: c.candidates.map(item => ({ ...item, id: item.name, name: item.name })),
     comparisonCandidateIds: [...c.selected_candidates],
-    result: { status: 'verified', validVotes: c.valid_votes, votes: Object.fromEntries(c.candidates.map(item => [item.name, item.votes])), source: source(c.sources?.[0]), sources: c.sources.map(source), officialBrowserUrl: c.official_browser_url?.replaceAll('&amp;', '&'), officialStatus: c.official_status },
+    result: { status: c.phase === 'pre_result' ? 'pending' : 'verified', validVotes: c.valid_votes, votes: Object.fromEntries(c.candidates.map(item => [item.name, item.votes])), source: source(c.sources?.[0]), sources: c.sources.map(source), officialBrowserUrl: c.official_browser_url?.replaceAll('&amp;', '&'), officialStatus: c.official_status },
     notes: c.notes || [], priorityPollScope: c.priority_poll_scope, verifiedPollCount: c.verified_poll_count,
   }));
   const institutionMap = new Map();
@@ -55,13 +61,14 @@ export function adaptVerifiedData(raw) {
   const data = { version: `${raw.schema_version}+${raw.verified_at.replaceAll('-', '')}`, updatedAt: raw.verified_at, frozenAt: raw.frozen_at, score: 'normalized_mae_pp', scope: raw.scope, methodology: raw.methodology, commonComparisonNotes: raw.common_contest_comparisons, elections, institutions: [...institutionMap.values()], polls, historicalContexts: history(raw.historical_contexts), heldRecords: history(raw.held_records), corrections };
   for (const poll of polls) {
     const ev = evaluatePoll(poll, elections.find(e => e.id === poll.electionId), { within30Days: false });
-    if (poll.status === 'verified' && !ev.eligible) throw new Error(`Audited poll rejected: ${poll.id}: ${ev.reason}`);
+    const completed = elections.find(e => e.id === poll.electionId).phase !== 'pre_result';
+    if (completed && poll.status === 'verified' && !ev.eligible) throw new Error(`Audited poll rejected: ${poll.id}: ${ev.reason}`);
     const expected = poll.sourceCalculation?.normalized_mae_pp;
-    if (poll.status === 'verified' && (typeof expected !== 'number' || Math.abs(ev.mae - expected) > 1e-9)) throw new Error(`Normalized MAE mismatch: ${poll.id}: ${ev.mae} vs ${expected}`);
+    if (completed && poll.status === 'verified' && (typeof expected !== 'number' || Math.abs(ev.mae - expected) > 1e-9)) throw new Error(`Normalized MAE mismatch: ${poll.id}: ${ev.mae} vs ${expected}`);
   }
   if (raw.scope?.verified_poll_records !== undefined && raw.scope.verified_poll_records !== polls.filter(p => p.status === 'verified').length) throw new Error('Verified poll count does not match source scope.');
   if (raw.scope?.total_poll_records !== undefined && raw.scope.total_poll_records !== polls.length) throw new Error('Total poll count does not match source scope.');
-  if (raw.scope?.official_contests_verified !== undefined && raw.scope.official_contests_verified !== elections.length) throw new Error('Official election count does not match source scope.');
+  if (raw.scope?.official_contests_verified !== undefined && raw.scope.official_contests_verified !== elections.filter(e => e.result.status === 'verified').length) throw new Error('Official election count does not match source scope.');
   for (const group of raw.common_contest_comparisons || []) {
     const computed = commonElectionComparison(data, group.eligible_units.map(unit => unit.comparison_unit_id));
     if (!sameSet(computed.commonElectionIds, group.common_contest_ids)) throw new Error('Common-election intersection mismatch.');
@@ -85,5 +92,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const revised = publicSource.polls.find(p => p.id === '2022-taipei-zmedia');
   if (revised) revised.sampling_frame = '住宅電話名冊輔助隨機跳號';
   await writeFile(resolve(publicDirectory, 'verified-source.json'), JSON.stringify(publicSource) + '\n');
+  await writeRuntimeData(data, publicDirectory);
   process.stdout.write(JSON.stringify({ elections: data.elections.length, polls: data.polls.length, institutions: data.institutions.length, score: data.score, version: data.version }) + '\n');
 }

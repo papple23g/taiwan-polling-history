@@ -1,0 +1,313 @@
+{
+  "collectedAt": "2026-10-25T00:00:00+08:00",
+  "records": [
+    {
+      "id": "2026-09-11-myformosa-zhubei",
+      "city": "zhubei",
+      "sourceType": "primary_report",
+      "collectedAt": "2026-10-25T00:00:00+08:00",
+      "indexUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+      "indexAsOf": null,
+      "executorLabel": "趨勢民意調查公司",
+      "metadata": {
+        "負責調查單位": "趨勢民意調查公司",
+        "調查期間": "2026/9/9–9/11",
+        "抽樣方式": "中華電信市內號碼簿分層比例隨機抽樣，尾數兩位隨機撥出",
+        "母體": "設籍新竹縣竹北市，年滿20歲的民眾",
+        "樣本數": "有效樣本 1,071 人",
+        "抽樣誤差": "±2.99 個百分點（95% 信心水準）",
+        "經費來源": "未揭露",
+        "訪問方式": "訪員進行電腦輔助電話訪問（CATI），市話",
+        "抽樣說明": "母體清冊為中華電信市內號碼簿，抽出的號碼再尾數兩位數隨機撥出，以分層比例隨機抽樣法進行調查。",
+        "加權方式": "依內政部最新人口資料，針對戶籍地、性別、年齡、教育程度採用多重反覆加權（Raking）",
+        "委託單位": "美麗島電子報",
+        "發布單位": "美麗島電子報",
+        "發布日期": "2026/9/13",
+        "主持人": "美麗島電子報（調查規劃、問卷設計）"
+      },
+      "sources": [
+        {
+          "title": "美麗島民調：2026年9月竹北市長民調報告（同波結果頁，2026-09-14）",
+          "url": "https://www.my-formosa.com.tw/DOC_229143.htm"
+        },
+        {
+          "title": "美麗島民調：2026年9月竹北市長選情評估調查（同波問卷與方法頁，2026-09-13）",
+          "url": "https://www.my-formosa.com.tw/DOC_229138.htm"
+        }
+      ],
+      "questions": [
+        {
+          "label": "Q1.請問您知不知道目前有誰可能參選下一屆竹北市長選舉？您知道他們的名字嗎？【複選題、不提示選項】",
+          "responses": [
+            {
+              "label": "吳旭智",
+              "percent": 31
+            },
+            {
+              "label": "邱臣遠",
+              "percent": 28.7
+            },
+            {
+              "label": "曾聖凱",
+              "percent": 12.7
+            },
+            {
+              "label": "李貞秀",
+              "percent": 2.7
+            },
+            {
+              "label": "不知道",
+              "percent": 57.2
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "note": "複選題；不將合計調整為100%。原題全文另見原始問卷圖片。"
+        },
+        {
+          "label": "Q2.國民黨的吳旭智、民進黨的曾聖凱、民眾黨的邱臣遠、無黨籍的李貞秀【隨機順序提示】競選竹北市長，請問您會投給誰？",
+          "type": "voting_intention",
+          "denominator": "成功完訪1,071人，加權後；提示四位候選人姓名及黨籍",
+          "responses": [
+            {
+              "label": "吳旭智",
+              "percent": 29
+            },
+            {
+              "label": "曾聖凱",
+              "percent": 25.2
+            },
+            {
+              "label": "邱臣遠",
+              "percent": 17.4
+            },
+            {
+              "label": "李貞秀",
+              "percent": 3.6
+            },
+            {
+              "label": "無法選出任一候選人",
+              "percent": 24.6
+            },
+            {
+              "label": "拒答",
+              "percent": 0.2
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "note": "完整Q2由9月13日原始問卷HTML以Big5解碼讀取；選項原文為吳旭智、曾聖凱、邱臣遠、李貞秀、無法選出任一候選人、拒答。四人互比，提示姓名及黨籍；黨籍僅對應該波調查情境。結果頁圖把無明確意見合併為24.8%，文字另列無法選出24.6%、拒答0.2%；兩項原始標籤分別保存。",
+          "sampleSizeSupportQuestion": 1071
+        },
+        {
+          "label": "Q3.國民黨的吳旭智、民進黨的曾聖凱、民眾黨的邱臣遠、無黨籍的李貞秀【隨機順序提示】競選竹北市長，請問您最看好哪一位當選呢？",
+          "responses": [
+            {
+              "label": "吳旭智",
+              "percent": 36.6
+            },
+            {
+              "label": "曾聖凱",
+              "percent": 22.3
+            },
+            {
+              "label": "邱臣遠",
+              "percent": 15.8
+            },
+            {
+              "label": "李貞秀",
+              "percent": 2.8
+            },
+            {
+              "label": "無法選出任一候選人",
+              "percent": 22.4
+            },
+            {
+              "label": "拒答",
+              "percent": 0.1
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm"
+        },
+        {
+          "label": "Q4 施政交棒傾向",
+          "responses": [
+            {
+              "label": "給民進黨繼續做市長",
+              "percent": 34.2
+            },
+            {
+              "label": "換成國民黨做做看",
+              "percent": 31.4
+            },
+            {
+              "label": "未明確回答",
+              "percent": 34.4
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "note": "結果頁刊載Q4交棒傾向；9月13日原始問卷HTML的題號由Q3直接跳到Q5，原題全文未見，不以結果題意補造原問句。"
+        },
+        {
+          "label": "Q5 政治人物好感度（結果頁正文列出的部分數值）",
+          "responses": [
+            {
+              "label": "鄭朝方有好感",
+              "percent": 64
+            },
+            {
+              "label": "蔣萬安有好感",
+              "percent": 44.3
+            },
+            {
+              "label": "盧秀燕有好感",
+              "percent": 39.4
+            },
+            {
+              "label": "賴清德有好感",
+              "percent": 33.9
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "note": "各人物為各別評價題，正文僅列部分總體數值；不視為互斥選項或候選人支持度，未刊載欄位不補值。原問卷提示選項1~7，但實際列出9位人物；保留此原始措辭差異。",
+          "originalQuestion": "Q5.請問，您對以下這幾位政治人物有沒有好感？【逐一詢答選項1~7，不限項複選；若答「有」則勾選，姓名順序由電腦隨機排列】",
+          "originalOptionLabels": [
+            "賴清德",
+            "蔣萬安",
+            "盧秀燕",
+            "楊文科",
+            "鄭麗文",
+            "柯文哲",
+            "黃國昌",
+            "徐欣瑩",
+            "鄭朝方",
+            "未明確回答"
+          ]
+        },
+        {
+          "label": "Q6 年齡結構（加權後）",
+          "responses": [
+            {
+              "label": "20–24歲",
+              "percent": 6.9
+            },
+            {
+              "label": "25–29歲",
+              "percent": 7.1
+            },
+            {
+              "label": "30–34歲",
+              "percent": 8.7
+            },
+            {
+              "label": "35–39歲",
+              "percent": 10.2
+            },
+            {
+              "label": "40–44歲",
+              "percent": 12.6
+            },
+            {
+              "label": "45–49歲",
+              "percent": 14
+            },
+            {
+              "label": "50–54歲",
+              "percent": 11.3
+            },
+            {
+              "label": "55–59歲",
+              "percent": 8.5
+            },
+            {
+              "label": "60–64歲",
+              "percent": 6.6
+            },
+            {
+              "label": "65–69歲",
+              "percent": 4.9
+            },
+            {
+              "label": "70歲以上",
+              "percent": 8.9
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "originalQuestion": "Q6.請問，您現在是幾歲？"
+        },
+        {
+          "label": "Q7 教育程度（結果頁正文列出的部分數值）",
+          "responses": [
+            {
+              "label": "大學",
+              "percent": 35.8
+            },
+            {
+              "label": "研究所",
+              "percent": 21.5
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "note": "正文只列大學與研究所；其餘學歷不補值。",
+          "originalQuestion": "Q7.請問，您最高的學歷是什麼？【若答「大專」，追問「是大學或專科」】"
+        },
+        {
+          "label": "Q8 政黨傾向",
+          "responses": [
+            {
+              "label": "國民黨",
+              "percent": 26.8
+            },
+            {
+              "label": "其他泛藍",
+              "percent": 6.6
+            },
+            {
+              "label": "民進黨",
+              "percent": 26.4
+            },
+            {
+              "label": "時代力量",
+              "percent": 1.1
+            },
+            {
+              "label": "基進黨",
+              "percent": 0.1
+            },
+            {
+              "label": "其他泛綠",
+              "percent": 1.4
+            },
+            {
+              "label": "台灣民眾黨",
+              "percent": 12.7
+            },
+            {
+              "label": "中立／不一定／看人不看黨",
+              "percent": 18.1
+            },
+            {
+              "label": "未明確回答",
+              "percent": 6.8
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "originalQuestion": "Q8.請問，社會上大家對政治都有自己看法。一般來講，平常哪一黨的主張比較接近您的想法？"
+        },
+        {
+          "label": "Q9 性別",
+          "responses": [
+            {
+              "label": "男性",
+              "percent": 48.9
+            },
+            {
+              "label": "女性",
+              "percent": 51.1
+            }
+          ],
+          "excerptSourceUrl": "https://www.my-formosa.com.tw/DOC_229143.htm",
+          "originalQuestion": "Q9.性別【訪員請直接紀錄】"
+        }
+      ]
+    }
+  ]
+}

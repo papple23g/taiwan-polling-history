@@ -196,6 +196,14 @@
           "access_method": "complete_public_table_index",
           "checked_at": "2026-10-18",
           "evidence_summary": "保存原表參考連結與數值；二手索引不代表一手核實。"
+        },
+        {
+          "title": "美麗島民調：2018年台北市長選舉民調（網頁存檔）",
+          "url": "https://web.archive.org/web/20230724185922id_/http://www.my-formosa.com/DOC_139999.htm",
+          "kind": "archived_primary_publisher_report",
+          "access_method": "full_public_text",
+          "checked_at": "2026-10-27",
+          "evidence_summary": "原參考網址未能直接取用；已讀存檔頁面文字。圖表圖片與各欄位仍須逐項核對。"
         }
       ],
       "notes": [

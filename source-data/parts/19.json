@@ -1708,7 +1708,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已回讀collected-reviews.json，本ID與第一輪已批准的原worker欄位與證據一致，未受整合破壞。回讀新新聞授權轉載原稿；全體受訪者宋楚瑜6.8與索引8.3不符。看過辯論者數值另題，保留衝突及封鎖，未擅自解決。 原worker的判定與已保留限制恰當；批准不表示既有衝突已解。",
+          "reason": "回讀新新聞授權轉載原稿；全體受訪者宋楚瑜6.8與索引8.3不符。看過辯論者數值另題，保留衝突及封鎖，未擅自解決。 來源限制與未解衝突仍保留。",
           "evidenceUrls": [
             "https://web.archive.org/web/20120113184053id_/http://mag.udn.com/mag/newsstand/storypage.jsp?f_MAIN_ID=76&f_SUB_ID=412&f_ART_ID=359020"
           ]
@@ -1844,19 +1844,19 @@
           "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
           "locator": "正文，以「調查以台閩地區住宅電話為母體作尾數兩位隨機抽樣，並依據台閩地區成年民眾之性別、年齡及縣市人口結構進行加權。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "candidateSet": {
           "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
           "locator": "正文，以「本報最新調查發現，如果明天投票，民進黨英仁配目前獲得四成六選民青睞，國民黨朱玄配獲得一成九選民支持，百分之九擁護親民黨宋瑩配，二成七選民支持意向未定。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "shares": {
           "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
           "locator": "正文，以「本報最新調查發現，如果明天投票，民進黨英仁配目前獲得四成六選民青睞，國民黨朱玄配獲得一成九選民支持，百分之九擁護親民黨宋瑩配，二成七選民支持意向未定。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         }
       },
       "verificationReview": {
@@ -1910,19 +1910,19 @@
             "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
             "locator": "正文，以「調查以台閩地區住宅電話為母體作尾數兩位隨機抽樣，並依據台閩地區成年民眾之性別、年齡及縣市人口結構進行加權。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "candidateSet": {
             "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
             "locator": "正文，以「本報最新調查發現，如果明天投票，民進黨英仁配目前獲得四成六選民青睞，國民黨朱玄配獲得一成九選民支持，百分之九擁護親民黨宋瑩配，二成七選民支持意向未定。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "shares": {
             "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
             "locator": "正文，以「本報最新調查發現，如果明天投票，民進黨英仁配目前獲得四成六選民青睞，國民黨朱玄配獲得一成九選民支持，百分之九擁護親民黨宋瑩配，二成七選民支持意向未定。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           }
         },
         "sources": [
@@ -1999,7 +1999,7 @@
               "url": "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309",
               "locator": "正文，以「調查以台閩地區住宅電話為母體作尾數兩位隨機抽樣，並依據台閩地區成年民眾之性別、年齡及縣市人口結構進行加權。」定位。",
               "checkedAt": "2026-10-18",
-              "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+              "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
             }
           }
         ],
@@ -2069,7 +2069,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已回讀collected-reviews.json，本ID的完整fields、fieldEvidence、sources、核實狀態、未知欄位與計算封鎖均已套入第一輪63筆修正要求，與原已回讀正文／原圖證據一致。主代理合併notes保留原始觀察與本次更正，必要限制未遺漏。原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 批准表示來源判定與限制恰當，不表示其餘既有衝突已裁決。",
+          "reason": "原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 來源限制與未解衝突仍保留。",
           "evidenceUrls": [
             "https://web.archive.org/web/20160126171836id_/http://udn.com/news/story/7741/1343309"
           ]
@@ -3185,7 +3185,7 @@
           "url": "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2",
           "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別、年齡及行政區人口結構進行加權。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "candidateSet": {
           "url": "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2",
@@ -3251,7 +3251,7 @@
             "url": "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2",
             "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別、年齡及行政區人口結構進行加權。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "candidateSet": {
             "url": "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2",
@@ -3340,7 +3340,7 @@
               "url": "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2",
               "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別、年齡及行政區人口結構進行加權。」定位。",
               "checkedAt": "2026-10-18",
-              "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+              "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
             }
           }
         ],
@@ -3415,7 +3415,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已回讀collected-reviews.json，本ID的完整fields、fieldEvidence、sources、核實狀態、未知欄位與計算封鎖均已套入第一輪63筆修正要求，與原已回讀正文／原圖證據一致。主代理合併notes保留原始觀察與本次更正，必要限制未遺漏。原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 批准表示來源判定與限制恰當，不表示其餘既有衝突已裁決。",
+          "reason": "原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 來源限制與未解衝突仍保留。",
           "evidenceUrls": [
             "https://web.archive.org/web/20180522041551id_/https://udn.com/news/story/9190/3153256?from=udn-catelistnews_ch2"
           ]
@@ -3832,19 +3832,19 @@
           "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
           "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別及年齡結構進行加權。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "candidateSet": {
           "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
           "locator": "正文「這次登記參選台北市長選舉的人數眾多，共有柯文哲、丁守中、姚文智、李錫錕及吳蕚洋等五人角逐」列完整題組；小標「二成五仍未決定投誰」下「如果明天投票」段列柯三成七、丁二成九、姚百分之八，另兩位無黨籍各百分之一。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "shares": {
           "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
           "locator": "正文「這次登記參選台北市長選舉的人數眾多，共有柯文哲、丁守中、姚文智、李錫錕及吳蕚洋等五人角逐」列完整題組；小標「二成五仍未決定投誰」下「如果明天投票」段列柯三成七、丁二成九、姚百分之八，另兩位無黨籍各百分之一。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         }
       },
       "verificationReview": {
@@ -3898,19 +3898,19 @@
             "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
             "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別及年齡結構進行加權。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "candidateSet": {
             "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
             "locator": "正文「這次登記參選台北市長選舉的人數眾多，共有柯文哲、丁守中、姚文智、李錫錕及吳蕚洋等五人角逐」列完整題組；小標「二成五仍未決定投誰」下「如果明天投票」段列柯三成七、丁二成九、姚百分之八，另兩位無黨籍各百分之一。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "shares": {
             "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
             "locator": "正文「這次登記參選台北市長選舉的人數眾多，共有柯文哲、丁守中、姚文智、李錫錕及吳蕚洋等五人角逐」列完整題組；小標「二成五仍未決定投誰」下「如果明天投票」段列柯三成七、丁二成九、姚百分之八，另兩位無黨籍各百分之一。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           }
         },
         "sources": [
@@ -3987,7 +3987,7 @@
               "url": "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312",
               "locator": "正文，以「調查以台北市住宅電話為母體作尾數兩位隨機抽樣，並依據台北市成年民眾之性別及年齡結構進行加權。」定位。",
               "checkedAt": "2026-10-18",
-              "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+              "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
             }
           }
         ],
@@ -4060,7 +4060,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已回讀collected-reviews.json，本ID的完整fields、fieldEvidence、sources、核實狀態、未知欄位與計算封鎖均已套入第一輪63筆修正要求，與原已回讀正文／原圖證據一致。主代理合併notes保留原始觀察與本次更正，必要限制未遺漏。原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 批准表示來源判定與限制恰當，不表示其餘既有衝突已裁決。",
+          "reason": "原發布者或其原始存檔完整正文逐欄核對六核心；歷史情境仍保留原有資格限制。 來源限制與未解衝突仍保留。",
           "evidenceUrls": [
             "https://web.archive.org/web/20180921024852id_/https://udn.com/news/story/11311/3379312"
           ]
@@ -5119,13 +5119,13 @@
           "url": "https://www.storm.mg/article/497498",
           "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         },
         "commissioner": {
           "url": "https://www.storm.mg/article/497498",
           "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
           "checkedAt": "2026-10-18",
-          "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+          "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
         }
       },
       "verificationReview": {
@@ -5168,13 +5168,13 @@
             "url": "https://www.storm.mg/article/497498",
             "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           },
           "commissioner": {
             "url": "https://www.storm.mg/article/497498",
             "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
             "checkedAt": "2026-10-18",
-            "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+            "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
           }
         },
         "sources": [
@@ -5207,7 +5207,7 @@
               "url": "https://www.storm.mg/article/497498",
               "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
               "checkedAt": "2026-10-18",
-              "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+              "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
             }
           },
           {
@@ -5218,7 +5218,7 @@
               "url": "https://www.storm.mg/article/497498",
               "locator": "正文，以「負數票協會委託台灣指標民調進行台中市選情調查。」定位。",
               "checkedAt": "2026-10-18",
-              "note": "獨立覆核者已回讀同一波次完整相關正文；此定位取代原 worker 的模糊或錯置段落。"
+              "note": "已核對本波完整相關正文；欄位依據見本項來源定位。"
             }
           }
         ],
@@ -5270,7 +5270,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已回讀collected-reviews.json，本ID的完整fields、fieldEvidence、sources、核實狀態、未知欄位與計算封鎖均已套入第一輪63筆修正要求，與原已回讀正文／原圖證據一致。主代理合併notes保留原始觀察與本次更正，必要限制未遺漏。原始三人支持度、報導所述9月14日公布及台灣指標執行可由同篇二手全文核對；調查期間、樣本與方法未載，維持部分核對。 批准表示來源判定與限制恰當，不表示其餘既有衝突已裁決。",
+          "reason": "原始三人支持度、報導所述9月14日公布及台灣指標執行可由同篇二手全文核對；調查期間、樣本與方法未載，維持部分核對。 來源限制與未解衝突仍保留。",
           "evidenceUrls": [
             "https://www.storm.mg/article/497498"
           ]
@@ -7753,7 +7753,7 @@
         "independentReview": {
           "status": "approved",
           "checkedAt": "2026-10-18",
-          "reason": "已獨立回讀原報告相關完整支持題及該波方法段；六核心與原worker值一致，候選情境仍維持獨立。",
+          "reason": "已核對本波原報告的完整支持題與方法段；六核心欄位有對應依據，候選情境維持獨立。",
           "evidenceUrls": [
             "https://www.tpof.org/wp-content/uploads/2022/11/20221104-「2022桃園市長選舉的最新發展」民調摘要報告記者會.pdf"
           ]

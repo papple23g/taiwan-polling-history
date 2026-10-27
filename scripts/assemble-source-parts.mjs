@@ -1,10 +1,11 @@
-import { readFile, writeFile, readdir } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
+import { writeDataFile as writeFile } from './write-data-file.mjs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const directory = process.argv[2] ? resolve(process.argv[2]) : fileURLToPath(new URL('../source-data/parts/', import.meta.url));
 const filenames = (await readdir(directory)).filter(name => /^\d{2}\.json$/.test(name)).sort();
-if (filenames.length < 14 || filenames.some((name, i) => name !== String(i + 1).padStart(2, '0') + '.json')) {
+if (filenames.length < 2 || filenames.some((name, i) => name !== String(i + 1).padStart(2, '0') + '.json')) {
   throw new Error('Expected consecutive numbered source parts starting at 01.json.');
 }
 const parts = await Promise.all(filenames.map(name => readFile(resolve(directory, name), 'utf8').then(JSON.parse)));
@@ -17,7 +18,8 @@ for (let i = 1; i < parts.length; i++) {
 }
 const contestIds = new Set(raw.contests.map(contest => contest.id));
 const pollIds = new Set(raw.polls.map(poll => poll.id));
-if (raw.contests.length !== 14 || contestIds.size !== raw.contests.length) throw new Error('Expected unique official results for 14 contests.');
+if (contestIds.size !== raw.contests.length || raw.contests.length !== (raw.scope.total_contests ?? raw.scope.official_contests_verified)) throw new Error('Contest count/IDs differ from metadata.');
+if (raw.contests.filter(c => c.phase !== 'pre_result').length !== raw.scope.official_contests_verified) throw new Error('Official result count differs from metadata.');
 if (raw.polls.length !== (raw.scope?.total_poll_records ?? raw.scope?.verified_poll_records) || pollIds.size !== raw.polls.length) throw new Error('Poll count/IDs differ from metadata.');
 if (raw.polls.filter(p => p.verification_status === 'verified_primary').length !== raw.scope?.verified_poll_records) throw new Error('Verified primary poll count differs from metadata.');
 if (raw.scope?.indexed_poll_records !== undefined && raw.polls.filter(p => p.verification_status === 'indexed_secondary').length !== raw.scope.indexed_poll_records) throw new Error('Secondary-index poll count differs from metadata.');

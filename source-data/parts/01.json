@@ -1,9 +1,9 @@
 {
   "part_type": "metadata",
   "data": {
-    "schema_version": "1.3.0",
-    "title": "選情劉伯溫：已核實歷史民調資料",
-    "verified_at": "2026-10-18",
+    "schema_version": "1.6.0",
+    "title": "台灣選情劉伯溫：選前支持度與歷史民調資料",
+    "verified_at": "2026-10-27",
     "scope": {
       "priority_contests": [
         "2018-taipei",
@@ -12,13 +12,13 @@
         "2024-president"
       ],
       "original_project_contest_count": 13,
-      "official_contests_verified": 14,
+      "official_contests_verified": 70,
       "poll_contests_verified": 13,
       "supplied_raw_records_assessed": 109,
       "verified_poll_records": 360,
       "incomplete_or_excluded_supplied_records": 8,
       "matrix_only_missing_records": null,
-      "coverage_statement": "中選會官方結果14場；民調收錄789筆（一手核實360、待核實429），涵蓋14場選舉。另存365筆候選情境、22筆來源衝突及逐筆來源；未知欄位不補造。",
+      "coverage_statement": "中選會已核實結果70場；2022、2018、2014各22縣市長均已建立資料與來源盤點。全站民調1455筆，另存候選情境及來源衝突；來源盤點不代表完整歷史民調普查，未知欄位不補造。",
       "expanded_contests": [
         "2018-kaohsiung",
         "2018-new-taipei",
@@ -27,8 +27,8 @@
         "2022-new-taipei",
         "2022-taoyuan"
       ],
-      "indexed_poll_records": 429,
-      "total_poll_records": 789,
+      "indexed_poll_records": 1095,
+      "total_poll_records": 1455,
       "wikipedia_index_records": 83,
       "wikipedia_matched_existing": 3,
       "expanded_2024_original_verified": [
@@ -36,9 +36,9 @@
         "2024-president-wiki-zmedia-sanshui-2023-12-29-nkcszd",
         "2024-president-wiki-ftnn-self-2023-12-29-149cjto"
       ],
-      "poll_contests_with_records": 14,
-      "historical_candidate_context_records": 365,
-      "held_source_conflict_records": 22,
+      "poll_contests_with_records": 85,
+      "historical_candidate_context_records": 545,
+      "held_source_conflict_records": 26,
       "historical_catalogue_records_assessed": 1215,
       "historical_imported_records": 691,
       "verification_review_records": 1119,
@@ -48,40 +48,1222 @@
         "partial": 542,
         "blocked": 7,
         "conflict": 48
+      },
+      "total_contests": 86,
+      "pre_result_contests": 16,
+      "pre_result_collection": {
+        "checked_at": "2026-10-25",
+        "index_leads": 57,
+        "direct_primary_waves": 10,
+        "voting_intention_records": 67,
+        "other_question_records": 144,
+        "primary_verified": 0,
+        "primary_partially_checked": 16,
+        "secondary_report_partially_checked": 4,
+        "original_source_access_limited": 9,
+        "publication_date_discrepancies": 3,
+        "coverage": "從poll-tw首頁發現22縣市，公開57波逐題比對；另保留美麗島竹北1波及獨立回源補充11波。僅標示份數的隱藏紀錄不能與獨立來源確認為同一波；這不是完整2026民調清冊，所有新增紀錄維持待核實。"
+      },
+      "local_history_collection": {
+        "checked_at": "2026-10-27",
+        "years": [
+          2014,
+          2018,
+          2022
+        ],
+        "contests": 66,
+        "records_assessed": 1004,
+        "dispositions": {
+          "existing": 365,
+          "duplicate": 0,
+          "imported": 599,
+          "context": 36,
+          "held": 4
+        },
+        "coverage": [
+          {
+            "year": 2014,
+            "region": "臺北市",
+            "status": "records_found",
+            "recordsFound": 87,
+            "queries": [
+              "2014 臺北市 市長 選舉 民調 封關"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "新北市",
+            "status": "records_found",
+            "recordsFound": 31,
+            "queries": [
+              "2014 新北市 市長 選舉 民調 封關"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "桃園市",
+            "status": "records_found",
+            "recordsFound": 24,
+            "queries": [
+              "2014 桃園市 市長 選舉 民調 封關"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "臺中市",
+            "status": "records_found",
+            "recordsFound": 52,
+            "queries": [
+              "2014 臺中市 市長 選舉 民調 封關"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "臺南市",
+            "status": "records_found",
+            "recordsFound": 10,
+            "queries": [
+              "\"2014\" \"台南市長\" \"民調\" \"賴清德\" \"黃秀霜\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "高雄市",
+            "status": "records_found",
+            "recordsFound": 15,
+            "queries": [
+              "\"2014\" \"高雄市長\" \"民調\" \"陳菊\" \"楊秋興\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "基隆市",
+            "status": "records_found",
+            "recordsFound": 22,
+            "queries": [
+              "\"2014\" \"基隆市長\" \"民調\" \"林右昌\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "新竹縣",
+            "status": "records_found",
+            "recordsFound": 7,
+            "queries": [
+              "\"2014\" \"新竹縣長\" \"民調\" \"鄭永金\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "新竹市",
+            "status": "records_found",
+            "recordsFound": 11,
+            "queries": [
+              "\"2014\" \"新竹市長\" \"民調\" \"許明財\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "苗栗縣",
+            "status": "records_found",
+            "recordsFound": 7,
+            "queries": [
+              "\"2014\" \"苗栗縣長\" \"民調\" \"徐耀昌\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "彰化縣",
+            "status": "records_found",
+            "recordsFound": 18,
+            "queries": [
+              "\"2014\" \"彰化縣長\" \"民調\" \"魏明谷\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "南投縣",
+            "status": "records_found",
+            "recordsFound": 16,
+            "queries": [
+              "\"2014\" \"南投縣長\" \"民調\" \"林明溱\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "雲林縣",
+            "status": "records_found",
+            "recordsFound": 16,
+            "queries": [
+              "\"2014\" \"雲林縣長\" \"民調\" \"李進勇\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "嘉義縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "\"2014\" \"嘉義縣長\" \"民調\" \"張花冠\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "嘉義市",
+            "status": "records_found",
+            "recordsFound": 23,
+            "queries": [
+              "\"2014\" \"嘉義市長\" \"民調\" \"陳以真\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "屏東縣",
+            "status": "records_found",
+            "recordsFound": 6,
+            "queries": [
+              "\"2014\" \"屏東縣長\" \"民調\" \"潘孟安\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "宜蘭縣",
+            "status": "records_found",
+            "recordsFound": 6,
+            "queries": [
+              "\"2014\" \"宜蘭縣長\" \"民調\" \"林聰賢\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "花蓮縣",
+            "status": "records_found",
+            "recordsFound": 5,
+            "queries": [
+              "\"2014\" \"花蓮縣長\" \"民調\" \"傅崐萁\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "臺東縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "\"2014\" \"台東縣長\" \"民調\" \"黃健庭\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "澎湖縣",
+            "status": "records_found",
+            "recordsFound": 5,
+            "queries": [
+              "\"2014\" \"澎湖縣長\" \"民調\" \"陳光復\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "金門縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "\"2014\" \"金門縣長\" \"民調\" \"陳福海\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2014,
+            "region": "連江縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "\"2014\" \"連江縣長\" \"民調\" \"劉增應\""
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2014年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "原發布者歷史連結未逐筆核完；不能宣稱完整歷史民調普查。",
+              "已完成該縣市有界公開搜尋；搜尋索引未涵蓋或已失效來源仍可能有未收錄波次。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "臺北市",
+            "status": "records_found",
+            "recordsFound": 45,
+            "queries": [
+              "2018 臺北市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "新北市",
+            "status": "records_found",
+            "recordsFound": 37,
+            "queries": [
+              "2018 新北市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "桃園市",
+            "status": "records_found",
+            "recordsFound": 17,
+            "queries": [
+              "2018 桃園市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "臺中市",
+            "status": "records_found",
+            "recordsFound": 49,
+            "queries": [
+              "2018 臺中市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "臺南市",
+            "status": "records_found",
+            "recordsFound": 30,
+            "queries": [
+              "2018 臺南市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "高雄市",
+            "status": "records_found",
+            "recordsFound": 35,
+            "queries": [
+              "2018 高雄市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "基隆市",
+            "status": "records_found",
+            "recordsFound": 5,
+            "queries": [
+              "2018 基隆市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "新竹縣",
+            "status": "records_found",
+            "recordsFound": 26,
+            "queries": [
+              "2018 新竹縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "新竹市",
+            "status": "records_found",
+            "recordsFound": 21,
+            "queries": [
+              "2018 新竹市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "苗栗縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "2018 苗栗縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "彰化縣",
+            "status": "records_found",
+            "recordsFound": 17,
+            "queries": [
+              "2018 彰化縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "南投縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "2018 南投縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "雲林縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "2018 雲林縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "嘉義縣",
+            "status": "records_found",
+            "recordsFound": 2,
+            "queries": [
+              "2018 嘉義縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "嘉義市",
+            "status": "records_found",
+            "recordsFound": 12,
+            "queries": [
+              "2018 嘉義市 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "屏東縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "2018 屏東縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "宜蘭縣",
+            "status": "records_found",
+            "recordsFound": 12,
+            "queries": [
+              "2018 宜蘭縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "花蓮縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "2018 花蓮縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "臺東縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "2018 臺東縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "澎湖縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "2018 澎湖縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "金門縣",
+            "status": "records_found",
+            "recordsFound": 2,
+            "queries": [
+              "2018 金門縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2018,
+            "region": "連江縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "2018 連江縣 長選舉 民調 調查 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉民意調查",
+              "https://zh.wikipedia.org/wiki/2018年中華民國直轄市長及縣市長選舉"
+            ],
+            "limitations": [
+              "已完整對帳兩頁共44張縣市民調表；另逐縣市有界搜尋，搜尋未查到不代表沒有其他民調。",
+              "只具索引證據或原文不可讀的紀錄維持待核，未以日期或差額補造缺值。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "臺北市",
+            "status": "records_found",
+            "recordsFound": 75,
+            "queries": [
+              "2022 臺北市長 選舉 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年臺北市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "新北市",
+            "status": "records_found",
+            "recordsFound": 10,
+            "queries": [
+              "2022 新北市長 選舉 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年新北市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "桃園市",
+            "status": "records_found",
+            "recordsFound": 50,
+            "queries": [
+              "2022 桃園市長 選舉 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年桃園市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "臺中市",
+            "status": "records_found",
+            "recordsFound": 26,
+            "queries": [
+              "2022 臺中市長 選舉 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年臺中市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "臺南市",
+            "status": "records_found",
+            "recordsFound": 15,
+            "queries": [
+              "2022 臺南市長 民調 支持度 before:2023"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年臺南市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "高雄市",
+            "status": "records_found",
+            "recordsFound": 16,
+            "queries": [
+              "2022 高雄市長 民調 支持度 before:2023"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年高雄市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "基隆市",
+            "status": "records_found",
+            "recordsFound": 20,
+            "queries": [
+              "2022 基隆市長 民調 支持度 before:2023"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年基隆市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "新竹縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "2022 新竹縣長 民調 支持度 before:2023"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年新竹縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "新竹市",
+            "status": "records_found",
+            "recordsFound": 22,
+            "queries": [
+              "\"2022\" \"新竹市\" 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年新竹市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "苗栗縣",
+            "status": "records_found",
+            "recordsFound": 16,
+            "queries": [
+              "\"2022\" \"苗栗縣\" 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年苗栗縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "彰化縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "\"2022\" \"彰化縣\" 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年彰化縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "南投縣",
+            "status": "records_found",
+            "recordsFound": 6,
+            "queries": [
+              "\"2022\" \"南投縣\" 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年南投縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "雲林縣",
+            "status": "records_found",
+            "recordsFound": 5,
+            "queries": [
+              "2022 雲林 張麗善 劉建國 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年雲林縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "嘉義縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "2022 嘉義縣 翁章梁 王育敏 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年嘉義縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "嘉義市",
+            "status": "records_found",
+            "recordsFound": 2,
+            "queries": [
+              "2022 嘉義市 黃敏惠 李俊俋 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年嘉義市市長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。",
+              "10月菱傳媒原報告直接HTTP403；『其他候選人3.28』未拆分，不能據此反推原問卷與重行選舉名單完全一致。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "屏東縣",
+            "status": "records_found",
+            "recordsFound": 8,
+            "queries": [
+              "2022 屏東 周春米 蘇清泉 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年屏東縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "宜蘭縣",
+            "status": "records_found",
+            "recordsFound": 10,
+            "queries": [
+              "2022 宜蘭 林姿妙 江聰淵 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年宜蘭縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "花蓮縣",
+            "status": "records_found",
+            "recordsFound": 3,
+            "queries": [
+              "2022 花蓮 徐榛蔚 谷辣斯 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年花蓮縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "臺東縣",
+            "status": "records_found",
+            "recordsFound": 1,
+            "queries": [
+              "2022 台東 饒慶鈴 劉櫂豪 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年臺東縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "澎湖縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "2022 澎湖 賴峰偉 陳光復 葉竹林 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年澎湖縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "金門縣",
+            "status": "records_found",
+            "recordsFound": 4,
+            "queries": [
+              "2022 金門 楊鎮浯 陳福海 民調"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年金門縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。"
+            ]
+          },
+          {
+            "year": 2022,
+            "region": "連江縣",
+            "status": "no_accessible_records_found",
+            "recordsFound": 0,
+            "queries": [
+              "2022 連江 王忠銘 曹爾元 李問 民調 支持度"
+            ],
+            "indexUrls": [
+              "https://zh.wikipedia.org/wiki/2022年中華民國直轄市長及縣市長選舉",
+              "https://zh.wikipedia.org/wiki/2022年連江縣縣長選舉"
+            ],
+            "limitations": [
+              "年度表格及可取得的單場條目已完整解析；一手報告核心欄位尚未逐筆獨立核實。",
+              "有界搜尋另含非投票意向、不同年度與既有同波轉載；搜尋命中未直接當作新民調。",
+              "單場條目HTTP 404，未視為無民調。",
+              "搜尋原始結果完整保存在2022-search-a至e.json；包含既有波次、轉載、非投票題及不同年度。此次有界搜尋不是所有可能公開資料的完整普查。",
+              "年度索引沒有連江縣民調表；本輪以三位候選人姓名搜尋只找到候選人報導、選舉結果或學術問卷，未取得可讀的選前整體投票意向百分比。不等於不存在民調。"
+            ]
+          }
+        ]
       }
     },
     "methodology": {
       "metric": "MAE",
       "unit": "percentage_points",
-      "default_window_days": 30,
+      "default_window_days": null,
+      "optional_window_days": 30,
       "window_date_field": "fieldwork_end",
-      "window_rule": "0 &lt; election_date - fieldwork_end &lt;= 30 calendar days; publication_date must precede election_date",
+      "window_rule": "日期篩選預設關閉；啟用時限有效調查結束日在投票日前1至30個台灣日曆日。已知調查結束日或發布日在投票日及之後者不納入跨場；未啟用時可納入日期未知的可算紀錄。",
       "raw_formula": "mean(abs(poll_reported_percent[c] - votes[c]/all_valid_votes*100)) for the same selected candidate set",
       "normalized_formula": "mean(abs(poll_reported_percent[c]/sum_selected_poll_percent*100 - votes[c]/sum_selected_votes*100)) for the same selected candidate set",
       "candidate_set_rule": "每場明列候選人集合；原始與正規化檢視使用相同集合；不得默默只正規化民調而不正規化選舉結果。",
       "raw_caveat": "原始民調支持度的分母可包含未決定者，正式得票率分母為有效票；原始MAE僅供描述，不能解讀為同分母的估票準確度。",
-      "selection_rule": "每品牌＋執行者＋選舉先限已核實、選前公開且窗口內紀錄；優先選來源明示封關者，若多筆封關取訪問結束日最新者（同日再比發布日）；無明示封關則取最後可核實紀錄並標示不保證最後一份。",
-      "selection_scope": "只涵蓋此資料集已核實紀錄；未完成該品牌全部歷次民調的窮盡式查核。",
+      "selection_rule": "每品牌每個已完成選舉取一筆有公開來源、官方結果完整核實且可計算的民調，包含待核實資料；來源核實狀態、執行者、樣本及方法缺漏不擋採計。來源明示封關優先，其次依調查結束日、發布日由新到舊，未知日期排後；只涵蓋已收錄波次，不保證為最後一份。",
+      "selection_scope": "涵蓋本資料集有公開來源且可計算的已完成選舉紀錄；不因來源尚待核實排除，也不宣稱完整涵蓋各品牌歷次民調。",
       "minimum_common_contests": 3,
-      "aggregate_rule": "同場比較只在相同選舉交集且至少3場時提供跨場平均；每場等權，缺漏不補0，不以各品牌不同場次平均作排行。",
+      "minimum_comparison_contests": 1,
+      "common_contest_rule": "minimum_common_contests 僅描述預設核實評分的共同集合查核介面；既有 common_contest_comparisons 是來源查核紀錄，不是目前品牌頁平均。",
+      "aggregate_rule": "平均誤差(MAE) 為每品牌自身採計場次的等權平均，有1場即可顯示，依未四捨五入平均值升冪排列，缺值置後、零分保留，並列採計場次。品牌涵蓋選舉可能不同，排序不代表同條件的機構可信度排名。",
       "identity_rule": "保留品牌、委託者、出資者、執行公司、設計分析者；同執行公司不同委託品牌不可直接合併。",
       "team_continuity_rule": "相同品牌或公司名稱不等於團隊、人員與方法連續；本資料未查核完整人事變動。",
       "product_exclusions": [
         "綜合預測模型",
         "選後才公布的民調或推估",
-        "原始來源不足",
+        "沒有公開來源連結或支持度不足而無法計算",
         "候選人集合無法對齊"
       ],
       "unknown_rule": "null表示來源未載、未取得或未核實；不以猜測補齊。",
-      "interpretation": "此為選前公開民調與事後結果的描述性誤差；不是預測、因果評估或永久民調品質排名。",
+      "interpretation": "此為已收錄選前民調與事後結果的描述性誤差；不是預測、因果評估或永久民調品質排名，未知日期及來源限制依原紀錄保留。",
       "small_difference_caveat": "微小MAE差距可能低於原報告四捨五入誤差，且未提供跨場平均的不確定區間；不宣稱統計顯著。",
-      "verified_core_fields": "民調納入須核對主要候選人支持度、調查結束日、選前發布日、實施單位、有效樣本與方式；ETtoday新增紀錄以同集團完整轉載與獨立同期報導交叉核對，並保留原始發布者連結的可讀性限制。；2024新增鏡新聞、震傳媒、鋒燦傳媒之封關民調直接核對發布者原文。；2024新增鏡新聞、震傳媒、鋒燦傳媒之封關民調直接核對發布者原文。",
+      "verified_core_fields": "來源核實狀態記錄支持度、調查結束日、發布日、執行者、樣本及方法的一手依據與一致性；此狀態不作品牌頁採計門檻，納入平均不改寫原查核狀態或來源可讀性限制。",
       "official_percent_rule": "以官方整數票數重算，不使用官方欄位可能已截尾或四捨五入的百分比作計算；官方刊載百分比僅並列供核對。",
       "default_score": "normalized_mae_pp",
       "primary_score": "normalized_mae_pp",
       "raw_view_score_rule": "切換原始支持度顯示只改資料呈現；主要分數與跨場比較仍使用正規化MAE。raw_mae_pp僅為另行標示的描述性診斷，不取代主要分數。",
-      "selection_tie_breaker": "如結束日與發布日仍相同且不是同筆轉載，須人工核對版本，不任意以較準者選取。",
-      "index_source_rule": "維基、新聞全文與搜尋摘要分層保存，逐筆附原始與索引URL。候選支持度可對齊時提供試算MAE；僅核心欄位完成一手核實且符合條件者取得正式分數與跨場資格。索引日期不代填調查日，未知保持null；來源不可讀的限制逐筆保留。"
+      "selection_tie_breaker": "同封關優先級、調查結束日及發布日的比較候選支持度相同時取穩定代表，來源或核實等中繼欄位差異不擋採計；支持度不同則排除，不以較準者或ID裁決。",
+      "index_source_rule": "維基、新聞全文與搜尋摘要分層保存，逐筆附原始與索引URL。候選支持度可對齊時提供試算MAE；僅核心欄位完成一手核實且符合條件者取得正式分數與跨場資格。索引日期不代填調查日，未知保持null；來源不可讀的限制逐筆保留。",
+      "local_history_candidate_rule": "新增歷史縣市長場次固定比較官方得票前二名，加上其他官方得票率達5%者，以未四捨五入整數票數判定；既有場次維持原集合。原始問卷人選與支持度完整保留，缺比較人選時不補零。"
     },
     "common_contest_comparisons": [
       {
@@ -156,6 +1338,16 @@
           "title": "TVBS官方歷史民調索引",
           "url": "https://www.tvbs.com.tw/poll-center",
           "checked_at": "2026-10-18"
+        }
+      },
+      {
+        "date": "2026-10-27",
+        "title": "補收三屆地方選舉民調",
+        "description": "2022、2018、2014各22縣市長，補收599筆民調，另存36筆候選情境與4筆衝突；保留既有ID與核實狀態，原文未讀及其他缺漏逐筆記錄。",
+        "source": {
+          "title": "中選會選舉資料庫：縣市長選舉清單",
+          "url": "https://db.cec.gov.tw/static/elections/list/ELC_C2.json",
+          "checked_at": "2026-10-27"
         }
       }
     ]

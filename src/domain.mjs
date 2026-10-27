@@ -51,7 +51,7 @@ function dateValue(value, timestamps = false) {
 }
 
 // Date-only evidence states a calendar day; timestamps state an instant in Taiwan.
-function calendarDay(value) {
+export function calendarDay(value) {
   const instant = dateValue(value, true);
   if (instant === null) return null;
   if (!value.includes('T')) return instant;
@@ -119,6 +119,11 @@ export function normalizeDistribution(values, candidateIds) {
   };
 }
 
+export function normalizePollSupport(poll, election) {
+  const ids = election?.comparisonCandidateIds || election?.candidates?.map(candidate => candidate.id);
+  return normalizeDistribution(poll?.shares, ids);
+}
+
 function rawPollShares(poll, allIds) {
   const entries = record(poll?.shares) ? Object.entries(poll.shares) : [];
   const raw = Object.fromEntries(entries);
@@ -166,7 +171,7 @@ export function calculatePollError(poll, election) {
   }
   const candidateTotal = Object.values(poll.shares).filter(finiteNonnegative).reduce((sum, value) => sum + value, 0);
   if (candidateTotal > MAX_REPORTED_TOTAL) return fail('The reported candidate percentages exceed 100.5%.');
-  const pollDistribution = normalizeDistribution(poll.shares, candidateIds);
+  const pollDistribution = normalizePollSupport(poll, election);
   if (!pollDistribution.ok) return fail(pollDistribution.reason);
   for (const key of ['undecided', 'other']) {
     const value = poll[key];
@@ -174,6 +179,7 @@ export function calculatePollError(poll, election) {
   }
   const reportedTotal = candidateTotal + (poll.undecided ?? 0) + (poll.other ?? 0);
   if (reportedTotal > MAX_REPORTED_TOTAL) warnings.push('Reported candidates, undecided and other exceed 100.5%.');
+  if (election.phase === 'pre_result') return { ...fail('Official results are not available for this election.'), pollNormalized: pollDistribution.values };
   if (!record(election.result?.votes)) return fail('Result candidate votes are missing.');
   if (Object.keys(election.result.votes).some((id) => !allIds.includes(id))) return fail('The result contains an unknown candidate.');
   for (const id of allIds) {
@@ -228,6 +234,7 @@ export function evaluatePoll(poll, election, { within30Days = true } = {}) {
   const end = calendarDay(poll.fieldworkEnd);
   const publication = calendarDay(poll.publishedAt);
   if (electionDay !== null && end !== null) evaluation.daysBefore = (electionDay - end) / DAY;
+  if (election.phase === 'pre_result') return fail('Official results are not available for this election.');
   if (poll.status !== 'verified') return fail('The poll is pending verification.');
   if (election.status !== 'verified') return fail('The election is pending verification.');
   if (election.result?.status !== 'verified') return fail('The election result is pending verification.');
@@ -393,17 +400,31 @@ export function selectSingleElectionPolls(polls, election, { view = 'closing', w
   return { rows: rows.sort(newestFirst), unresolvedCounts, dateUnknownCount, unfilteredCount: scopedRows.length };
 }
 
+function recordedComparisonEligible({ poll, evaluation }, election, { within30Days = true } = {}) {
+  if (election.phase === 'pre_result' || election.result?.status !== 'verified' || !evaluation.calculation.calculable) return false;
+  if (![poll.source, ...(poll.sources || [])].some(publicSource)) return false;
+  const electionDay = calendarDay(election.date);
+  if (electionDay === null) return false;
+  if (['fieldworkEnd', 'publishedAt'].some(key => {
+    const day = calendarDay(poll[key]);
+    return day !== null && day >= electionDay;
+  })) return false;
+  return !within30Days || evaluation.daysBefore >= 1 && evaluation.daysBefore <= 30;
+}
+
 export function selectFinalPoll(polls, election, institutionId, options = {}) {
   const eligible = (Array.isArray(polls) ? polls : [])
     .filter((poll) => poll?.electionId === election?.id && poll?.institutionId === institutionId)
     .map((poll) => ({ poll, evaluation: evaluatePoll(poll, election, options) }))
-    .filter((row) => row.evaluation.eligible)
+    .filter((row) => options.includeRecorded ? recordedComparisonEligible(row, election, options) : row.evaluation.eligible)
     .sort((a, b) => compareSelectionPriority(a, b) || newestFirst(a, b));
   if (!eligible.length) return null;
   const selected = eligible[0];
-  // IDs only choose a stable representative of exact reprints, never resolve competing evidence.
+  // Recorded comparisons ignore metadata-only differences; conflicting support is never chosen by ID.
   const tied = eligible.filter((row) => compareSelectionPriority(selected, row) === 0);
-  if (tied.some((row) => !exactReprint(selected.poll, row.poll))) return null;
+  if (tied.some(row => options.includeRecorded
+    ? selected.evaluation.candidateIds.some(id => selected.poll.shares[id] !== row.poll.shares[id])
+    : !exactReprint(selected.poll, row.poll))) return null;
   return { ...selected, selectionReason: evidencedFinal(selected.poll) ? 'explicit-final' : 'latest-eligible' };
 }
 
@@ -420,8 +441,10 @@ export function selectElectionPolls(polls, election, { within30Days = true, allP
 }
 
 export function commonElectionComparison(dataset, institutionIds, options = {}) {
+  const score = row => options.includeRecorded ? row.evaluation.calculation.mae : row.evaluation.mae;
   const institutions = [...new Set((Array.isArray(institutionIds) ? institutionIds : []).filter(validId))];
   const elections = [...(Array.isArray(dataset?.elections) ? dataset.elections : [])]
+    .filter(election => election.phase !== 'pre_result')
     .sort((a, b) => compareText(b.date ?? '', a.date ?? '') || compareText(a.id ?? '', b.id ?? ''));
   const polls = Array.isArray(dataset?.polls) ? dataset.polls : [];
   const available = institutions.map((institutionId) => new Map(elections.map((election) => [election.id, selectFinalPoll(polls, election, institutionId, options)]).filter(([, row]) => row)));
@@ -430,13 +453,13 @@ export function commonElectionComparison(dataset, institutionIds, options = {}) 
   const rows = institutions.map((institutionId, index) => {
     const perElection = commonElectionIds.map((electionId) => {
       const row = available[index].get(electionId);
-      return { electionId, mae: row.evaluation.mae, pollId: row.poll.id };
+      return { electionId, mae: score(row), pollId: row.poll.id };
     });
     return {
       institutionId,
       average: perElection.length >= minimum ? perElection.reduce((sum, row) => sum + row.mae, 0) / perElection.length : null,
       perElection,
-      availablePerElection: [...available[index]].map(([electionId, row]) => ({ electionId, mae: row.evaluation.mae, pollId: row.poll.id, selectionReason: row.selectionReason })),
+      availablePerElection: [...available[index]].map(([electionId, row]) => ({ electionId, mae: score(row), pollId: row.poll.id, selectionReason: row.selectionReason })),
       availableElectionIds: elections.map((election) => election.id).filter((id) => available[index].has(id)),
       missingElectionIds: elections.map((election) => election.id).filter((id) => !available[index].has(id)),
     };
@@ -479,75 +502,4 @@ export function filterAndSortRows(rows, { query = '', sortKey = 'date', directio
       || compareText(a.row.poll?.id ?? '', b.row.poll?.id ?? '')
       || a.index - b.index;
   }).map(({ row }) => row);
-}
-
-function csvCell(value) {
-  if (value === null || value === undefined || typeof value === 'number' && !Number.isFinite(value)) return '';
-  let text = String(value);
-  // CSV quotes do not stop spreadsheet formula evaluation after the CSV is decoded.
-  if (typeof value === 'string' && (/^[\s\u0000-\u001f\ufeff]*[=+\-@]/u.test(text) || /^[\t\r\n]/.test(text))) text = `'${text}`;
-  return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-}
-
-const sourceCells = (source) => [source?.title, publicSource(source) ? source.url : null, source?.publishedAt, source?.accessedAt];
-const listText = (values) => Array.isArray(values) ? values.join('; ') : '';
-const auditCell = (value) => record(value) || Array.isArray(value)
-  ? JSON.stringify(value, (_key, item) => item === null || item === undefined ? '' : item)
-  : value;
-
-export function exportCsv(rows, dataset = {}) {
-  const elections = new Map((dataset.elections ?? []).map((election) => [election.id, election]));
-  const institutions = new Map((dataset.institutions ?? []).map((institution) => [institution.id, institution]));
-  const prepared = (Array.isArray(rows) ? rows : []).map((row) => {
-    const poll = row.poll ?? {};
-    const election = elections.get(poll.electionId) ?? row.election;
-    return { row, poll, election, evaluation: row.evaluation ?? evaluatePoll(poll, election) };
-  });
-  const candidateIds = [...new Set(prepared.flatMap(({ poll, election, evaluation }) => [
-    ...(election?.candidates ?? []).map((candidate) => candidate.id),
-    ...Object.keys(poll.shares ?? {}),
-    ...Object.keys(election?.result?.votes ?? {}),
-    ...(evaluation.candidateIds ?? []),
-  ]))].filter(validId).sort(compareText);
-  const headers = [
-    'dataset_version', 'dataset_updated_at', 'poll_id', 'election_id', 'election_label', 'election_year', 'election_date', 'region', 'office', 'election_status',
-    'institution_id', 'institution_brand', 'institution_executor', 'institution_team_note', 'poll_status', 'eligible', 'ineligibility_reason', 'selection_reason',
-    'fieldwork_start', 'fieldwork_end', 'published_at', 'days_before_election', 'is_explicit_final', 'evidenced_explicit_final',
-    'closing_source_title', 'closing_source_url', 'closing_source_published_at', 'closing_source_accessed_at',
-    'commissioner', 'executor', 'team_id', 'team_note', 'sample_size', 'method', 'notes',
-    'funder', 'design_and_analysis', 'sample_size_support_question', 'survey_total_sample_size', 'population', 'sampling_frame', 'weighting',
-    'reported_margin_of_error_pp', 'reported_confidence_level', 'support_denominator', 'raw_means',
-    'latest_available_guaranteed', 'aggregate_source_eligible', 'candidate_source_status', 'primary_score', 'poll_sources_json',
-    'poll_source_title', 'poll_source_url', 'poll_source_published_at', 'poll_source_accessed_at',
-    'result_status', 'result_valid_votes', 'result_source_title', 'result_source_url', 'result_source_published_at', 'result_source_accessed_at',
-    'comparison_candidate_ids', 'comparison_candidate_names', 'excluded_candidate_ids', 'excluded_candidate_names', 'undecided_percent', 'other_percent', 'mae_percentage_points',
-    'provisional_mae_percentage_points', 'score_status', 'calculation_reason', 'calculation_warnings', 'calculation',
-    'record_audit_id', 'review_status', 'review_checked_at', 'review_field_evidence_json', 'verification_review_json',
-    ...candidateIds.flatMap((id) => [`poll_raw_pct[${id}]`, `result_raw_pct[${id}]`, `poll_normalized_pct[${id}]`, `result_normalized_pct[${id}]`, `result_votes[${id}]`]),
-  ];
-  const lines = [headers];
-  for (const { row, poll, election, evaluation } of prepared) {
-    const institution = institutions.get(poll.institutionId);
-    const candidates = new Map((election?.candidates ?? []).map((candidate) => [candidate.id, candidate]));
-    const names = (ids) => listText((ids ?? []).map((id) => candidates.get(id)?.name ?? id));
-    lines.push([
-      dataset.version, dataset.updatedAt, poll.id, poll.electionId, election?.label, election?.year, election?.date, election?.region, election?.office, election?.status,
-      poll.institutionId, institution?.brand ?? row.brand, institution?.executor, institution?.teamNote, poll.status, evaluation.eligible, evaluation.reason, row.selectionReason,
-      poll.fieldworkStart, poll.fieldworkEnd, poll.publishedAt, evaluation.daysBefore, poll.isExplicitFinal, evidencedFinal(poll),
-      ...sourceCells(poll.closingEvidence), poll.commissioner, poll.executor, poll.teamId, poll.teamNote, poll.sampleSize, poll.method, poll.notes,
-      ...[poll.funder, poll.designAndAnalysis, poll.sampleSizeSupportQuestion, poll.surveyTotalSampleSize, poll.population, poll.samplingFrame, poll.weighting,
-        poll.reportedMarginOfError, poll.reportedConfidenceLevel, poll.supportDenominator, poll.rawMeans,
-        poll.latestAvailableGuaranteed, poll.aggregateSourceEligible, poll.provenance?.verification_status,
-        'normalized_mae_pp', poll.sources ?? (poll.source ? [poll.source] : null)].map(auditCell),
-      ...sourceCells(poll.source), election?.result?.status, election?.result?.validVotes, ...sourceCells(election?.result?.source),
-      listText(evaluation.candidateIds), names(evaluation.candidateIds), listText(evaluation.excludedCandidates), names(evaluation.excludedCandidates),
-      poll.undecided, poll.other, evaluation.mae,
-      evaluation.provisionalMae, rowScore({ evaluation }).status, evaluation.calculationReason, auditCell(evaluation.calculationWarnings),
-      'MAE = sum(abs(poll_normalized_pct - result_normalized_pct)) / compared_candidate_count; each distribution normalized to 100 over comparison_candidate_ids',
-      poll.verificationReview?.auditId, poll.verificationReview?.status, poll.verificationReview?.checkedAt,
-      auditCell(poll.verificationReview?.fieldEvidence), auditCell(poll.verificationReview),
-      ...candidateIds.flatMap((id) => [evaluation.pollRaw?.[id], evaluation.resultRaw?.[id], evaluation.pollNormalized?.[id], evaluation.resultNormalized?.[id], election?.result?.votes?.[id]]),
-    ]);
-  }
-  return '\ufeff' + lines.map((line) => line.map(csvCell).join(',')).join('\r\n') + '\r\n';
 }

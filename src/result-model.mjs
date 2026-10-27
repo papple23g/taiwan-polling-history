@@ -11,3 +11,9 @@ export function officialResultSummary(election) {
   return { total, complete: complete && total!==null && consistent, totalFrom: supplied?'published':'candidate-sum', rawPercent:Object.fromEntries(ids.map(id=>[id,valid(result.votes?.[id]) && total>0 ? result.votes[id]/total*100 : null])) };
 }
 export function formatVoteCount(value) { return typeof value==='number' && Number.isFinite(value) && value>=0 ? value.toLocaleString('zh-TW') : '—'; }
+
+export function leadingSupport(values) {
+  if (!values.length || values.some(value => !Number.isFinite(value) || value < 0 || value > 100)) return null;
+  const maximum = Math.max(...values);
+  return maximum > 0 ? maximum : null;
+}

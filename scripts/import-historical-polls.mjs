@@ -35,10 +35,10 @@ const evidenceDescription = tier => ({
 export function sourcesFor(record, checkedAt) {
   const sources = (record.supplementalSources ?? []).map(source => ({
     title: source.title, url: source.url, kind: source.kind,
-    access_method: /image_read|full_public_image/.test(source.readStatus ?? '') ? 'full_public_image'
+    access_method: /image_read|visually_read|full_public_image/.test(source.readStatus ?? '') ? 'full_public_image'
       : /fulltext|full_public|full_html|relevant_fields/.test(source.readStatus ?? '') ? 'full_public_text'
       : /excerpt/.test(source.readStatus ?? '') ? 'search_index_excerpt_only' : 'not_independently_checked',
-    checked_at: /fulltext|full_public|full_html|relevant_fields|image_read|excerpt/.test(source.readStatus ?? '') ? checkedAt : null,
+    checked_at: /fulltext|full_public|full_html|relevant_fields|image_read|visually_read|excerpt/.test(source.readStatus ?? '') ? (source.checkedAt ?? checkedAt) : null,
     evidence_summary: source.evidenceSummary ?? null,
     ...(source.independenceGroup ? { independence_group: source.independenceGroup } : {}),
   }));
@@ -98,9 +98,10 @@ export function calculate(shares, selected, contest, metadata = {}) {
 function identity(record, existing) {
   let executor = record.executor ?? null;
   if (/待核|未載|不明|未知/.test(executor ?? '')) executor = null;
-  let unit = null;
+  if (record.comparisonUnitId != null && (typeof record.comparisonUnitId !== 'string' || !record.comparisonUnitId.trim())) throw new Error('Invalid comparison unit ID.');
+  let unit = record.comparisonUnitId ?? null;
   for (const [brandPattern, executorPattern, canonicalExecutor, id] of identities) {
-    if (brandPattern.test(record.brand) && executor && executorPattern.test(executor)) { executor = canonicalExecutor; unit = id; break; }
+    if (brandPattern.test(record.brand) && executor && executorPattern.test(executor)) { executor = canonicalExecutor; unit ??= id; break; }
   }
   unit ??= existing.find(poll => poll.verification_status === 'verified_primary' && !poll.verification_review
     && poll.brand === record.brand && poll.executor === executor)?.comparison_unit_id
@@ -308,6 +309,9 @@ export function buildHistoricalImport(baseParts, input) {
   const verified = allPolls.filter(poll => poll.verification_status === 'verified_primary');
   const scope = metadata.scope;
   Object.assign(scope, {
+    total_contests: contests.length,
+    official_contests_verified: contests.filter(contest => contest.phase !== 'pre_result').length,
+    pre_result_contests: contests.filter(contest => contest.phase === 'pre_result').length,
     verified_poll_records: verified.length, indexed_poll_records: allPolls.length - verified.length,
     total_poll_records: allPolls.length, poll_contests_verified: new Set(verified.map(poll => poll.contest_id)).size,
     poll_contests_with_records: new Set(allPolls.map(poll => poll.contest_id)).size,

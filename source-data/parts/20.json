@@ -1,0 +1,1129 @@
+{
+  "part_type": "contests",
+  "importer": "2026-six-cities",
+  "data": [
+    {
+      "id": "2026-taipei",
+      "title": "2026年臺北市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "臺北市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "蔣萬安",
+        "沈伯洋"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "蔣萬安",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "沈伯洋",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "郭璽",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "林志成",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "蕭文乾",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "唐新民",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-new-taipei",
+      "title": "2026年新北市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "新北市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "李四川",
+        "蘇巧慧"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "李四川",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "蘇巧慧",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "蘇輝湟",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "劉和然",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "黃國昌",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-taoyuan",
+      "title": "2026年桃園市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "桃園市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "張善政",
+        "黃世杰"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "張善政",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "黃世杰",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-taichung",
+      "title": "2026年臺中市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "臺中市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "江啟臣",
+        "何欣純"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "江啟臣",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "何欣純",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "洪麗華",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "楊瓊瓔",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-tainan",
+      "title": "2026年臺南市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "臺南市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "謝龍介",
+        "陳亭妃"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "謝龍介",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "陳亭妃",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "葉人文",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "蕭燐洪",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-kaohsiung",
+      "title": "2026年高雄市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "高雄市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "柯志恩",
+        "賴瑞隆"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "柯志恩",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        },
+        {
+          "name": "賴瑞隆",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-keelung",
+      "title": "2026年基隆市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "基隆市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "謝國樑",
+        "童子瑋"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "謝國樑",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/keelung",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "童子瑋",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/keelung",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "魏造文",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/keelung",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-hsinchu-city",
+      "title": "2026年新竹市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "新竹市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "高虹安",
+        "莊競程"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "高虹安",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu-city",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "莊競程",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu-city",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "何志勇",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu-city",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "林志潔",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": null
+        },
+        {
+          "name": "王婉諭",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-hsinchu",
+      "title": "2026年新竹縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "新竹縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "徐欣瑩",
+        "鄭朝方"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "徐欣瑩",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "鄭朝方",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "朱定瑀",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hsinchu",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "陳見賢",
+          "party": null,
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": null
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-changhua",
+      "title": "2026年彰化縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "彰化縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "魏平政",
+        "陳素月"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "魏平政",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/changhua",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "陳素月",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/changhua",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "邱建富",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/changhua",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "陳重嘉",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/changhua",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-yunlin",
+      "title": "2026年雲林縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "雲林縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "張嘉郡",
+        "劉建國"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "張嘉郡",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/yunlin",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "劉建國",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/yunlin",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-chiayi-city",
+      "title": "2026年嘉義市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "嘉義市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "張啓楷",
+        "王美惠"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "張啓楷",
+          "party": "台灣民眾黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/chiayi-city",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "王美惠",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/chiayi-city",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-hualien",
+      "title": "2026年花蓮縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "花蓮縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "游淑貞",
+        "張峻"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "游淑貞",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hualien",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "張峻",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hualien",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "魏嘉賢",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/hualien",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-kinmen",
+      "title": "2026年金門縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "金門縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "陳玉珍",
+        "李文良"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "陳玉珍",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "李文良",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "張國威",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "洪和成",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "張火木",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "黃世團",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "梁文韜",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://poll-tw.com/kinmen",
+            "locator": "參選人及其他登記參選人區塊",
+            "evidence_level": "secondary_index",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-zhubei",
+      "title": "2026年竹北市長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "竹北市",
+      "office": "市長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "吳旭智",
+        "曾聖凱"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "吳旭智",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_229138.htm",
+            "locator": "Q2候選人姓名與政黨提示；未明黨籍保留null",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "曾聖凱",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_229138.htm",
+            "locator": "Q2候選人姓名與政黨提示；未明黨籍保留null",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "邱臣遠",
+          "party": "台灣民眾黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_229138.htm",
+            "locator": "Q2候選人姓名與政黨提示；未明黨籍保留null",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "李貞秀",
+          "party": "無黨籍",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_229138.htm",
+            "locator": "Q2候選人姓名與政黨提示；未明黨籍保留null",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    },
+    {
+      "id": "2026-yilan",
+      "title": "2026年宜蘭縣長選舉",
+      "phase": "pre_result",
+      "election_date": "2026-11-28",
+      "geography": "宜蘭縣",
+      "office": "縣長",
+      "official_status": "results_pending",
+      "valid_votes": null,
+      "selected_candidates": [
+        "吳宗憲",
+        "林國漳"
+      ],
+      "selected_candidate_votes": null,
+      "candidates": [
+        {
+          "name": "吳宗憲",
+          "party": "中國國民黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_224420.htm",
+            "locator": "問卷Q2候選人姓名與政黨提示",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "林國漳",
+          "party": "民主進步黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_224420.htm",
+            "locator": "問卷Q2候選人姓名與政黨提示",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        },
+        {
+          "name": "陳琬惠",
+          "party": "台灣民眾黨",
+          "votes": null,
+          "elected": null,
+          "ballot_number": null,
+          "party_source": {
+            "url": "https://www.my-formosa.com.tw/DOC_224420.htm",
+            "locator": "問卷Q2候選人姓名與政黨提示",
+            "evidence_level": "primary_questionnaire",
+            "checked_at": "2026-10-25"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "中選會：115年地方公職人員選舉工作進行程序表",
+          "url": "https://web.cec.gov.tw/api/file/2ecc9288-48df-44b1-8dbd-d0a263763fd0.pdf",
+          "kind": "official_election_schedule",
+          "checked_at": "2026-10-25",
+          "evidence_summary": "投票日為2026年11月28日；此連結不是選舉結果或完整候選人名冊。"
+        }
+      ],
+      "official_browser_url": null,
+      "priority_poll_scope": true,
+      "verified_poll_count": 0,
+      "notes": [],
+      "candidate_list_note": "候選名單為本批支持度題目所出現的人名，不宣稱完整官方登記名冊；主要比較集合固定列明。"
+    }
+  ]
+}

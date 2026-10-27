@@ -1,13 +1,15 @@
 import { issuesUrl, repositoryUrl } from './github.mjs';
 
-export const usageSummary = '本站整理已收錄的歷史民調與選舉結果，供查閱與比較，不提供未來選情預測。資料可能有缺漏或誤植；歷史誤差不代表機構整體可信度，使用時請一併查閱原始來源與計算方法。';
+export const usageSummary = '本站整理已公布的選前民調、歷史民調與選舉結果，供查閱與比較，不提供未來選情預測或投票建議。資料可能有缺漏或誤植；歷史誤差不代表機構整體可信度，使用時請一併查閱原始來源與計算方法。';
 
 export function SiteInformation() {
   return <>
     <p className="lead">{usageSummary}</p>
+    <h3>網站性質與用途</h3>
+    <p>本站為個人製作的公開民調資料整理與視覺化工具，並非選務機關、候選人或民調機構的官方網站。收錄資料與呈現圖表不表示支持特定候選人或政黨，也不構成投票建議。</p>
     <h3>資料涵蓋與核對限制</h3>
     <p>本站是已收錄資料的整理，不是所有歷屆選舉民調的完整普查。來源可能有缺漏、失效或不同說法；未知欄位保留空白，不以零或推測補值。</p>
-    <p>主表包含已核實與尚待核對的紀錄。支持度與官方結果可對齊時即可顯示平均絕對誤差（MAE），有數值不代表來源已完成核實；請查看該筆計算詳情中的來源、備註與限制。跨場比較只使用符合正式比較條件的紀錄。</p>
+    <p>主表包含已核實與尚待核對的紀錄。支持度與官方結果可對齊時即可顯示平均絕對誤差（MAE）；跨場比較也納入有公開來源且可計算的待核實紀錄，不以樣本或方法缺漏阻擋採計。每品牌每場取一筆封關／最新民調，有一場即可平均，依平均值升冪排列，並列採計場次。來源、備註及原查核狀態保留於詳情，採計不代表來源已完成核實。</p>
     <h3>如何解讀歷史誤差</h3>
     <p>MAE 描述指定候選人集合中，正規化民調比例與該場官方結果的平均絕對差，單位為百分點。它不是民調報告的抽樣誤差，也不衡量機構整體可信度或未來預測能力。</p>
     <p>調查時間、對象、方式、候選組合及選情變化都會影響比較。微小差距可能低於原報告的四捨五入誤差；本站不宣稱差距具有統計顯著性。</p>
@@ -24,6 +26,6 @@ export function SiteInformation() {
 export function SiteFooter({ data, onOpenInformation }) {
   return <footer className="workspace-footer">
     <p>{usageSummary}</p>
-    <div className="footer-meta"><span>資料版本 {data.version} · 更新日期 {data.updatedAt}</span><nav aria-label="網站說明"><button onClick={() => onOpenInformation('usage')}>使用說明與限制</button><button onClick={() => onOpenInformation('method')}>方法與來源</button><button onClick={() => onOpenInformation('version')}>版本與更正</button></nav></div>
+    <div className="footer-meta"><span>資料版本 {data.version}{data.revision && <> · 修訂 <span title={`完整資料 SHA-256：${data.revision}`}>{data.revision.slice(0, 12)}</span></>} · 更新日期 {data.updatedAt}</span><nav aria-label="網站說明"><button onClick={() => onOpenInformation('usage')}>使用限制與免責聲明</button><button onClick={() => onOpenInformation('method')}>方法與來源</button><button onClick={() => onOpenInformation('version')}>版本與更正</button></nav></div>
   </footer>;
 }

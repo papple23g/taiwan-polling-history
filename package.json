@@ -1,15 +1,14 @@
 {
-  "name": "polling-history",
+  "name": "taiwan-election-liubowen",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "build": "node scripts/build-runtime-data.mjs && vite build && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
-    "test": "node --test tests/domain.test.mjs tests/data-integration.test.mjs tests/historical-import.test.mjs tests/github.test.mjs",
-    "check:bundle": "node scripts/check-public-bundle.mjs",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "audit:2026": "node scripts/collect-2026-index.mjs --audit",
+    "check:bundle": "node scripts/check-public-bundle.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
