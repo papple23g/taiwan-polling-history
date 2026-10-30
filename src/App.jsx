@@ -2,7 +2,8 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BookOpen, ChartBar, ClockCounterClockwise, Info, List, Table, WarningCircle, X } from '@phosphor-icons/react';
 import { filterAndSortRows, normalizePollSupport, selectSingleElectionPolls } from './domain.mjs';
 import { compareInstitutionBrands, filterComparisonBrands } from './institution-model.mjs';
-import { electionBrandOptions, filterPublisherRows } from './publisher-brand.mjs';
+import { electionBrandOptions, filterPublisherRows, publisherBrand, publisherBrandId } from './publisher-brand.mjs';
+import { executorSearchName } from './executor-identity.mjs';
 import { InstitutionFilter } from './InstitutionFilter.jsx';
 import { loadDataset } from './load-data.mjs';
 import { defaultView, readView, validateView, writeViewHistory } from './view-state.mjs';
@@ -10,7 +11,10 @@ import { Comparison } from './Comparison.jsx';
 import { InformationDialog } from './InformationDialog.jsx';
 import { Inspector } from './Inspector.jsx';
 import { PollChart } from './PollChart.jsx';
+import { PollPlayback, PollPlaybackDetails } from './PollPlayback.jsx';
 import { makeChartModel } from './chart-model.mjs';
+import { makePlaybackTimeline, playbackChartModel, playbackDay, playbackResultVisible, playbackSnapshot } from './playback-model.mjs';
+import { usePollPlayback } from './use-poll-playback.mjs';
 import { PollTable } from './PollTable.jsx';
 import { ElectionNavigation } from './ElectionNavigation.jsx';
 import { IconButton } from './ui.jsx';
@@ -20,6 +24,7 @@ import { SiteFooter } from './SiteInformation.jsx';
 import { workspaceNeedsFlow } from './panel-layout.mjs';
 
 const EMPTY = { version: '—', updatedAt: '—', elections: [], institutions: [], polls: [], corrections: [] };
+const NO_ROWS = [];
 const shortTitle = e => !e ? '歷史民調資料' : e.id.endsWith('president') ? e.year + ' 總統選舉' : e.year + ' ' + e.region + '長選舉';
 
 export function App() {
@@ -28,10 +33,13 @@ export function App() {
   const [loadError, setLoadError] = useState('');
   const [view, setView] = useState(() => defaultView(EMPTY));
   const viewRef = useRef(view);
-  const { electionId, mode, within30Days, minimumFiveElections, pollView, showNormalized, query, brandIds, sort, selection } = view;
+  const { electionId, mode, within30Days, minimumFiveElections, pollView, showNormalized, showTrajectory, query, brandIds, sort, selection } = view;
   const selectedId = selection?.kind === 'poll' ? selection.pollId : '';
   const officialSelected = selection?.kind === 'official';
   const [chartFocusRequest, setChartFocusRequest] = useState(null);
+  const [tableHover, setTableHover] = useState(null);
+  const [showNames, setShowNames] = useState(true);
+  const [motionPending, setMotionPending] = useState(false);
   const [information, setInformation] = useState('');
   const [mobileNav, setMobileNav] = useState(false);
   const [desktopNavOpen, setDesktopNavOpen] = useState(true);
@@ -55,11 +63,11 @@ export function App() {
     writeViewHistory(next, window.history, window.location, action);
     if (!next.selection) setChartFocusRequest(null);
   }
-  const setWithin30Days = value => updateView({ within30Days: value });
-  const setPollView = value => updateView({ pollView: value });
+  const setWithin30Days = value => { playback.pause(); updateView({ within30Days: value }); };
+  const setPollView = value => { if (value !== 'history') playback.close(); updateView({ pollView: value }); };
   const setShowNormalized = value => updateView({ showNormalized: value });
-  const setQuery = value => updateView({ query: value }, 'replace');
-  const setBrandIds = value => updateView({ brandIds: value });
+  const setQuery = value => { playback.pause(); updateView({ query: value }, 'replace'); };
+  const setBrandIds = value => { playback.pause(); updateView({ brandIds: value }); };
   const setSort = value => updateView({ sort: typeof value === 'function' ? value(viewRef.current.sort) : value });
   const setSelection = value => updateView({ selection: value });
 
@@ -71,8 +79,6 @@ export function App() {
       const next = readView(window.location, window.history.state, result.data);
       updateView(next, 'replace', result.data);
       setChartFocusRequest(null);
-      const destination = result.data.elections.find(item => item.id === next.electionId);
-      if (destination && !destination.id.endsWith('president')) setExpandedNavYears(current => new Set([...current, destination.year]));
       setPhase('ready');
     } catch (error) { setLoadError(error.message); setPhase('error'); }
   }
@@ -80,6 +86,7 @@ export function App() {
   useEffect(() => {
     if (phase !== 'ready') return;
     const restore = event => {
+      playback.close();
       const next = readView(window.location, event.state, data);
       updateView(next, 'replace');
       setChartFocusRequest(null); setMobileNav(false);
@@ -110,19 +117,45 @@ export function App() {
   const collectionCoverage = data.scope?.local_history_collection?.coverage?.find(item => item.year === election?.year && item.region === election?.region);
   const visibleCandidates = election ? (election.comparisonCandidateIds || election.candidates.map(c => c.id)).map(id => election.candidates.find(c => c.id === id)).filter(Boolean) : [];
   const institutions = useMemo(() => new Map(data.institutions.map(i => [i.id, i])), [data]);
-  const tableSelection = useMemo(() => election ? selectSingleElectionPolls(data.polls, election, { view: pollView, within30Days })
+  const tableSelection = useMemo(() => election ? selectSingleElectionPolls(data.polls, election, { view: pollView, within30Days,
+    institutionKey: poll => publisherBrandId(publisherBrand(poll, institutions.get(poll.institutionId))) })
     : { rows: [], unresolvedCounts: { undatedInstitutionCount: 0, supportConflictInstitutionCount: 0 }, dateUnknownCount: 0, unfilteredCount: 0 },
-  [data.polls, election, pollView, within30Days]);
+  [data.polls, election, institutions, pollView, within30Days]);
   const baseRows = useMemo(() => tableSelection.rows
-    .map(row => ({ ...row, brand: institutions.get(row.poll.institutionId)?.brand || row.poll.institutionId })), [tableSelection, institutions]);
+    .map(row => ({ ...row, brand: publisherBrand(row.poll, institutions.get(row.poll.institutionId)),
+      originalBrand: institutions.get(row.poll.institutionId)?.brand,
+      executorSearchName: executorSearchName(row.poll, institutions.get(row.poll.institutionId)) })), [tableSelection, institutions]);
   const brandOptions = useMemo(() => electionBrandOptions(data, electionId), [data, electionId]);
   const rows = useMemo(() => filterAndSortRows(filterPublisherRows(baseRows, brandIds, institutions), { query, sortKey: sort.key, direction: sort.direction }), [baseRows, brandIds, institutions, query, sort]);
-  const selected = rows.find(row => row.poll.id === selectedId) || null;
   const officialResult = useMemo(() => election?.result?.status === 'verified' ? officialResultSummary(election) : null, [election]);
   const comparisonStatistics = useMemo(() => compareInstitutionBrands(data, { within30Days }), [data, within30Days]);
   const comparison = useMemo(() => filterComparisonBrands(comparisonStatistics, { minimumFiveElections }), [comparisonStatistics, minimumFiveElections]);
-  const chartModel = useMemo(() => makeChartModel(election, rows, selected?.poll.id), [election, rows, selected?.poll.id]);
+  const fullChartModel = useMemo(() => makeChartModel(election, rows, selectedId), [election, rows, selectedId]);
+  const playbackFullModel = useMemo(() => makeChartModel(election, rows, ''), [election, rows]);
+  const playbackBaseModel = useMemo(() => playbackChartModel(playbackFullModel, NO_ROWS, false, ''), [playbackFullModel]);
+  const timeline = useMemo(() => makePlaybackTimeline(election, rows, playbackFullModel), [election, rows, playbackFullModel]);
+  const playbackScope = JSON.stringify([electionId, within30Days, brandIds, query]);
+  const playback = usePollPlayback(timeline, playbackScope);
+  const requestedDay = playbackDay(playback.position ?? timeline.start);
+  const snapshot = useMemo(() => playbackSnapshot(timeline, requestedDay), [timeline, requestedDay]);
+  const resultVisible = !playback.active || playbackResultVisible(timeline, requestedDay);
+  const hideResult = playback.active && !resultVisible;
+  const effectiveSort = hideResult && sort.key === 'mae' ? { key: 'date', direction: 'desc' } : sort;
+  const visibleRows = playback.active ? snapshot : rows;
+  useEffect(() => { setTableHover(null); }, [visibleRows, electionId, mode]);
+  const selected = visibleRows.find(row => row.poll.id === selectedId) || null;
+  const shownOfficialSelected = officialSelected && resultVisible;
+  const chartModel = playback.active ? playbackBaseModel : fullChartModel;
   const chartTitle = chartModel?.kind === 'strip' ? '兩人比例一維散點圖' : chartModel?.kind === 'ternary' ? '三人比例三角圖' : '候選人比例對照';
+
+  useEffect(() => {
+    if (!playback.active || playback.position === null) return;
+    if (selection?.kind === 'poll' && !visibleRows.some(row => row.poll.id === selection.pollId) || selection?.kind === 'official' && !resultVisible) {
+      updateView({ selection: null }, 'replace');
+      setChartFocusRequest(null);
+    }
+  }, [playback.active, playback.position, visibleRows, selection, resultVisible]);
+  useEffect(() => { if (!playback.active) setMotionPending(false); }, [playback.active]);
 
   useLayoutEffect(() => {
     const main = workspace.current;
@@ -154,6 +187,7 @@ export function App() {
   }, [mode, selection]);
 
   function handleElection(id, pollId = '', { revealNavigation = true } = {}) {
+    playback.close();
     const nextElection = data.elections.find(item => item.id === id);
     const nextPreResult = nextElection?.phase === 'pre_result';
     if (revealNavigation && nextElection && !nextElection.id.endsWith('president')) setExpandedNavYears(current => new Set([...current, nextElection.year]));
@@ -165,6 +199,7 @@ export function App() {
     if (mobileNav) requestAnimationFrame(() => document.getElementById('main-content')?.focus());
   }
   function handleMode(value) {
+    playback.close();
     updateView({ mode: value, ...(value === 'comparison' && mode !== value ? { within30Days: true, minimumFiveElections: true } : {}) });
     setMobileNav(false); setInspectorOpen(false);
     if (mobileNav) requestAnimationFrame(() => document.getElementById('main-content')?.focus());
@@ -184,6 +219,7 @@ export function App() {
     });
   }
   function handleSelect(id, fromTable = false, { openDetails = false } = {}) {
+    playback.pause();
     setSelection({ kind: 'poll', pollId: id });
     if (openDetails) setInspectorOpen(true);
     if (!fromTable && !openDetails) revealTableRow(`[data-poll-id="${CSS.escape(id)}"]`, selection => selection?.kind === 'poll' && selection.pollId === id);
@@ -191,7 +227,8 @@ export function App() {
     setAnnouncement('已同步選取民調，圖表與詳情已更新。');
   }
   function handleSelectOfficial(fromTable = false, { openDetails = false } = {}) {
-    if (!officialResult) return;
+    playback.pause();
+    if (!officialResult || !resultVisible) return;
     setSelection({ kind: 'official' });
     if (openDetails) setInspectorOpen(true);
     if (!fromTable && !openDetails) revealTableRow('.official-result-row', selection => selection?.kind === 'official');
@@ -202,7 +239,13 @@ export function App() {
     setSelection(null); setChartFocusRequest(null);
     setAnnouncement('已取消選取；圖表範圍保持不變。');
   }
-  function handleSort(key) { setSort(current => ({ key, direction: current.key === key && current.direction === 'asc' ? 'desc' : 'asc' })); }
+  function handleSort(key) { if (hideResult && key === 'mae') return; playback.pause(); setSort(current => ({ key, direction: current.key === key && current.direction === 'asc' ? 'desc' : 'asc' })); }
+  function handleSortChange(value) { if (hideResult && value.key === 'mae') return; playback.pause(); setSort(value); }
+  function openPlayback() {
+    if (pollView !== 'history') updateView({ pollView: 'history' });
+    setInspectorOpen(false);
+    playback.open();
+  }
   function closeNav() { setMobileNav(false); requestAnimationFrame(() => menuRef.current?.focus()); }
   function toggleNavigation() { if (isMobile) setMobileNav(value => !value); else setDesktopNavOpen(value => !value); }
   function toggleNavYear(year) { setExpandedNavYears(current => { const next = new Set(current); if (next.has(year)) next.delete(year); else next.add(year); return next; }); }
@@ -241,37 +284,40 @@ export function App() {
     <div className={['app-shell', !navigationVisible ? 'navigation-collapsed' : '', mode === 'comparison' ? 'comparison-mode' : ''].join(' ')}>
       <aside id="election-navigation" className="sidebar" aria-label="選舉導覽" hidden={!navigationVisible}>{nav}</aside>
       {mobileNav && <dialog ref={mobileDialogRef} className="mobile-nav-overlay" aria-label="選舉導覽選單" onCancel={event => { event.preventDefault(); closeNav(); }} onClick={event => { if (event.target === event.currentTarget) closeNav(); }}><aside id="mobile-election-navigation" ref={navRef} className="mobile-nav" onKeyDown={navKeyDown}><div className="mobile-nav-heading"><strong>台灣選情劉伯溫</strong><IconButton label="關閉選舉導覽" onClick={closeNav}><X size={22} /></IconButton></div>{nav}</aside></dialog>}
-      <main ref={workspace} id="main-content" className={['main-content', mode === 'single' && phase === 'ready' ? 'single-workspace' : '', workspaceFlow ? 'workspace-flow' : 'workspace-columns'].join(' ')} tabIndex="-1">
+      <main ref={workspace} id="main-content" className={['main-content', mode === 'single' && phase === 'ready' ? 'single-workspace' : '', workspaceFlow ? 'workspace-flow' : 'workspace-columns', playback.active ? 'playback-mode' : ''].join(' ')} tabIndex="-1">
         <div className="workspace-top"><div><h2>{mode === 'single' ? shortTitle(election) : '跨場比較'}</h2></div></div>
         {phase === 'loading' ? <div className="page-state" role="status"><h3>正在讀取民調資料</h3><p>每筆附來源與調查資訊。</p></div> : phase === 'error' ? <div className="page-state error-state" role="alert"><WarningCircle size={32} /><h3>資料暫時無法載入</h3><p>{loadError}</p><button className="button primary" onClick={reload}>重新讀取</button></div> : <>
           {mode === 'comparison' ? <><div className="comparison-window" role="group" aria-label="跨場比較篩選"><label><input type="checkbox" checked={within30Days} onChange={e => setWithin30Days(e.target.checked)} />選前30天</label><label><input type="checkbox" checked={minimumFiveElections} onChange={e => updateView({ minimumFiveElections: e.target.checked })} />採計至少 5 場</label></div><Comparison data={data} comparison={comparison} onOpenElection={handleElection} /></> : <>
             <div className="single-analysis-grid">
             <aside className="chart-filters" aria-label="單場民調篩選">
               <div className="segmented poll-scope-toggle" role="group" aria-label="單場民調範圍"><button type="button" aria-pressed={pollView === 'closing'} onClick={() => setPollView('closing')}>{preResult ? '最新' : '封關'}</button><button type="button" aria-pressed={pollView === 'history'} onClick={() => setPollView('history')}>歷史</button></div>
+              {pollView === 'history' && ['ternary', 'strip'].includes(chartModel?.kind) && <label className="window-toggle trajectory-toggle"><input type="checkbox" checked={showTrajectory} disabled={playback.active} onChange={e => updateView({ showTrajectory: e.target.checked })} />歷程路線{playback.active && '（播放器啟用時隱藏）'}</label>}
+              {['ternary', 'strip'].includes(chartModel?.kind) && <label className="window-toggle"><input type="checkbox" checked={showNames} onChange={event => setShowNames(event.target.checked)} />顯示名稱</label>}
               <fieldset className="time-filter"><legend>時間篩選</legend><label className="window-toggle"><input type="checkbox" checked={within30Days} onChange={e => setWithin30Days(e.target.checked)} />選前 30 天</label><button className="text-link" aria-label="查看選前30天規則" onClick={() => openInformation('method')}><Info size={16} />篩選說明</button></fieldset>
+              {playback.active && <div className="playback-institution-filter"><InstitutionFilter key={electionId} options={brandOptions} brandIds={brandIds} onChange={setBrandIds} /></div>}
             </aside>
-            <section className="chart-section workspace-chart" aria-label="民調與大選結果圖表"><p className="chart-kicker">{chartTitle} · 正規化比例（%）</p><PollChart model={chartModel} election={election} rows={rows} selectedId={selected?.poll.id} officialSelected={officialSelected} focusRequest={chartFocusRequest} onSelect={handleSelect} onSelectOfficial={handleSelectOfficial} onClearSelection={clearSelection} /></section>
-            <div className="single-table-workspace">
+            <section className="chart-section workspace-chart" aria-label="民調與大選結果圖表"><p className="chart-kicker">{chartTitle} · 正規化比例（%）</p><PollPlayback election={election} timeline={timeline} playback={{ ...playback, settling: motionPending }} onOpen={openPlayback} /><div className="playback-chart-wrap"><PollChart model={chartModel} election={election} rows={playback.active ? NO_ROWS : visibleRows} selectedId={playback.active ? '' : selected?.poll.id} officialSelected={!playback.active && shownOfficialSelected} showNames={showNames} showTrajectory={!playback.active && pollView === 'history' && showTrajectory} hoveredPoint={tableHover} focusRequest={playback.active ? null : chartFocusRequest} onSelect={handleSelect} onSelectOfficial={handleSelectOfficial} onClearSelection={clearSelection} playbackActive={playback.active} playbackModel={playbackFullModel} playbackTimeline={timeline} playback={playback} playbackSelectedId={selected?.poll.id} revealPlaybackResult={resultVisible} onPlaybackReady={playback.markReady} onPlaybackError={playback.pause} onMotionStatusChange={setMotionPending} /></div><PollPlaybackDetails timeline={timeline} playback={{ ...playback, settling: motionPending }} /></section>
+            {!playback.active && <div className="single-table-workspace">
             <div className="display-toolbar"><fieldset className="ratio-options"><legend>顯示數值</legend><label className={showNormalized ? '' : 'active'}><input type="radio" name="display-ratio" checked={!showNormalized} onChange={() => setShowNormalized(false)} />原始支持度</label><label className={showNormalized ? 'active' : ''}><input type="radio" name="display-ratio" checked={showNormalized} onChange={() => setShowNormalized(true)} />正規化比例</label></fieldset><button className="icon-button help-button" aria-label="查看比例與平均絕對誤差（MAE） 計算方法" onClick={() => openInformation('method')}><Info size={18} /></button></div>
             <div className="table-toolbar"><InstitutionFilter key={electionId} options={brandOptions} brandIds={brandIds} onChange={setBrandIds} /></div>
             {query && <div className="active-search"><span>搜尋條件：{query}</span><button type="button" className="icon-button" aria-label="清除搜尋條件" onClick={() => setQuery('')}><X size={17} /></button></div>}
             {pollView === 'closing' && closingIssueParts.length > 0 && <p className="small muted" role="status">有 {closingIssueParts.join('；')}，未納入{preResult ? "各機構最新" : "封關民調"}。</p>}
-            {within30Days && tableSelection.dateUnknownCount > 0 && <p className="small muted">另有 {tableSelection.dateUnknownCount} 筆調查日期未知，未套入 30 天範圍。<button className="inline-link" onClick={() => setWithin30Days(false)}>取消 30 天篩選</button></p>}
+            {within30Days && tableSelection.dateUnknownCount > 0 && <p className="small muted">另有 {tableSelection.dateUnknownCount} 筆調查結束日未知，未套入 30 天範圍。<button className="inline-link" onClick={() => setWithin30Days(false)}>取消 30 天篩選</button></p>}
             <section className="data-panel" aria-label="單場民調資料">
               <div ref={tableScroll} className="data-table-scroll" tabIndex="0" role="region" aria-label="民調資料表">
-                <PollTable election={election} title={shortTitle(election)} rows={rows} candidates={visibleCandidates} officialResult={officialResult} showNormalized={showNormalized} shownShare={shownShare} selectedId={selected?.poll.id} officialSelected={officialSelected} sort={sort} onSort={handleSort} onSortChange={setSort} onSelect={handleSelect} onSelectOfficial={handleSelectOfficial} />
-                {!rows.length && <div className="table-empty"><Table size={32} /><h3>{data.elections.length ? '目前沒有符合條件的民調' : '尚無收錄資料'}</h3><p>缺漏資料不補零；{preResult ? '來源仍可在方法與來源中查閱。' : '大選結果與來源仍可在計算詳情查閱。'}</p>{collectionCoverage?.recordsFound === 0 && <p>本場已檢查公開索引與來源，但未查得可收錄的民調，不表示當年沒有進行民調。</p>}<button className="button" onClick={() => { updateView({ query: '', brandIds: null, within30Days: false }); }}>重設機構與時間篩選</button></div>}
+                <PollTable election={election} title={shortTitle(election)} rows={visibleRows} candidates={visibleCandidates} officialResult={resultVisible ? officialResult : null} showNormalized={showNormalized} shownShare={shownShare} selectedId={selected?.poll.id} officialSelected={shownOfficialSelected} sort={effectiveSort} onSort={handleSort} onSortChange={handleSortChange} onSelect={handleSelect} onSelectOfficial={handleSelectOfficial} onHover={setTableHover} hideResult={hideResult} />
+                {!visibleRows.length && <div className="table-empty"><Table size={32} /><h3>{playback.active ? '目前播放日期沒有可顯示的民調' : data.elections.length ? '目前沒有符合條件的民調' : '尚無收錄資料'}</h3>{!playback.active && <><p>缺漏資料不補零；{preResult ? '來源仍可在方法與來源中查閱。' : '大選結果與來源仍可在計算詳情查閱。'}</p>{collectionCoverage?.recordsFound === 0 && <p>本場已檢查公開索引與來源，但未查得可收錄的民調，不表示當年沒有進行民調。</p>}<button className="button" onClick={() => { updateView({ query: '', brandIds: null, within30Days: false }); }}>重設機構與時間篩選</button></>}</div>}
               </div>
-              <footer className="table-footer"><span>{pollView === 'closing' ? '每家民調單位取全期間最新一筆' : '顯示各民調單位的全部調查波次'}；共 {rows.length} 筆{within30Days ? '（已套用選前 30 天）' : ''}{!preResult && '；大選結果列在首筆'}</span></footer>
+              <footer className="table-footer"><span>{playback.active ? '播放日期前各品牌最新可繪波次' : pollView === 'closing' ? '各民調品牌取最新' : '顯示全部調查波次'}；共 {visibleRows.length} 筆{within30Days ? '（已套用選前 30 天）' : ''}{!preResult && resultVisible && '；大選結果列在首筆'}</span></footer>
             </section>
-            <p className="score-note"><Info size={15} />{preResult ? '尚無官方結果，MAE 留空。' : '切換表格比例不改圖表或分數。'}<button className="inline-link" onClick={() => openInformation('method')}>方法與來源</button><button className="inline-link" onClick={() => openInformation('catalogue')}>其他題目與來源</button></p>
-            </div>
+            <p className="score-note"><Info size={15} />{preResult ? '尚無官方結果，MAE 留空。' : hideResult ? '官方結果與 MAE 將在投票日顯示。' : '切換表格比例不改圖表或分數。'}<button className="inline-link" onClick={() => openInformation('method')}>方法與來源</button><button className="inline-link" onClick={() => openInformation('catalogue')}>其他題目與來源</button></p>
+            </div>}
             </div>
           </>}
         </>}
         <SiteFooter data={data} onOpenInformation={openInformation} />
       </main>
-      {mode === 'single' && phase === 'ready' && <Inspector data={data} open={inspectorOpen} election={election} row={selected} officialSelected={officialSelected} institution={institutions.get(selected?.poll.institutionId)} onClearSelection={clearSelection} onClose={closeInspector} />}
+      {mode === 'single' && phase === 'ready' && <Inspector data={data} open={inspectorOpen} election={election} row={selected} officialSelected={shownOfficialSelected} institution={institutions.get(selected?.poll.institutionId)} onClearSelection={clearSelection} onClose={closeInspector} hideResult={hideResult} />}
     </div>
     <span className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</span>
     {information && <InformationDialog kind={information} data={data} electionId={electionId} returnFocus={informationReturnFocus.current} onClose={() => setInformation('')} />}

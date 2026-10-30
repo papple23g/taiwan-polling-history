@@ -1809,4 +1809,8 @@ export const portraitByCandidate = new Map(candidatePortraits.map(portrait => [p
 export const portraitUnavailable = [
   '曹爾元', '李應文', '林信華', '洪國浩', '陳大松', '鄭清發', '吳政隆', '朱秀珍', '蘇柏豪', '謝文進',
   '蕭淑麗', '邱淑媞', '葉芳棟', '康世儒', '蔡啟塔', '蘇崑雄', '許乃權', '黃景泰', '陳以真',
-].map(id => ({ id, checkedAt: '2026-10-27', reason: '人物頁免費主圖及 Wikidata 影像盤點未取得可核實的可重用照片，保留姓名與中性圖示。' }));
+].map(id => ({ id, checkedAt: '2026-10-27', reason: '人物頁免費主圖及 Wikidata 影像盤點未取得可核實的可重用照片，保留姓名與中性圖示。' })).concat(
+  ['吳品叡', '吳淑瑾', '吳秀華', '周倪安', '蔡壁如', '蔡易餘', '陳振中', '陳瑩', '陳見賢', '黃國昌'].map(id => ({
+    id, checkedAt: '2026-10-27', reason: '尚未核實可公開重用的人物照片，保留姓名與中性圖示。',
+  })),
+);

@@ -1,7 +1,7 @@
 import { reviewStatusLabel, SourceLink } from './ui.jsx';
 
 const fields = {
-  brand: '調查品牌', sourceUrl: '來源網址', candidateSet: '候選組合', questionCandidateSet: '完整題目人選', shares: '候選支持度',
+  brand: '調查品牌', sourceUrl: '來源網址', classification: '題目分類', notes: '備註', missingFields: '待核對欄位', candidateSet: '候選組合', questionCandidateSet: '完整題目人選', shares: '候選支持度',
   fieldworkStart: '調查起日', fieldworkEnd: '調查結束日', fieldworkDates: '調查日期', publishedAt: '發布日期',
   executor: '執行者', sampleSize: '調查樣本', sampleSizeSupportQuestion: '支持度題樣本',
   surveyTotalSampleSize: '全調查／跨市總樣本', supportDenominator: '支持度題母體', sampleComposition: '樣本組成',
@@ -13,6 +13,7 @@ const fields = {
   excludedCandidates: '集合外候選人', otherCandidateSupport: '其他候選人支持度',
   primaryPublisherFulltext: '原始發布全文', originalFulltextVerification: '原始全文核實', originalQuestion: '原始題目',
   completeCandidateScenario: '完整候選情境', completeOriginalQuestionnaire: '完整原始問卷', independentFieldReview: '獨立逐欄核實',
+  independentPrimaryReview: '獨立一手核實',
 };
 const fieldLabel = field => fields[field] || (field.startsWith('shares.') ? `${field.slice(7)}支持度` : field);
 const observed = value => value === null || value === undefined ? '未知' : Array.isArray(value) ? value.join('、') : typeof value === 'object' ? Object.entries(value).map(([key, item]) => `${key}：${item ?? '未知'}`).join('；') : String(value);
@@ -23,6 +24,6 @@ export function VerificationEvidence({ record }) {
     {Object.entries(review.fieldEvidence || {}).map(([field, evidence]) => <div className="source-item" key={field}><strong className="small">{fieldLabel(field)}</strong><SourceLink source={{ title: '查看欄位依據', url: evidence.url }} /><small>{evidence.locator || '原文相關段落'}{evidence.checkedAt && ` · ${evidence.checkedAt}`}</small>{evidence.note && <p className="small">{evidence.note}</p>}</div>)}
     {(review.corrections?.length > 0 || review.conflicts?.length > 0) && <details className="metadata"><summary>原始觀察、更正及來源差異</summary>{review.corrections?.map((change, index) => <p className="small" key={`correction-${index}`}><strong>{fieldLabel(change.field)}</strong><br />原記錄：{observed(change.original)}<br />核對後：{observed(change.corrected)}{change.evidence?.url && <SourceLink source={{ title: '更正依據', url: change.evidence.url }} />}</p>)}{review.conflicts?.map((conflict, index) => <p className="small" key={`conflict-${index}`}>{typeof conflict === 'string' ? conflict : conflict.detail || conflict.reason || observed(conflict)}{conflict.url && <SourceLink source={{ title: '差異來源', url: conflict.url }} />}</p>)}</details>}
     {review.notes?.length > 0 && <details className="metadata"><summary>樣本、波次與核對限制</summary>{review.notes.map((note, index) => <p className="small" key={index}>{note}</p>)}</details>}
-    {review.relatedRecordIds?.length > 0 && <p className="small muted">相關紀錄：{review.relatedRecordIds.join('、')}。保留各題目與波次，未合併為獨立樣本。</p>}
+    {review.relatedRecordIds?.length > 0 && <p className="small muted">相關紀錄：{review.relatedRecordIds.join('、')}。保留原始身分及來源，樣本不重複加總。</p>}
   </section>;
 }

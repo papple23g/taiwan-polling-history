@@ -1,0 +1,182 @@
+name: Sync published repository snapshot
+
+on:
+  push:
+    branches: [main]
+    paths: [.github/published-snapshot.json]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-published-snapshot
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'papple23g/taiwan-polling-history'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+      - name: Check publication window
+        run: |
+          python - <<'PY'
+          from datetime import datetime, timezone
+          now = datetime.now(timezone.utc)
+          start = datetime.fromisoformat('2026-11-18T00:00:00+08:00')
+          end = datetime.fromisoformat('2026-11-28T16:00:00+08:00')
+          if start <= now < end:
+              raise SystemExit('Current-election snapshot synchronization is paused during the publication blackout.')
+          PY
+      - name: Download approved public snapshot
+        run: |
+          curl --fail --silent --show-error --retry 2 --max-time 180 --max-filesize 26214400 --proto '=https' --tlsv1.2 \
+            --output "$RUNNER_TEMP/published-snapshot.tar.xz" \
+            'https://taiwan-election-liubowen.papple23g.com/repository-snapshot.tar.xz'
+      - name: Verify hashes and stage allowlisted files
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+          import re
+          import shutil
+          import subprocess
+          import tarfile
+          from tempfile import TemporaryDirectory
+          from typing import BinaryIO
+
+          root = Path.cwd().resolve()
+          archive_path = Path(os.environ['RUNNER_TEMP']) / 'published-snapshot.tar.xz'
+          manifest = json.loads((root / '.github/published-snapshot.json').read_text(encoding='utf-8'))
+          root_files = set('''
+          .gitignore package.json package-lock.json index.html vite.config.mjs
+          README.md PUBLIC-README.md DATA-CONTRACT.md LICENSE THIRD-PARTY-NOTICES.md
+          requirements-update.txt .openai/hosting.json worker/index.js
+          .github/workflows/sync-published-snapshot.yml
+          '''.split())
+          scripts = set('''
+          assemble-source-parts.mjs expand-verified-polls-20261017.mjs import-wiki-2024.mjs
+          import-historical-polls.mjs collect-local-history-official.mjs import-local-election-history.mjs
+          import-poll-gap-supplement.mjs write-data-file.mjs import-verified-data.mjs
+          import-2026-polls.mjs collect-2026-index.mjs extract-2026-index.py
+          2026-election-config.mjs 2026-poll-audit.mjs 2026-poll-review.mjs
+          check-public-bundle.mjs prepare-sites-build.mjs build-runtime-data.mjs
+          '''.split())
+          sources = set('''
+          audited-source.json wikipedia-2024-index.json historical-poll-index.json
+          local-history-official.json local-history-2014.json local-history-2018.json local-history-2022.json
+          2026-poll-index.json 2026-primary-checks.json 2026-zhubei-primary.json 2026-poll-audit.json
+          2026-poll-gap-research.json 2026-poll-supplement.json poll-gap-supplement-20261027.json
+          2026-question-ids.json poll-update-reviews.json
+          '''.split())
+          patterns = [r'src/[A-Za-z0-9_-]+\.(?:jsx|mjs|css)', r'source-data/parts/[0-9]{2}\.json',
+              r'public/data/elections/[0-9]{4}-[a-z0-9-]+\.json',
+              r'public/candidate-portraits/(?:q[0-9]+|candidate-[a-z0-9-]+)\.(?:jpg|png)',
+              r'\.github/ISSUE_TEMPLATE/[a-z0-9-]+\.yml']
+          required_data = {'public/data/' + name for name in ['verified.json', 'verified-source.json', 'app-index.json']}
+
+          def allowed(name: str) -> bool:
+              path = PurePosixPath(name)
+              if not name or '\\' in name or '\x00' in name or path.is_absolute() or str(path) != name or any(p in {'.', '..'} for p in name.split('/')):
+                  return False
+              return (name in root_files or name in {'scripts/' + item for item in scripts}
+                  or name in {'source-data/' + item for item in sources} or name in required_data
+                  or any(re.fullmatch(pattern, name) for pattern in patterns))
+
+          def digest(stream: BinaryIO, output: BinaryIO | None = None) -> str:
+              value = sha256()
+              for block in iter(lambda: stream.read(1024 * 1024), b''):
+                  value.update(block)
+                  if output is not None:
+                      output.write(block)
+              return value.hexdigest()
+
+          if manifest.get('schemaVersion') != 1 or manifest.get('repository') != 'papple23g/taiwan-polling-history' or manifest.get('url') != 'https://taiwan-election-liubowen.papple23g.com/repository-snapshot.tar.xz':
+              raise SystemExit('Manifest repository or URL does not match this public Site.')
+          if type(manifest.get('bytes')) is not int or not 0 < manifest['bytes'] <= 26214400 or not re.fullmatch('[0-9a-f]{64}', manifest.get('sha256', '')):
+              raise SystemExit('Invalid archive size or SHA-256.')
+          with archive_path.open('rb') as stream:
+              if archive_path.stat().st_size != manifest['bytes'] or digest(stream) != manifest['sha256']:
+                  raise SystemExit('Downloaded archive differs from the approved manifest.')
+          files = manifest.get('files')
+          if not isinstance(files, list) or not 0 < len(files) <= 2000:
+              raise SystemExit('Invalid public file inventory.')
+          expected = {}
+          for item in files:
+              name, size = item.get('path', ''), item.get('bytes')
+              if not allowed(name) or name in expected or type(size) is not int or not 0 <= size <= 99614720 or not re.fullmatch('[0-9a-f]{64}', item.get('sha256', '')):
+                  raise SystemExit('Private, unsafe, duplicate or invalid manifest file: ' + name)
+              expected[name] = item
+          if sum(item['bytes'] for item in files) > 536870912 or not (root_files | required_data).issubset(expected):
+              raise SystemExit('Snapshot is oversized or missing required files.')
+          if any((root / name).exists() for name in ['.sites-data', 'AGENTS.md', 'POLL-UPDATES.md']):
+              raise SystemExit('Refusing to overwrite a private owner checkout.')
+          if subprocess.check_output(['git', 'status', '--porcelain']).strip():
+              raise SystemExit('Public snapshot synchronization requires a clean checkout.')
+          tracked = set(subprocess.check_output(['git', 'ls-files', '-z']).decode().rstrip('\0').split('\0'))
+          with TemporaryDirectory(prefix='poll-snapshot-') as temporary:
+              staging = Path(temporary)
+              seen = set()
+              with tarfile.open(archive_path, mode='r:xz') as archive:
+                  for member in archive:
+                      name = member.name
+                      if name in seen or name not in expected or not member.isfile() or member.size != expected[name]['bytes'] or member.mode & 0o7111 or member.pax_headers:
+                          raise SystemExit('Unexpected, linked or invalid archive entry: ' + name)
+                      stream = archive.extractfile(member)
+                      if stream is None:
+                          raise SystemExit('Unreadable archive entry: ' + name)
+                      with stream:
+                          target = staging / name
+                          target.parent.mkdir(parents=True, exist_ok=True)
+                          with target.open('xb') as output:
+                              file_hash = digest(stream, output)
+                          if file_hash != expected[name]['sha256']:
+                              raise SystemExit('File hash mismatch: ' + name)
+                      seen.add(name)
+              if seen != set(expected):
+                  raise SystemExit('Archive file set differs from the approved manifest.')
+              removals = {name for name in tracked if allowed(name) and name not in seen}
+              for name in sorted(seen):
+                  target = root / name
+                  if target.is_symlink() or any(parent.is_symlink() for parent in target.parents if parent != root.parent):
+                      raise SystemExit('Existing symlink would redirect a write: ' + name)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(staging / name, target)
+                  target.chmod(0o644)
+              for name in removals:
+                  (root / name).unlink()
+              subprocess.run(['git', 'add', '--', *sorted(seen | removals)], check=True)
+          changed = subprocess.check_output(['git', 'diff', '--cached', '--name-only', '-z']).decode().rstrip('\0')
+          if changed and any(not allowed(name) for name in changed.split('\0')):
+              raise SystemExit('A staged path is outside the public allowlist.')
+          print(json.dumps({'files': len(seen), 'sha256': manifest['sha256']}))
+          PY
+      - name: Commit public snapshot without rewriting history
+        run: |
+          if git diff --cached --quiet; then
+            echo 'Published public snapshot is already synchronized.'
+            exit 0
+          fi
+          check_publication_window() {
+            python - <<'PY'
+          from datetime import datetime, timezone
+          now = datetime.now(timezone.utc)
+          start = datetime.fromisoformat('2026-11-18T00:00:00+08:00')
+          end = datetime.fromisoformat('2026-11-28T16:00:00+08:00')
+          if start <= now < end:
+              raise SystemExit('Current-election snapshot synchronization is paused during the publication blackout.')
+          PY
+          }
+          check_publication_window
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'Sync approved published polling snapshot'
+          check_publication_window
+          git push origin HEAD:main

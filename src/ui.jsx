@@ -38,5 +38,5 @@ export function trapDialogFocus(event) {
   else if (!event.shiftKey && document.activeElement === elements.at(-1)) { event.preventDefault(); elements[0].focus(); }
 }
 export function Badge({ verified, children }) { return <span className={`badge ${verified ? 'verified' : 'pending'}`}>{verified ? <SealCheck size={13} aria-hidden="true" /> : <ClockCounterClockwise size={13} aria-hidden="true" />}{children}</span>; }
-export function SortHeading({ label, name, sort, onSort }) { return <th aria-sort={sort.key === name ? sort.direction === 'asc' ? 'ascending' : 'descending' : 'none'}><button className="sort-button" onClick={() => onSort(name)}>{label}{sort.key === name ? sort.direction === 'asc' ? <ArrowUp size={12} /> : <ArrowDown size={12} /> : <ArrowsDownUp size={12} />}</button>{name === 'mae' && <small className="metric-unit">百分點</small>}</th>; }
+export function SortHeading({ label, name, sort, onSort, disabled = false }) { return <th aria-sort={sort.key === name ? sort.direction === 'asc' ? 'ascending' : 'descending' : 'none'}><button className="sort-button" disabled={disabled} onClick={() => onSort(name)}>{label}{sort.key === name ? sort.direction === 'asc' ? <ArrowUp size={12} /> : <ArrowDown size={12} /> : <ArrowsDownUp size={12} />}</button>{name === 'mae' && <small className="metric-unit">百分點</small>}</th>; }
 

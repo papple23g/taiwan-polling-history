@@ -1,5 +1,7 @@
-import { calendarDay, normalizeDistribution } from './domain.mjs';
+import { calendarDay, formatCalendarDay, normalizeDistribution } from './domain.mjs';
+import { publisherBrandId } from './publisher-brand.mjs';
 import { officialResultSummary } from './result-model.mjs';
+import publisherLabels from './publisher-labels.mjs';
 
 const POLL_AGE_STEPS = [
   { days: 7, opacity: 1, label: '1–7 天' },
@@ -7,6 +9,7 @@ const POLL_AGE_STEPS = [
   { days: 30, opacity: 0.6, label: '15–30 天' },
   { days: Infinity, opacity: 0.4, label: '超過 30 天' },
 ];
+export const SELECTED_TRAJECTORY_COLOR = '#a02073';
 
 export function makeChartModel(election, rows, selectedId) {
   if (!election) return null;
@@ -35,10 +38,12 @@ export function makeChartModel(election, rows, selectedId) {
     const regions = candidateRegions(election, ids);
     const backgroundData = ternaryBackground(regions);
     const shares = names.map((name, index) => `${name}：%{${['a', 'b', 'c'][index]}:.2f}%`).join('<br>');
-    const data = [{ uid: 'polls', type: 'scatterternary', mode: 'markers', name: '民調',
+    const data = [{ uid: 'polls', type: 'scatterternary', mode: 'markers+text', name: '民調',
       a: points.map(r => r.evaluation.pollNormalized[ids[0]]), b: points.map(r => r.evaluation.pollNormalized[ids[1]]), c: points.map(r => r.evaluation.pollNormalized[ids[2]]),
-      customdata: points.map(r => r.poll.id), candidateIds: points.map(() => null), text: points.map(r => `${r.brand || r.poll.id}<br>${r.poll.fieldworkEnd || '日期未知'}`),
-      marker: pollMarker(election, points.map(row => row.poll)), hovertemplate: `%{text}<br>${shares}<extra></extra>` },
+      customdata: points.map(r => r.poll.id), candidateIds: points.map(() => null), text: points.map(r => publisherShortLabel(r.brand || r.poll.id)), textposition: 'middle center',
+      hovertext: points.map(r => `${r.brand || r.poll.id}<br>調查開始 ${formatCalendarDay(r.poll.fieldworkStart) || '未知'}`),
+      textfont: { size: 8, color: points.map(r => pollDaysBefore(election, r.poll) > 0 ? '#fff' : '#3279cb') },
+      marker: pollMarker(election, points.map(row => row.poll)), hovertemplate: `%{hovertext}<br>${shares}<extra></extra>` },
       { uid: 'official-result', type: 'scatterternary', mode: 'markers', name: '實際結果', a: [result[ids[0]]], b: [result[ids[1]]], c: [result[ids[2]]], candidateIds: [null],
         marker: { size: 17, color: '#d65359', opacity: 1, symbol: 'star', line: { color: '#fff', width: 1 } }, hovertemplate: `實際結果<br>${shares}<extra></extra>` }];
     return { kind: 'ternary', candidateIds: [...ids], legends: candidateLegends(election, ids), ageLegend: POLL_AGE_STEPS, selectedId: selected?.poll.id || '', pollIds: points.map(row => row.poll.id), regions, backgroundData,
@@ -51,6 +56,67 @@ export function makeChartModel(election, rows, selectedId) {
   return { kind: 'bar', selectedId: selected?.poll.id || '', data: [...(selected ? [{ type: 'bar', orientation: 'h', name: '選取民調', x: ids.map(id => selected.evaluation.pollNormalized[id]), y: names, marker: { color }, customdata: ids.map(() => selected.poll.id), hovertemplate: '%{y} %{x:.2f}%<extra>選取民調</extra>' }] : []), { type: 'bar', orientation: 'h', name: '實際結果', x: ids.map(id => barResult[id]), y: names, marker: { color: '#c96c73' }, hovertemplate: '%{y} %{x:.2f}%<extra>實際結果</extra>' }], layout: { barmode: 'group', xaxis: { range: [0, 100], ticksuffix: '%', gridcolor: '#e3e9f1', zeroline: false }, yaxis: { automargin: true, autorange: 'reversed' }, margin: { l: 102, r: 20, t: 10, b: 30 } } };
 }
 
+export function makeChartTrajectories(model, rows) {
+  if (!['ternary', 'strip'].includes(model?.kind)) return [];
+  const points = model.data.find(trace => trace.uid === 'polls');
+  if (!points?.customdata) return [];
+  const byId = new Map(rows.map(row => [row.poll.id, row]));
+  const brands = new Map();
+  points.customdata.forEach((id, index) => {
+    const row = byId.get(id);
+    const brand = typeof row?.brand === 'string' ? row.brand.trim() : '';
+    const day = calendarDay(row?.poll.fieldworkStart);
+    const coordinates = (model.kind === 'ternary' ? ['a', 'b', 'c'] : ['x']).map(axis => points[axis]?.[index]);
+    if (!brand || day === null || !coordinates.every(Number.isFinite)) return;
+    const brandId = publisherBrandId(brand);
+    if (!brands.has(brandId)) brands.set(brandId, new Map());
+    const days = brands.get(brandId);
+    if (!days.has(day)) days.set(day, []);
+    days.get(day).push({ id, coordinates });
+  });
+  return [...brands].sort(([left], [right]) => compareText(left, right)).flatMap(([brandId, dates]) => {
+    const days = [...dates].sort(([left], [right]) => left - right)
+      .map(([, entries]) => entries.sort((left, right) => compareText(left.id, right.id)));
+    const segments = [];
+    for (let i = 1; i < days.length; i++) for (const from of days[i - 1]) for (const to of days[i]) {
+      if (from.coordinates.every((value, index) => value === to.coordinates[index])) continue;
+      segments.push({ from, to });
+    }
+    return segments.length ? [{ brandId, segments, selected: segments.some(({ from, to }) => from.id === model.selectedId || to.id === model.selectedId) }] : [];
+  });
+}
+
+export function chartTrajectoryTraces(trajectories, kind = 'ternary', xSpan = 100) {
+  const hasSelection = trajectories.some(route => route.selected);
+  return trajectories.map(({ segments, selected }, index) => {
+    const coordinates = kind === 'strip' ? [[], []] : [[], [], []], size = [];
+    for (const { from, to } of segments) {
+      if (kind === 'strip') {
+        const start = from.coordinates[0], end = to.coordinates[0];
+        const height = Math.sign(end - start) * Math.max(0.02, 0.14 * Math.min(1, Math.abs(end - start) / (xSpan * 0.18)));
+        for (const step of [0, 0.25, 0.5, 0.75, 1]) {
+          coordinates[0].push(start + (end - start) * step);
+          coordinates[1].push(step === 0 || step === 1 ? 0 : height * 4 * step * (1 - step));
+        }
+        coordinates[0].push(null); coordinates[1].push(null);
+        size.push(0, 0, selected ? 12 : 7, 0, 0, 0);
+      } else {
+        for (let axis = 0; axis < 3; axis++) {
+          coordinates[axis].push(from.coordinates[axis], from.coordinates[axis] * 0.4 + to.coordinates[axis] * 0.6, to.coordinates[axis], null);
+        }
+        size.push(0, selected ? 12 : 7, 0, 0);
+      }
+    }
+    const color = selected ? SELECTED_TRAJECTORY_COLOR : hasSelection ? 'rgba(87, 111, 140, 0.18)' : 'rgba(87, 111, 140, 0.48)';
+    return { uid: `trajectory-${index}`, type: kind === 'strip' ? 'scatter' : 'scatterternary', mode: 'lines+markers',
+      ...(kind === 'strip' ? { x: coordinates[0], y: coordinates[1] } : { a: coordinates[0], b: coordinates[1], c: coordinates[2] }),
+      line: { color, width: selected ? 3.4 : 1.2, ...(kind === 'strip' ? { shape: 'spline', smoothing: 0.7 } : {}) },
+      marker: { symbol: 'arrow', angleref: 'previous', size, color, opacity: selected ? 1 : 0.7,
+        line: { color: '#fff', width: selected ? 1.2 : 0 } },
+      hoverinfo: 'skip', showlegend: false };
+  });
+}
+
 export function makeChartTooltip(election, model, rows, { pollId, actual = false, regionId, traceUid, pointIndex, candidateId } = {}) {
   if (!model || !['ternary', 'strip'].includes(model.kind)) return null;
   if (regionId) {
@@ -58,8 +124,9 @@ export function makeChartTooltip(election, model, rows, { pollId, actual = false
     return region ? { title: `${region.name}${election.phase === 'pre_result' ? '支持度領先區' : '勝選區'}`, lines: [] } : null;
   }
   actual ||= traceUid === 'official-result';
-  const traces = traceUid ? chartRenderTraces(model) : model.data;
-  const trace = traces.find(item => (!traceUid || item.uid === traceUid)
+  const sourceUid = traceUid === 'polls-foreground' ? 'polls' : traceUid;
+  const traces = traceUid === 'polls-foreground' ? model.data : traceUid ? chartRenderTraces(model) : model.data;
+  const trace = traces.find(item => (!sourceUid || item.uid === sourceUid)
     && (actual ? item.uid === 'official-result' : item.customdata?.some((id, index) => id === pollId && (!candidateId || item.candidateIds?.[index] === candidateId))));
   if (!trace) return null;
   const matches = index => actual
@@ -76,13 +143,13 @@ export function makeChartTooltip(election, model, rows, { pollId, actual = false
     const first = trace.x[index];
     if (!Number.isFinite(first)) return null;
     const official = model.data.find(item => item.uid === 'official-result')?.x[0];
-    return { title: actual ? '大選結果' : row.brand || pollId, date: actual ? election.date : row.poll.fieldworkEnd || '日期未知',
+    return { title: actual ? '大選結果' : row.brand || pollId, date: actual ? election.date : `調查開始 ${formatCalendarDay(row.poll.fieldworkStart) || '未知'}`,
       lines: [`${name(ids[0])}：${first.toFixed(2)}%（正規化）`, `${name(ids[1])}：${(100 - first).toFixed(2)}%（正規化）`,
         ...(actual ? [] : [pollAgeLabel(election, row.poll),
           ...(Number.isFinite(official) ? [`誤差(MAE)：${Math.abs(first - official).toFixed(2)} 百分點`] : []), ...pollContextLines(row.poll, name)])] };
   }
   const values = ids.map((id, axisIndex) => ({ label: name(id), value: trace[['a', 'b', 'c'][axisIndex]][index], unit: '%' }));
-  return { title: actual ? '大選結果' : row.brand || row.poll.id, date: actual ? election.date : row.poll.fieldworkEnd || '日期未知',
+  return { title: actual ? '大選結果' : row.brand || row.poll.id, date: actual ? election.date : `調查開始 ${formatCalendarDay(row.poll.fieldworkStart) || '未知'}`,
     lines: [...values.filter(item => Number.isFinite(item.value)).map(item => `${item.label}：${item.value.toFixed(2)}${item.unit}`), ...(actual ? [] : [pollAgeLabel(election, row.poll)])] };
 }
 
@@ -106,26 +173,50 @@ export function chartPollPoints(model, pollId, actual = false) {
   }).sort((a, b) => a.order - b.order || a.traceIndex - b.traceIndex || a.index - b.index).map(item => item.point);
 }
 
-export function chartRenderTraces(model, { touch = false } = {}) {
+export function chartRenderTraces(model, { touch = false, foregroundPollIds = new Set() } = {}) {
   if (!['ternary', 'strip'].includes(model.kind)) return model.data;
-  const subset = (source, indices, selected) => {
-    const trace = { ...source, uid: `${source.uid}${selected ? '-selected' : ''}`, marker: { ...source.marker } };
-    for (const key of ['x', 'y', 'a', 'b', 'c', 'customdata', 'candidateIds', 'text']) if (Array.isArray(source[key])) trace[key] = indices.map(i => source[key][i]);
+  const subset = (source, indices, suffix = '') => {
+    const trace = { ...source, uid: `${source.uid}${suffix}`, marker: { ...source.marker } };
+    for (const key of ['x', 'y', 'a', 'b', 'c', 'customdata', 'candidateIds', 'text', 'hovertext']) if (Array.isArray(source[key])) trace[key] = indices.map(i => source[key][i]);
     for (const key of ['size', 'color', 'symbol', 'opacity']) if (Array.isArray(source.marker?.[key])) trace.marker[key] = indices.map(i => source.marker[key][i]);
-    if (touch) trace.marker.size = 14;
+    if (Array.isArray(source.textfont?.color)) trace.textfont = { ...source.textfont, color: indices.map(i => source.textfont.color[i]) };
+    if (touch) trace.marker.size = 18;
     trace.marker.line = { ...source.marker?.line };
     for (const key of ['color', 'width']) if (Array.isArray(source.marker?.line?.[key])) trace.marker.line[key] = indices.map(i => source.marker.line[key][i]);
     return trace;
   };
-  const ordinary = [], selected = [], official = [];
+  const ordinary = [], foreground = [], selected = [], official = [];
   for (const trace of model.data) {
     if (!Array.isArray(trace.customdata) || trace.uid === 'official-result') { official.push(trace); continue; }
-    const ordinaryIndices = [], selectedIndices = [];
-    trace.customdata.forEach((id, index) => (id === model.selectedId ? selectedIndices : ordinaryIndices).push(index));
-    ordinary.push(subset(trace, ordinaryIndices, false));
-    if (selectedIndices.length) selected.push(subset(trace, selectedIndices, true));
+    const ordinaryIndices = [], foregroundIndices = [], selectedIndices = [];
+    trace.customdata.forEach((id, index) => (id === model.selectedId ? selectedIndices : foregroundPollIds.has(id) ? foregroundIndices : ordinaryIndices).push(index));
+    ordinary.push(subset(trace, ordinaryIndices));
+    if (foregroundIndices.length) foreground.push(subset(trace, foregroundIndices, '-foreground'));
+    if (selectedIndices.length) selected.push(subset(trace, selectedIndices, '-selected'));
   }
-  return [...ordinary, ...official, ...selected];
+  return [...ordinary, ...official, ...foreground, ...selected];
+}
+
+export function chartRenderLayers(model, rows, { touch = false, showTrajectory = false } = {}) {
+  if (!model || model.kind === 'unavailable') return { points: [], plot: [], highlighted: false };
+  const trajectories = showTrajectory ? makeChartTrajectories(model, rows) : [];
+  const range = model.layout?.xaxis?.range;
+  const routeTraces = chartTrajectoryTraces(trajectories, model.kind, range ? range[1] - range[0] : 100);
+  const selectedIndex = trajectories.findIndex(route => route.selected);
+  const selectedBrandId = trajectories[selectedIndex]?.brandId;
+  const foregroundPollIds = new Set(selectedBrandId ? rows.filter(row => {
+    const brand = typeof row.brand === 'string' ? row.brand.trim() : '';
+    return brand && publisherBrandId(brand) === selectedBrandId;
+  }).map(row => row.poll.id) : []);
+  const pointChart = ['ternary', 'strip'].includes(model.kind);
+  const points = pointChart ? chartRenderTraces(model, { touch, foregroundPollIds }).map(trace => ({ ...trace, hovertemplate: null, hoverinfo: 'none' })) : model.data;
+  const foreground = points.filter(trace => trace.uid === 'polls-foreground');
+  const selected = points.filter(trace => trace.uid === 'polls-selected');
+  const ordinary = points.filter(trace => trace.uid !== 'polls-foreground' && trace.uid !== 'polls-selected');
+  const selectedRoute = selectedIndex < 0 ? null : routeTraces[selectedIndex];
+  const halo = selectedRoute && { ...selectedRoute, uid: 'trajectory-halo', mode: 'lines', line: { ...selectedRoute.line, color: 'rgba(255, 255, 255, 0.95)', width: 7 }, marker: {} };
+  return { points, highlighted: Boolean(selectedRoute), plot: [...(model.backgroundData || []), ...routeTraces.filter((_, index) => index !== selectedIndex),
+    ...ordinary, ...foreground, ...(selectedRoute ? [halo, selectedRoute] : []), ...selected] };
 }
 
 function pollDaysBefore(election, poll) {
@@ -140,8 +231,12 @@ function pollAgeLabel(election, poll) {
 
 function pollMarker(election, polls) {
   const days = polls.map(poll => pollDaysBefore(election, poll));
-  return { size: 10, color: '#3279cb', opacity: days.map(day => day > 0 ? POLL_AGE_STEPS.find(step => day <= step.days).opacity : 1),
+  return { size: 18, color: '#3279cb', opacity: days.map(day => day > 0 ? POLL_AGE_STEPS.find(step => day <= step.days).opacity : 1),
     symbol: days.map(day => day > 0 ? 'circle' : 'circle-open'), line: { color: days.map(day => day > 0 ? '#fff' : '#3279cb'), width: 0.75 } };
+}
+
+export function publisherShortLabel(value) {
+  return Object.hasOwn(publisherLabels, value) ? publisherLabels[value] : Array.from(String(value || '').trim())[0] || '？';
 }
 
 function makeOneDimensionalChart(election, ids, rows, selectedId) {
@@ -154,11 +249,13 @@ function makeOneDimensionalChart(election, ids, rows, selectedId) {
   const official = officialResultSummary(election);
   const normalized = election.phase !== 'pre_result' && election.result?.status === 'verified' && official.complete ? normalizeDistribution(official.rawPercent, ids) : null;
   const result = normalized?.ok ? normalized.values : null;
-  const data = [{ uid: 'polls', type: 'scatter', mode: 'markers', name: '民調',
+  const data = [{ uid: 'polls', type: 'scatter', mode: 'markers+text', name: '民調',
     x: points.map(point => point.values[ids[0]]), y: points.map(() => 0), customdata: points.map(point => point.row.poll.id),
-    candidateIds: points.map(() => ids[0]), text: points.map(point => `${point.row.brand || point.row.poll.id}<br>${point.row.poll.fieldworkEnd || '日期未知'}`),
+    candidateIds: points.map(() => ids[0]), text: points.map(point => publisherShortLabel(point.row.brand || point.row.poll.id)), textposition: 'middle center',
+    hovertext: points.map(point => `${point.row.brand || point.row.poll.id}<br>調查開始 ${formatCalendarDay(point.row.poll.fieldworkStart) || '未知'}`),
+    textfont: { size: 8, color: points.map(point => pollDaysBefore(election, point.row.poll) > 0 ? '#fff' : '#3279cb') },
     marker: pollMarker(election, points.map(point => point.row.poll)),
-    hovertemplate: '%{text}<br>%{x:.2f}%（正規化）<extra></extra>' }];
+    hovertemplate: '%{hovertext}<br>%{x:.2f}%（正規化）<extra></extra>' }];
   if (result) data.push({ uid: 'official-result', type: 'scatter', mode: 'markers', name: '實際結果',
     x: [result[ids[0]]], y: [0], candidateIds: [ids[0]], marker: { size: 17, color: '#d65359', opacity: 1, symbol: 'star', line: { color: '#fff', width: 1 } },
     hovertemplate: '實際結果<br>%{x:.2f}%（正規化）<extra></extra>' });
@@ -200,10 +297,12 @@ function makePreResultTernary(election, ids, rows, selectedId) {
     const values = chartSupport(election, ids, row.poll);
     return values && chartDate(row.poll.fieldworkEnd) !== null ? [{ row, values }] : [];
   });
-  const data = [{ uid: 'polls', type: 'scatterternary', mode: 'markers', name: '民調',
+  const data = [{ uid: 'polls', type: 'scatterternary', mode: 'markers+text', name: '民調',
     a: points.map(point => point.values[ids[0]]), b: points.map(point => point.values[ids[1]]), c: points.map(point => point.values[ids[2]]),
     customdata: points.map(point => point.row.poll.id), candidateIds: points.map(() => null),
-    text: points.map(point => `${point.row.brand || point.row.poll.id}<br>${point.row.poll.fieldworkEnd || '日期未知'}`),
+    text: points.map(point => publisherShortLabel(point.row.brand || point.row.poll.id)), textposition: 'middle center',
+    hovertext: points.map(point => `${point.row.brand || point.row.poll.id}<br>調查開始 ${formatCalendarDay(point.row.poll.fieldworkStart) || '未知'}`),
+    textfont: { size: 8, color: points.map(point => pollDaysBefore(election, point.row.poll) > 0 ? '#fff' : '#3279cb') },
     marker: pollMarker(election, points.map(point => point.row.poll)) }];
   return { kind: 'ternary', candidateIds: [...ids], legends: candidateLegends(election, ids), ageLegend: POLL_AGE_STEPS, selectedId: rows.some(row => row.poll.id === selectedId) ? selectedId : '',
     pollIds: [...new Set(points.map(point => point.row.poll.id))], regions, backgroundData: ternaryBackground(regions), data,
@@ -263,7 +362,7 @@ function viewportRevision(election, kind, ids) { return JSON.stringify([election
 
 function chartRevision(election, kind, ids, data) {
   const axes = kind === 'ternary' ? ['a', 'b', 'c'] : ['x', 'y'];
-  const points = data.flatMap(trace => (trace[axes[0]] || []).map((_, index) => [trace.uid === 'official-result' ? 'official-result' : trace.customdata?.[index], trace.candidateIds?.[index] ?? null, ...axes.map(key => trace[key][index])]))
+  const points = data.flatMap(trace => (trace[axes[0]] || []).map((_, index) => [trace.uid === 'official-result' ? 'official-result' : trace.customdata?.[index], trace.candidateIds?.[index] ?? null, trace.text?.[index] ?? null, ...axes.map(key => trace[key][index])]))
     .sort((a, b) => compareText(JSON.stringify(a), JSON.stringify(b)));
   return JSON.stringify([election.id, kind, 'linear', ids, points]);
 }

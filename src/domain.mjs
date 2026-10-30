@@ -21,7 +21,7 @@ function unsupportedProductReason(poll, allowedProducts, purpose) {
 }
 
 const UNINTERPRETABLE_QUESTION_BLOCKER = /support question.{0,40}(?:not.{0,10}identified|unidentified|unclear)|題目.*候選(?:人)?(?:姓)?名不一致|黨名題|(?:經濟建設能力|福利政策).*題|(?:不可|不能).{0,12}(?:直接)?(?:納|當|用|作).{0,12}(?:投票支持度|候選人MAE|MAE)/i;
-const UNRESOLVED_INPUT_CONFLICT_BLOCKER = /(?:尚未裁定|未裁定|互異|不一致|未任選|不任選|未證明為同一波|衝突未解)/;
+const UNRESOLVED_INPUT_CONFLICT_BLOCKER = /(?:尚未裁定|未裁定|互異|不一致|未任選|不任選|未證明為同一波|衝突未解|unresolved_support_conflict)/i;
 
 function calculationBlocker(poll) {
   const blocker = poll?.calculationBlocker ?? poll?.verification_review?.calculation_blocker;
@@ -57,6 +57,11 @@ export function calendarDay(value) {
   if (!value.includes('T')) return instant;
   const parts = Object.fromEntries(taiwanDate.formatToParts(instant).map(({ type, value: part }) => [type, part]));
   return dateValue(`${parts.year.padStart(4, '0')}-${parts.month}-${parts.day}`);
+}
+
+export function formatCalendarDay(value) {
+  const day = calendarDay(value);
+  return day === null ? null : new Date(day).toISOString().slice(0, 10);
 }
 
 function compareEvidenceDates(left, right) {
@@ -339,7 +344,7 @@ function rowHasSurveyDate(row) {
  * selection used by cross-election comparisons. The 30-day window is applied
  * only after the closing record for each institution has been selected.
  */
-export function selectSingleElectionPolls(polls, election, { view = 'closing', within30Days = false } = {}) {
+export function selectSingleElectionPolls(polls, election, { view = 'closing', within30Days = false, institutionKey = poll => poll.institutionId } = {}) {
   const matching = (Array.isArray(polls) ? polls : [])
     .filter((poll) => poll?.electionId === election?.id && isMainTablePoll(poll))
     .map((poll) => ({ poll, evaluation: evaluatePoll(poll, election, { within30Days: false }), selectionReason: 'history' }));
@@ -350,7 +355,7 @@ export function selectSingleElectionPolls(polls, election, { view = 'closing', w
   if (view !== 'history') {
     const groups = new Map();
     for (const row of uniqueRows) {
-      const institutionId = row.poll.institutionId;
+      const institutionId = institutionKey(row.poll);
       if (!validId(institutionId)) continue;
       const group = groups.get(institutionId) ?? [];
       group.push(row);
@@ -484,11 +489,11 @@ export function filterAndSortRows(rows, { query = '', sortKey = 'date', directio
   const value = (row) => {
     if (sortKey === 'brand') return rowBrand(row).toLowerCase() || null;
     if (sortKey === 'mae') return rowScore(row).value;
-    return calendarDay(row?.poll?.fieldworkEnd);
+    return calendarDay(row?.poll?.fieldworkStart);
   };
   return (Array.isArray(rows) ? rows : []).filter((row) => {
     const poll = row.poll ?? {};
-    const searchable = [rowBrand(row), poll.id, poll.institutionId, poll.electionId, poll.commissioner, poll.executor, poll.teamId, poll.teamNote, poll.notes, poll.method, row.election?.label, row.election?.region, row.election?.office];
+    const searchable = [rowBrand(row), row.originalBrand, row.institution?.brand, row.executorSearchName, poll.id, poll.institutionId, poll.electionId, poll.commissioner, poll.executor, poll.teamId, poll.teamNote, poll.notes, poll.method, row.election?.label, row.election?.region, row.election?.office];
     return !needle || searchable.filter((item) => typeof item === 'string').join(' ').toLowerCase().includes(needle);
   }).map((row, index) => ({ row, index })).sort((a, b) => {
     const left = value(a.row);

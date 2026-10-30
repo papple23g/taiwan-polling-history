@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { X } from '@phosphor-icons/react';
 import { Detail } from './Detail.jsx';
+import { formatCalendarDay } from './domain.mjs';
 import { IconButton, trapDialogFocus } from './ui.jsx';
 import { useElectionDetails } from './use-election-details.mjs';
 
-export function Inspector({ data, open, election, row, officialSelected, institution, onClearSelection, onClose }) {
+export function Inspector({ data, open, election, row, officialSelected, institution, onClearSelection, onClose, hideResult = false }) {
   const evidence = useElectionDetails(data, election?.id, open && Boolean(row) && !officialSelected);
   const fullPoll = evidence.details?.polls.find(poll => poll.id === row?.poll.id);
   const dialog = useRef(null);
@@ -25,12 +26,12 @@ export function Inspector({ data, open, election, row, officialSelected, institu
   }, [open]);
   useEffect(() => () => { if (dialog.current?.open) dialog.current.close(); }, []);
   const contents = <>
-    <header className="inspector-heading"><div><h2 id="inspector-title">{officialSelected ? '大選結果' : row?.brand || (election?.phase === 'pre_result' ? '調查詳情' : '計算詳情')}</h2><p>{row ? (row.poll.fieldworkEnd || '日期未知') : election?.label}</p></div><div className="inspector-actions"><IconButton className="inspector-close" label="關閉計算詳情" onClick={onClose}><X size={22} /></IconButton></div></header>
+    <header className="inspector-heading"><div><h2 id="inspector-title">{officialSelected ? '大選結果' : row?.brand || (election?.phase === 'pre_result' ? '調查詳情' : '計算詳情')}</h2><p>{row ? `調查開始 ${formatCalendarDay(row.poll.fieldworkStart) || '未知'}` : election?.label}</p></div><div className="inspector-actions"><IconButton className="inspector-close" label="關閉計算詳情" onClick={onClose}><X size={22} /></IconButton></div></header>
     <div id="inspector-body" className="inspector-body">
       {row && !officialSelected && !fullPoll
         ? evidence.error ? <div role="alert"><p>{evidence.error}</p><button className="button" onClick={evidence.retry}>重試載入詳情</button></div>
           : <p role="status">正在載入這筆民調的完整來源與查核資訊…</p>
-        : <Detail row={row ? { ...row, poll: fullPoll } : null} officialSelected={officialSelected} election={election} institution={institution} />}
+        : <Detail row={row ? { ...row, poll: fullPoll } : null} officialSelected={officialSelected} election={election} institution={institution} hideResult={hideResult} />}
     </div>
   </>;
   const outsideDialog = event => {

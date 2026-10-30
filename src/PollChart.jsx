@@ -1,10 +1,11 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ChartScatter, Circle, Hand, MouseSimple, Square, Star, WarningCircle } from '@phosphor-icons/react';
-import { chartPollPoints, chartRenderTraces, makeChartModel, makeChartTooltip } from './chart-model.mjs';
+import { ArrowRight, ChartScatter, Circle, Hand, MouseSimple, Square, Star, WarningCircle } from '@phosphor-icons/react';
+import { chartPollPoints, chartRenderLayers, makeChartModel, makeChartTooltip, SELECTED_TRAJECTORY_COLOR } from './chart-model.mjs';
 import { focusViewport, initialViewport, readViewportChange, ternaryWeights, touchViewport, viewportLayout, viewportRelayout, zoomTernary } from './chart-viewport.mjs';
 import { CandidateAvatar } from './CandidateAvatar.jsx';
 import { candidateScaleGeometry, polygonPath, regionHoverGeometry } from './chart-hover.mjs';
-export function PollChart({ election, rows, model: providedModel, selectedId, officialSelected = false, focusRequest, onSelect, onSelectOfficial, onClearSelection }) {
+import { PollPlaybackOverlay } from './PollPlaybackOverlay.jsx';
+export function PollChart({ election, rows, model: providedModel, selectedId, officialSelected = false, showTrajectory = false, showNames = true, hoveredPoint = null, focusRequest, onSelect, onSelectOfficial, onClearSelection, playbackActive = false, playbackModel, playbackTimeline, playback, playbackSelectedId, revealPlaybackResult = false, onPlaybackReady, onPlaybackError, onMotionStatusChange }) {
   const target = useRef(null);
   const plotApi = useRef(null);
   const operations = useRef(Promise.resolve());
@@ -28,9 +29,16 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
   const candidateGuide = useRef(null);
   const guideSync = useRef(null);
   const guidePress = useRef(null);
+  const tableHover = useRef(null);
+  const tableHoverSync = useRef(null);
+  const playbackReady = useRef(onPlaybackReady);
+  const playbackError = useRef(onPlaybackError);
+  tableHover.current = hoveredPoint;
   callback.current = onSelect;
   officialCallback.current = onSelectOfficial;
   clearCallback.current = onClearSelection;
+  playbackReady.current = onPlaybackReady;
+  playbackError.current = onPlaybackError;
   const [error, setError] = useState(false);
   const [retry, setRetry] = useState(0);
   const [hover, setHover] = useState(null);
@@ -45,11 +53,20 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
     return () => media.removeEventListener('change', update);
   }, []);
   const model = useMemo(() => providedModel ?? makeChartModel(election, rows, selectedId), [providedModel, election, rows, selectedId]);
+  const plotNames = playbackActive || showNames;
+  const layers = useMemo(() => {
+    const result = chartRenderLayers(model, rows, { touch: coarsePointer, showTrajectory });
+    if (plotNames) return result;
+    const hideNames = trace => trace.uid?.startsWith('polls') ? { ...trace, mode: 'markers' } : trace;
+    return { ...result, points: result.points.map(hideNames), plot: result.plot.map(hideNames) };
+  }, [model, rows, showTrajectory, coarsePointer, plotNames]);
   const selectionKey = JSON.stringify([officialSelected, model?.selectedId || '']);
-  const hasOfficialResult = model?.data?.some(trace => trace.uid === 'official-result') || model?.kind === 'bar' && election?.result?.status === 'verified';
+  const hasOfficialResult = model?.data?.some(trace => trace.uid === 'official-result') || model?.kind === 'bar' && election?.result?.status === 'verified'
+    || playbackActive && revealPlaybackResult && playbackModel?.data?.some(trace => trace.uid === 'official-result');
   const pointChart = ['ternary', 'strip'].includes(model?.kind);
   const scope = model?.layout?.uirevision || `${election?.id}:${model?.kind}`;
   const dataScope = model?.layout?.datarevision || scope;
+  useLayoutEffect(() => { tableHoverSync.current?.(); }, [hoveredPoint, scope, dataScope]);
   renderScope.current = dataScope;
   const clearGuide = () => {
     if (!candidateGuide.current) return;
@@ -68,7 +85,8 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
     if (guide && (guide.scope !== scope || guide.dataScope !== dataScope || error)) clearGuide();
   }, [scope, dataScope, error]);
   const missingScoreSelection = rows.some(row => row.poll.id === selectedId && !row.evaluation.eligible && !Number.isFinite(row.evaluation.provisionalMae));
-  const chartLabel = model?.kind === 'strip' ? `兩人比例一維散點圖。每筆民調一點，同在水平線上；${model.legends[0].name}正規化支持度向右增加。${hasOfficialResult ? '星號為官方結果，橫向距離就是誤差(MAE)，越近越準。' : ''}越接近選舉日越不透明，日期未知或非選前以空心點表示。滾輪或雙指水平縮放，拖曳平移，雙擊還原。重疊點可由表格逐筆選取。` : model?.kind === 'ternary' ? `三位候選人正規化比例三角圖。藍色圓點為民調，白色細框區隔政黨底色。${hasOfficialResult ? '星號為實際結果。' : ''}滾輪或雙指縮放，拖曳平移，雙擊還原完整三角形。手機單點可看提示。${model.regions?.length ? (election.phase === 'pre_result' ? '點支持度領先區另顯示外框。' : '點勝選區另顯示外框。') : ''}點圖表底色可取消選取。表格可用鍵盤逐筆選取。`
+  const chartLabel = playbackActive ? '民調時間回放圖。點圖表暫停，暫停後可查看圓點的民調提示。移動只表示視覺轉場。'
+    : model?.kind === 'strip' ? `兩人比例一維散點圖。每筆民調以發布機構縮寫標在圓點內，同在水平線上；${model.legends[0].name}正規化支持度向右增加。${hasOfficialResult ? '星號為官方結果，橫向距離就是誤差(MAE)，越近越準。' : ''}${showTrajectory ? '歷程路線依調查開始日連接同品牌的可見民調，同日分岔，開始日未知不連線；向右的箭頭上彎，向左的箭頭下彎。' : ''}越接近選舉日越不透明，日期未知或非選前以空心點表示。滾輪或雙指水平縮放，拖曳平移，雙擊還原。重疊點可由表格逐筆選取。` : model?.kind === 'ternary' ? `三位候選人正規化比例三角圖。民調以發布機構縮寫標在圓點內，白色細框區隔政黨底色。${hasOfficialResult ? '星號為實際結果。' : ''}${showTrajectory ? '歷程路線依調查開始日連接同品牌的可見民調，同日分岔，開始日未知不連線。' : ''}滾輪或雙指縮放，拖曳平移，雙擊還原完整三角形。手機單點可看提示。${model.regions?.length ? (election.phase === 'pre_result' ? '點支持度領先區另顯示外框。' : '點勝選區另顯示外框。') : ''}點圖表底色可取消選取。表格可用鍵盤逐筆選取。`
       : '候選人民調與實際結果正規化比例對照圖。完整數值列於計算詳情。';
   useLayoutEffect(() => {
     const label = tooltip.current;
@@ -115,10 +133,9 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
     let observer;
     let geometryObserver;
     let geometryFrame;
-    let wheelFrame;
     let resizeFrame;
-    let touchFrame;
-    let pendingTouchViewport;
+    let pendingViewport = null;
+    let viewportBusy = false;
     let selectedHovered = false;
     let hoveredMarker;
     let hoveredRegion;
@@ -127,9 +144,14 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
     const element = target.current;
     if (!element || !model || model.kind === 'unavailable') return;
     const initial = initialViewport(model);
+    const reportError = () => {
+      if (!active) return;
+      setError(true);
+      if (playbackActive) playbackError.current?.();
+    };
     const runPlot = task => {
       operations.current = operations.current.catch(() => {}).then(() => { if (active && element.isConnected) return task(); });
-      operations.current.catch(() => { if (active) setError(true); });
+      operations.current.catch(reportError);
       return operations.current;
     };
     // Input remains available while selection redraws wait in the Plotly queue.
@@ -137,8 +159,21 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
       operations.current = operations.current.catch(() => {}).then(() => {
         if (target.current === element && renderScope.current === dataScope && viewport.current.scope === scope) return task();
       });
-      operations.current.catch(() => { if (active) setError(true); });
+      operations.current.catch(reportError);
       return operations.current;
+    };
+    const scheduleViewport = next => {
+      viewport.current.value = next;
+      pendingViewport = next;
+      if (viewportBusy) return;
+      viewportBusy = true;
+      const flush = () => {
+        if (!active || !pendingViewport) { viewportBusy = false; return; }
+        const value = pendingViewport;
+        pendingViewport = null;
+        runInput(() => active && plot.relayout(element, viewportRelayout(value))).then(flush, () => { viewportBusy = false; });
+      };
+      flush();
     };
     const decorateMarker = marker => {
       if (marker === hoveredMarker) return;
@@ -236,31 +271,56 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
       plotApi.current = plot;
       // HTML labels stay within the chart when its workspace scrolls.
       const htmlTooltip = pointChart;
-      const traces = htmlTooltip ? chartRenderTraces(model, { touch: coarsePointer }).map(trace => ({ ...trace, hovertemplate: null, hoverinfo: 'none' })) : model.data;
+      const traces = layers.points;
+      const syncTableHover = () => {
+        element.querySelectorAll('.chart-point-table-hover').forEach(point => point.classList.remove('chart-point-table-hover'));
+        const hit = tableHover.current;
+        if (!active || !htmlTooltip || !hit) return;
+        traces.forEach(trace => {
+          element.querySelectorAll(`.trace${CSS.escape(trace.uid || '')} .point`).forEach((point, index) => {
+            if (hit.actual ? trace.uid === 'official-result' : trace.uid !== 'official-result' && trace.customdata?.[index] === hit.pollId) point.classList.add('chart-point-table-hover');
+          });
+        });
+      };
+      tableHoverSync.current = syncTableHover;
       const decorateOpenPoints = () => traces.forEach(trace => {
         element.querySelectorAll(`.trace${CSS.escape(trace.uid || '')} .point`).forEach((point, index) => {
           point.classList.toggle('chart-point-open', trace.marker?.symbol?.[index] === 'circle-open');
         });
       });
-      const decorateSelectedPoint = () => {
-        element.querySelectorAll('.chart-selection-halo').forEach(halo => halo.remove());
-        const point = element.querySelector('.tracepolls-selected .point');
-        if (!point) return;
-        const halo = point.cloneNode(false);
-        halo.setAttribute('class', 'chart-selection-halo');
-        halo.removeAttribute('style');
-        halo.setAttribute('aria-hidden', 'true');
-        point.before(halo);
+      const decoratePointHalos = () => {
+        element.querySelectorAll('.chart-selection-halo, .chart-route-point-halo').forEach(halo => {
+          const owner = halo.classList.contains('chart-selection-halo') ? '.tracepolls-selected' : '.tracepolls-foreground';
+          if (!halo.nextElementSibling?.classList.contains('point') || !halo.closest(owner)) halo.remove();
+        });
+        const syncHalo = (point, className) => {
+          let halo = point.previousElementSibling;
+          if (!halo?.classList.contains(className)) {
+            halo = point.cloneNode(false);
+            halo.setAttribute('class', className);
+            halo.removeAttribute('style');
+            halo.setAttribute('aria-hidden', 'true');
+            point.before(halo);
+          }
+          for (const attribute of ['d', 'transform']) {
+            const value = point.getAttribute(attribute);
+            if (value === null) halo.removeAttribute(attribute);
+            else if (halo.getAttribute(attribute) !== value) halo.setAttribute(attribute, value);
+          }
+        };
+        element.querySelectorAll('.tracepolls-foreground .point').forEach(point => syncHalo(point, 'chart-route-point-halo'));
+        const selectedPoint = element.querySelector('.tracepolls-selected .point');
+        if (selectedPoint) syncHalo(selectedPoint, 'chart-selection-halo');
       };
       const chartHeight = () => Math.max(385, element.parentElement.clientHeight);
       await runPlot(() => {
         if (viewport.current.scope !== scope) viewport.current = { scope, value: initial };
         const layout = viewportLayout(model.layout, viewport.current.value);
         // Selection moves points between traces even when their coordinates do not change.
-        return plot.react(element, [...(model.backgroundData || []), ...traces], { ...layout, datarevision: JSON.stringify([layout.datarevision, selectionKey]), autosize: false, width: Math.max(1, element.parentElement.clientWidth), height: chartHeight(), paper_bgcolor: '#fff', font: { family: 'Noto Sans TC, Microsoft JhengHei, sans-serif', color: '#526580', size: 11 }, showlegend: false, hovermode: 'closest' }, { responsive: false, displayModeBar: false, scrollZoom: false, doubleClick: htmlTooltip ? false : 'reset+autosize', locale: 'zh-TW' });
+        return plot.react(element, layers.plot, { ...layout, datarevision: JSON.stringify([layout.datarevision, selectionKey, showTrajectory, plotNames]), autosize: false, width: Math.max(1, element.parentElement.clientWidth), height: chartHeight(), paper_bgcolor: '#fff', font: { family: 'Noto Sans TC, Microsoft JhengHei, sans-serif', color: '#526580', size: 11 }, showlegend: false, hovermode: 'closest' }, { responsive: false, displayModeBar: false, scrollZoom: false, doubleClick: htmlTooltip ? false : 'reset+autosize', locale: 'zh-TW' });
       });
       if (!active) return;
-      decorateOpenPoints(); decorateFocus(); decorateSelectedPoint();
+      decorateOpenPoints(); decorateFocus(); decoratePointHalos(); syncTableHover();
       element.removeAllListeners?.('plotly_click');
       element.removeAllListeners?.('plotly_hover');
       element.removeAllListeners?.('plotly_unhover');
@@ -269,7 +329,7 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
       element.removeAllListeners?.('plotly_afterplot');
       const rememberViewport = change => {
         if (!active) return;
-        viewport.current.value = readViewportChange(viewport.current.value, change, initial);
+        if (!viewportBusy) viewport.current.value = readViewportChange(viewport.current.value, change, initial);
         clearHover();
         clearGuide();
       };
@@ -288,21 +348,21 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
       const updatePlotArea = () => {
         if (!active || !htmlTooltip) return;
         const area = model.kind === 'ternary' ? triangleBounds() : element.querySelector('.nsewdrag')?.getBoundingClientRect();
-        if (!area) return;
+        if (!area || area.width <= 0 || area.height <= 0) return;
         const bounds = element.getBoundingClientRect();
         const next = { scope, left: area.left - bounds.left, right: area.right - bounds.left, top: area.top - bounds.top, bottom: area.bottom - bounds.top, width: bounds.width };
         setPlotArea(previous => previous && Object.keys(next).every(key => previous[key] === next[key]) ? previous : next);
+        if (playbackActive) playbackReady.current?.();
       };
       geometryObserver = new MutationObserver(() => {
         if (geometryFrame) return;
         geometryFrame = requestAnimationFrame(() => { geometryFrame = null; updatePlotArea(); });
       });
-      geometryObserver.observe(element, { attributes: true, childList: true, subtree: true, attributeFilter: ['d', 'transform', 'width', 'height', 'style'] });
-      element.on('plotly_afterplot', () => { decorateOpenPoints(); decorateFocus(); decorateSelectedPoint(); syncGuide(); requestAnimationFrame(updatePlotArea); });
+      const geometryRoot = element.querySelector('.ternarylayer .plotbg') || element.querySelector('.draglayer');
+      if (geometryRoot) geometryObserver.observe(geometryRoot, { attributes: true, childList: true, subtree: true, attributeFilter: ['d', 'transform', 'width', 'height'] });
+      element.on('plotly_afterplot', () => { decorateOpenPoints(); decorateFocus(); decoratePointHalos(); syncTableHover(); syncGuide(); requestAnimationFrame(updatePlotArea); });
       updatePlotArea();
       syncGuide();
-      let pendingWheel = 0;
-      let wheelAnchor;
       const wheel = event => {
         if (!['ternary', 'strip'].includes(model.kind)) return;
         const bounds = plotBounds();
@@ -310,26 +370,17 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
         event.preventDefault();
         clearHover();
         clearGuide();
-        pendingWheel += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? bounds.height : 1);
-        wheelAnchor = model.kind === 'ternary' ? ternaryWeights(bounds, event.clientX, event.clientY) : { bounds, x: event.clientX, y: event.clientY };
-        if (wheelFrame) return;
-        wheelFrame = requestAnimationFrame(() => {
-          wheelFrame = null;
-          const delta = pendingWheel;
-          const anchor = wheelAnchor;
-          pendingWheel = 0;
-          runInput(() => {
-            viewport.current.value = model.kind === 'ternary' ? zoomTernary(viewport.current.value, anchor, delta)
-              : touchViewport(viewport.current.value, anchor.bounds, { ...anchor, distance: 1 }, { ...anchor, distance: Math.exp(-Math.max(-240, Math.min(240, delta)) / 1000) });
-            return plot.relayout(element, viewportRelayout(viewport.current.value));
-          });
-        });
+        const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? bounds.height : 1);
+        const anchor = model.kind === 'ternary' ? ternaryWeights(bounds, event.clientX, event.clientY) : { bounds, x: event.clientX, y: event.clientY };
+        const next = model.kind === 'ternary' ? zoomTernary(viewport.current.value, anchor, delta)
+          : touchViewport(viewport.current.value, anchor.bounds, { ...anchor, distance: 1 }, { ...anchor, distance: Math.exp(-Math.max(-240, Math.min(240, delta)) / 1000) });
+        scheduleViewport(next);
       };
       const reset = () => {
         if (!initial || renderScope.current !== dataScope) return;
         clearHover();
         clearGuide();
-        runInput(() => { viewport.current.value = initial; return plot.relayout(element, viewportRelayout(initial)); });
+        scheduleViewport(initial);
       };
       const markerMatrix = marker => {
         const parent = marker?.parentNode.getScreenCTM();
@@ -418,15 +469,7 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
           distance: points.length === 2 ? Math.hypot(points[0].clientX - points[1].clientX, points[0].clientY - points[1].clientY) : 0,
           ids: points.map(point => point.identifier).join(':') };
       };
-      const scheduleTouchViewport = value => {
-        pendingTouchViewport = value;
-        if (touchFrame) return;
-        touchFrame = requestAnimationFrame(() => {
-          touchFrame = null;
-          const next = pendingTouchViewport;
-          runInput(() => { viewport.current.value = next; return plot.relayout(element, viewportRelayout(next)); });
-        });
-      };
+      const scheduleTouchViewport = value => scheduleViewport(value);
       inputHandlers.current.touch = event => {
         if (!htmlTooltip) return;
         const sample = touchSample(event.touches);
@@ -595,23 +638,25 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
       observer.observe(element.parentElement);
       const svgContainer = element.querySelector('.svg-container');
       if (svgContainer) observer.observe(svgContainer);
-    }).catch(() => { if (active) setError(true); });
-    return () => { active = false; decorateMarker(null); focusedMarkers.forEach(marker => marker.classList.remove('chart-point-focused')); clearRegion(); guideGroup?.remove(); element.classList.remove('chart-candidate-guide-active'); if (guideSync.current === syncGuide) guideSync.current = null; regionMove.current = null; observer?.disconnect(); geometryObserver?.disconnect(); if (resizeFrame) cancelAnimationFrame(resizeFrame); if (geometryFrame) cancelAnimationFrame(geometryFrame); if (touchFrame) cancelAnimationFrame(touchFrame); };
-  }, [election, rows, model, selectedId, officialSelected, focusRequest, retry, coarsePointer]);
+    }).catch(reportError);
+    return () => { active = false; pendingViewport = null; decorateMarker(null); tableHoverSync.current = null; element.querySelectorAll('.chart-point-table-hover').forEach(point => point.classList.remove('chart-point-table-hover')); focusedMarkers.forEach(marker => marker.classList.remove('chart-point-focused')); clearRegion(); guideGroup?.remove(); element.classList.remove('chart-candidate-guide-active'); if (guideSync.current === syncGuide) guideSync.current = null; regionMove.current = null; observer?.disconnect(); geometryObserver?.disconnect(); if (resizeFrame) cancelAnimationFrame(resizeFrame); if (geometryFrame) cancelAnimationFrame(geometryFrame); };
+  }, [election, rows, model, selectedId, officialSelected, focusRequest, retry, coarsePointer, layers, showTrajectory, playbackActive]);
   if (!model || model.kind === 'unavailable') return <div className="chart-empty"><ChartScatter size={34} weight="light" aria-hidden="true" /><strong>{model?.reason || (missingScoreSelection ? '這筆資料缺少可計算的支持度' : election ? '目前沒有足夠資料繪製圖表' : '請先選取一場選舉')}</strong><p>{missingScoreSelection ? '查看來源與備註，確認題目及候選人支持度。' : election ? '大選結果與每筆來源仍可由表格的「詳情」查閱。' : '選取民調後查看候選人比例與實際結果。'}</p></div>;
   return <>
     {!error && model.kind === 'strip' && <div className="chart-binary-candidates" aria-label="候選人圖例">{[...model.legends].reverse().map(item => <span key={item.id} className="chart-candidate-legend"><CandidateAvatar candidate={item} />{item.name}</span>)}</div>}
-    <div className={'chart-surface' + (pointChart ? ' point-chart' : '') + (model.kind === 'strip' ? ' strip-chart' : '') + (model.kind === 'ternary' ? ' ternary-chart' : '')}
-      onPointerDownCapture={event => { inputPointer.current = event.pointerType || 'mouse'; if (event.target.closest('.chart-candidate')) { gesture.current = null; return; } inputHandlers.current.clearHover?.(); gesture.current = event.button === 0 ? { x: event.clientX, y: event.clientY, moved: false } : null; }}
+    <div className={'chart-surface' + (pointChart ? ' point-chart' : '') + (model.kind === 'strip' ? ' strip-chart' : '') + (model.kind === 'ternary' ? ' ternary-chart' : '')} style={{ '--trajectory-color': SELECTED_TRAJECTORY_COLOR }}
+      onPointerDownCapture={event => { if (playbackActive) return; inputPointer.current = event.pointerType || 'mouse'; if (event.target.closest('.chart-candidate')) { gesture.current = null; return; } inputHandlers.current.clearHover?.(); gesture.current = event.button === 0 ? { x: event.clientX, y: event.clientY, moved: false } : null; }}
       onPointerMoveCapture={event => {
+        if (playbackActive) return;
         inputPointer.current = event.pointerType || inputPointer.current;
         if (guidePress.current && event.buttons && Math.hypot(event.clientX - guidePress.current.x, event.clientY - guidePress.current.y) >= 6) { guidePress.current.moved = true; clearGuide(); }
         if (gesture.current && !event.buttons) gesture.current.released = true;
         if (gesture.current && !gesture.current.released && Math.hypot(event.clientX - gesture.current.x, event.clientY - gesture.current.y) >= 6) { gesture.current.moved = true; clearGuide(); }
       }}
-      onPointerUpCapture={() => { if (gesture.current) gesture.current.released = true; }}
-      onPointerCancel={() => { gesture.current = null; guidePress.current = { moved: true }; clearGuide(); }}
+      onPointerUpCapture={() => { if (!playbackActive && gesture.current) gesture.current.released = true; }}
+      onPointerCancel={() => { if (playbackActive) return; gesture.current = null; guidePress.current = { moved: true }; clearGuide(); }}
       onClickCapture={event => {
+        if (playbackActive) return;
         if (event.target.closest('.chart-candidate')) return;
         const start = gesture.current;
         gesture.current = null;
@@ -620,15 +665,18 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
         if (event.detail === 2 && !start?.moved) { inputHandlers.current.reset?.(event); return; }
         if (start && !start.moved && !start.pointHit && Math.hypot(event.clientX - start.x, event.clientY - start.y) < 6) inputHandlers.current.clearFromBackground?.(event);
       }}
-      onMouseMoveCapture={event => { if (!event.target.closest('.chart-candidate')) regionMove.current?.(event); }} onMouseLeave={() => { if (!touchTooltip.current) inputHandlers.current.clearHover?.(); }}>
-      <div className="plot" ref={target} hidden={error} role="img" aria-label={chartLabel + (model.kind === 'ternary' ? '越接近選舉日越不透明，日期未知或非選前以空心點表示。選取與滑過保留點的大小及深淺。' : '')} data-testid="poll-chart" />
-      {!error && pointChart && <div className="chart-gesture-hint"><span className="chart-mouse-hint"><MouseSimple size={14} aria-hidden="true" />滾輪放大／縮小</span><span className="chart-touch-hint"><Hand size={14} aria-hidden="true" />雙指縮放 · 單點看提示</span><span><Hand size={14} aria-hidden="true" />拖曳平移</span></div>}
+      onMouseMoveCapture={event => { if (!playbackActive && !event.target.closest('.chart-candidate')) regionMove.current?.(event); }} onMouseLeave={() => { if (!playbackActive && !touchTooltip.current) inputHandlers.current.clearHover?.(); }}>
+      <div className="plot" ref={target} hidden={error} role="img" aria-label={(showNames ? chartLabel : chartLabel.replace('以發布機構縮寫標在圓點內', '以圓點表示')) + (model.kind === 'ternary' ? '越接近選舉日越不透明，日期未知或非選前以空心點表示。選取與滑過保留點的大小及深淺。' : '')} data-testid="poll-chart" />
+      {!error && playbackActive && playback?.ready && <PollPlaybackOverlay election={election} model={playbackModel} timeline={playbackTimeline} position={playback.position}
+        playing={playback.playing} speed={playback.speed} seekVersion={playback.seekVersion} area={plotArea?.scope === scope ? plotArea : null}
+        viewportRef={viewport} showNames={showNames} selectedId={playbackSelectedId} onPause={playback.pause} onMotionStatusChange={onMotionStatusChange} />}
+      {!error && pointChart && !playbackActive && <div className="chart-gesture-hint"><span className="chart-mouse-hint"><MouseSimple size={14} aria-hidden="true" />滾輪放大／縮小</span><span className="chart-touch-hint"><Hand size={14} aria-hidden="true" />雙指縮放 · 單點看提示</span><span><Hand size={14} aria-hidden="true" />拖曳平移</span></div>}
       {!error && model.kind === 'ternary' && model.legends?.length > 0 && plotArea?.scope === scope && <div className="chart-candidates" aria-label="候選人位置">{model.legends.map((candidate, index) => {
         const top = model.kind === 'ternary' && index > 0 ? plotArea.bottom + 10 : plotArea.top - 70;
         const x = model.kind === 'ternary' ? index === 0 ? (plotArea.left + plotArea.right) / 2 : index === 1 ? plotArea.left : plotArea.right : index === 0 ? plotArea.left : plotArea.right;
-        return <button key={candidate.id} type="button" className="chart-candidate" style={{ left: Math.max(32, Math.min(x, plotArea.width - 32)), top, '--candidate-color': candidate.color }} title={`${candidate.name} · ${candidate.party}`}
+        return <button key={candidate.id} type="button" className="chart-candidate" disabled={playbackActive} style={{ left: Math.max(32, Math.min(x, plotArea.width - 32)), top, '--candidate-color': candidate.color }} title={`${candidate.name} · ${candidate.party}`}
           aria-label={`查看${candidate.name}的正規化支持度刻度`} aria-pressed={guideId === candidate.id} aria-describedby={`${clipId}-guide-help`}
-          onPointerEnter={event => { if (event.pointerType === 'mouse' && !event.buttons) activateGuide(candidate.id, 'pointer'); }}
+          onPointerEnter={event => { if (!playbackActive && event.pointerType === 'mouse' && !event.buttons) activateGuide(candidate.id, 'pointer'); }}
           onPointerLeave={() => { if (candidateGuide.current?.id === candidate.id && candidateGuide.current.mode === 'pointer') clearGuide(); }}
           onPointerDown={event => { guidePress.current = { x: event.clientX, y: event.clientY, moved: false }; }}
           onFocus={event => { if (event.target.matches(':focus-visible')) activateGuide(candidate.id, 'keyboard'); }}
@@ -648,9 +696,9 @@ export function PollChart({ election, rows, model: providedModel, selectedId, of
     </div>
     {error && <div className="chart-empty" role="alert"><WarningCircle size={28} /><strong>圖表暫時無法載入</strong><p>比例表仍可查看完整數值。</p><button className="button" onClick={() => setRetry(value => value + 1)}>重新載入圖表</button></div>}
     <div className="chart-controls">
-    {!error && <div className="chart-legend"><span className="chart-poll-legend"><Circle size={9} weight="fill" />民調</span>{hasOfficialResult && <span className="chart-result-legend">{model.kind === 'bar' ? <Square size={10} weight="fill" /> : <Star size={12} weight="fill" />}實際結果</span>}</div>}
+    {!error && <div className="chart-legend"><span className="chart-poll-legend"><Circle size={9} weight="fill" />民調</span>{hasOfficialResult && <span className="chart-result-legend">{model.kind === 'bar' ? <Square size={10} weight="fill" /> : <Star size={12} weight="fill" />}實際結果</span>}{layers.highlighted && <span style={{ color: SELECTED_TRAJECTORY_COLOR }}><ArrowRight size={15} weight="bold" aria-hidden="true" />選取路線</span>}</div>}
     {!error && model.ageLegend && <div className="chart-legend chart-age-legend" aria-label="民調日期深淺圖例"><span>選前天數</span>{model.ageLegend.map(step => <span key={step.label}><i aria-hidden="true" style={{ opacity: step.opacity }} />{step.label}</span>)}<span><i className="unknown-date" aria-hidden="true" />日期未知／非選前</span></div>}
-    {!error && model.kind === 'ternary' && <p className="chart-guide-hint" id={`${clipId}-guide-help`}>指向或點按頭像，查看支持度刻度<span className="sr-only">。亦可用鍵盤聚焦頭像，按 Escape 關閉。背景越深表示該候選人的正規化支持度越高，同一條輔助線上的支持度相同。</span></p>}
+    {!error && !playbackActive && model.kind === 'ternary' && <p className="chart-guide-hint" id={`${clipId}-guide-help`}>指向或點按頭像，查看支持度刻度<span className="sr-only">。亦可用鍵盤聚焦頭像，按 Escape 關閉。背景越深表示該候選人的正規化支持度越高，同一條輔助線上的支持度相同。</span></p>}
     {model.note && <p className="chart-note" role="status">{model.note}</p>}
     </div>
   </>;

@@ -87,8 +87,14 @@ def extract(pages: dict[str, str]) -> list[dict[str, Any]]:
 
 
 if __name__ == '__main__':
+    sys.stdin.reconfigure(encoding='utf-8')
     sys.stdout.reconfigure(encoding='utf-8')
-    payload = json.load(sys.stdin)
+    # A newline frames the Node caller's JSON payload without waiting for pipe EOF.
+    first_line = sys.stdin.readline()
+    try:
+        payload = json.loads(first_line)
+    except json.JSONDecodeError:
+        payload = json.loads(first_line + sys.stdin.read())
     mode = sys.argv[1] if len(sys.argv) > 1 else ''
     result = discover_regions(payload) if mode == '--regions' else inventory(payload) if mode == '--inventory' else extract(payload)
     print(json.dumps(result, ensure_ascii=False, indent=2))

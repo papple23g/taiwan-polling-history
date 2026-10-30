@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "node scripts/build-runtime-data.mjs && vite build && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
+    "data:rebuild": "node scripts/import-historical-polls.mjs && node scripts/import-2026-polls.mjs && node scripts/import-local-election-history.mjs && node scripts/import-poll-gap-supplement.mjs && node scripts/import-verified-data.mjs source-data/audited-source.json",
     "audit:2026": "node scripts/collect-2026-index.mjs --audit",
     "check:bundle": "node scripts/check-public-bundle.mjs"
   },

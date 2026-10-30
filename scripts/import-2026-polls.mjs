@@ -1,12 +1,30 @@
-import { readFile, writeFile, readdir } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { electionConfig2026 } from './2026-election-config.mjs';
-import { importedQuestionId } from './2026-poll-audit.mjs';
+import { importedQuestionId, createQuestionRegistry, extendQuestionRegistry } from './2026-poll-audit.mjs';
+import { reviewPollRecord } from './2026-poll-review.mjs';
+import { writeDataFile as writeFile } from './write-data-file.mjs';
 
 const snapshot = JSON.parse(await readFile('source-data/2026-poll-index.json', 'utf8'));
 const primaryChecks = JSON.parse(await readFile('source-data/2026-primary-checks.json', 'utf8'));
 const zhubei = JSON.parse(await readFile('source-data/2026-zhubei-primary.json', 'utf8'));
 const supplement = JSON.parse(await readFile('source-data/2026-poll-supplement.json', 'utf8'));
+const allLeads = [...snapshot.records, ...zhubei.records, ...supplement.records];
+const registryPath = 'source-data/2026-question-ids.json';
+let questionRegistry;
+try { questionRegistry = JSON.parse(await readFile(registryPath, 'utf8')); }
+catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+  questionRegistry = createQuestionRegistry(allLeads);
+}
+questionRegistry = extendQuestionRegistry(questionRegistry, allLeads);
+const files = (await readdir('source-data/parts')).filter(name => /^\d{2}\.json$/.test(name)).sort();
+const ownedParts = await Promise.all(files.filter(name => ['20.json', '21.json', '22.json'].includes(name)).map(async name => {
+  const part = JSON.parse(await readFile(`source-data/parts/${name}`, 'utf8'));
+  if (part.importer !== '2026-six-cities') throw new Error(`Unrelated source part: ${name}`);
+  return part;
+}));
+const previousRecords = new Map(ownedParts.filter(part => part.part_type !== 'contests').flatMap(part => part.data).map(row => [row.id, row]));
 const checkedAt = snapshot.collectedAt.slice(0, 10);
 const date = text => {
   const match = text?.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
@@ -19,7 +37,7 @@ const isVoting = question => question.type === 'voting_intention' || question.la
 const polls = [], contexts = [], contests = [];
 for (const [city, config] of Object.entries(electionConfig2026)) {
   const { region, pair: [first, second] } = config;
-  const leads = [...snapshot.records, ...zhubei.records, ...supplement.records].filter(row => row.city === city);
+  const leads = allLeads.filter(row => row.city === city);
   const candidateNames = [...new Set([first, second, ...leads.flatMap(row => row.questions.filter(isVoting).flatMap(q => q.responses.filter(r => !response(r.label, row.supplement)).map(r => r.label)))])];
   contests.push({ id: `2026-${city}`, title: `2026年${region}長選舉`, phase: 'pre_result', election_date: '2026-11-28', geography: region,
     office: config.office, official_status: 'results_pending', valid_votes: null, selected_candidates: [first, second], selected_candidate_votes: null,
@@ -51,9 +69,9 @@ for (const [city, config] of Object.entries(electionConfig2026)) {
       const support = Object.fromEntries(question.responses.filter(r => !response(r.label, lead.supplement)).map(r => [r.label, r.percent]));
       const undecided = question.responses.filter(r => /^(未表態|未決定|不知道|無意見|無法選出任一候選人)$/.test(r.label) || lead.supplement && /^(未明確回答|沒意見|無明確意見|無法選出任何一位候選人)$/.test(r.label));
       const otherResponses = Object.fromEntries(question.responses.filter(r => response(r.label, lead.supplement) && !undecided.includes(r)).map(r => [r.label, r.percent]));
-      const id = importedQuestionId(lead, question, questionIndex);
+      const id = importedQuestionId(lead, question, questionIndex, questionRegistry);
       const notes = [fromPrimary ? '數值由原發布者同波方法頁與結果頁轉錄；分項來源與核對限制另列。' : '數值與方法均由二手索引轉錄，尚未完成一手核心欄位核實。', fromPrimary ? (question.note ?? '原發布者題意分類；原題全文尚待核實。') : '原題全文未核實；題目欄保留索引的題意分類。', m['調查期間'] && `${fromPrimary ? '原報告' : '索引'}調查期間：${m['調查期間']}`, `${fromPrimary ? '原報告' : '索引'}樣本說明：${sampleText}`, m['經費來源'] && !known(m['經費來源']) && `索引經費註記含推論，不作已知出資者：${m['經費來源']}`].filter(Boolean);
-      const common = { id, contest_id: `2026-${city}`, brand, executor: known(m['負責調查單位']), commissioner: known(m['委託單位']), funder: known(m['經費來源']), design_and_analysis: known(m['主持人']),
+      let common = { id, contest_id: `2026-${city}`, brand, executor: known(m['負責調查單位']), commissioner: known(m['委託單位']), funder: known(m['經費來源']), design_and_analysis: known(m['主持人']),
         comparison_unit_id: `pre2026__${createHash('sha256').update(`${brand}|${lead.executorLabel}`).digest('hex').slice(0,12)}`,
         fieldwork_start: start, fieldwork_end: end, publication_date: date(m['發布日期']), date_timezone: 'Asia/Taipei',
         question: question.label, question_candidate_set: voting ? Object.keys(support) : null,
@@ -86,10 +104,10 @@ for (const [city, config] of Object.entries(electionConfig2026)) {
       }
       const check = voting && primaryChecks.records.find(record => record.pollId === id);
       if (check) {
-        common.notes.push(check.note);
-        common.verification_review.verifiedFields = check.fields;
-        common.verification_review.missingFields = common.verification_review.missingFields.filter(field => !check.fields.includes(field));
-        for (const field of check.fields) common.verification_review.fieldEvidence[field] = check.fieldEvidence?.[field] ?? { url: check.url, locator: check.locator, evidenceLevel: check.evidenceLevel ?? 'primary_partial' };
+        if (check.note) common.notes.push(check.note);
+        common.verification_review.verifiedFields = check.fields ?? [];
+        common.verification_review.missingFields = common.verification_review.missingFields.filter(field => !(check.fields ?? []).includes(field));
+        for (const field of check.fields ?? []) common.verification_review.fieldEvidence[field] = check.fieldEvidence?.[field] ?? { url: check.url, locator: check.locator, evidenceLevel: check.evidenceLevel ?? 'primary_partial' };
         const source = common.sources.find(source => source.url === check.url);
         if (source) Object.assign(source, { kind: check.kind ?? 'primary_report', access_method: check.accessMethod ?? 'public_pdf_selected_fields_read', checked_at: check.checkedAt ?? primaryChecks.checkedAt, evidence_summary: check.note, locator: check.locator });
       }
@@ -106,7 +124,8 @@ for (const [city, config] of Object.entries(electionConfig2026)) {
         common.verification_review.publicationDateConflict = observation;
         common.sources.push({ title: 'TVBS民調中心原發布索引', url: observation.url, kind: 'primary_publication_index', checked_at: primaryChecks.checkedAt, access_method: 'public_index_read', locator: observation.locator, evidence_summary: note });
       }
-      if (voting && !question.catalogueOnly && [first, second].every(name => Number.isFinite(support[name]))) polls.push(common);
+      common = reviewPollRecord(common, previousRecords.get(id), check, '2026-11-28');
+      if (voting && !question.catalogueOnly && [first, second].every(name => Number.isFinite(common.raw_support_percent[name]))) polls.push(common);
       else contexts.push({ ...common, electionId: common.contest_id, fieldworkStart: start, fieldworkEnd: end, publishedAt: common.publication_date,
         shares: Object.fromEntries(question.responses.map(item => [item.label, item.percent])), questionCandidateSet: common.question_candidate_set,
         status: 'pending', officialScoreEligible: false, reason: question.catalogueReason ?? (voting ? '候選情境與主要集合不同' : '非投票意向題；不納入候選人支持度主表。'),
@@ -119,14 +138,13 @@ for (const row of [...polls, ...contexts]) {
   if (recordIds.has(row.id)) throw new Error(`Duplicate imported question: ${row.id}`);
   recordIds.add(row.id);
 }
-const files = (await readdir('source-data/parts')).filter(name => /^\d{2}\.json$/.test(name)).sort();
+for (const previous of previousRecords.values()) {
+  if (previous.verification_status === 'verified_primary' && !recordIds.has(previous.id)) throw new Error(`Verified record would be removed; independent review required: ${previous.id}`);
+}
+for (const contest of contests) contest.verified_poll_count = polls.filter(poll => poll.contest_id === contest.id && poll.verification_status === 'verified_primary').length;
 // Parts 20–22 are owned by this importer; refuse to overwrite an unrelated part.
 for (const [offset, type, rows] of [[20, 'contests', contests], [21, 'polls', polls], [22, 'historical_contexts', contexts]]) {
   const name = `${String(offset).padStart(2, '0')}.json`;
-  if (files.includes(name)) {
-    const previous = JSON.parse(await readFile(`source-data/parts/${name}`, 'utf8'));
-    if (previous.importer !== '2026-six-cities') throw new Error(`Unrelated source part: ${name}`);
-  }
   await writeFile(`source-data/parts/${name}`, JSON.stringify({ part_type: type, importer: '2026-six-cities', data: rows }, null, 2) + '\n');
 }
 const metadata = JSON.parse(await readFile('source-data/parts/01.json', 'utf8'));
@@ -136,13 +154,17 @@ for (const name of files.filter(name => !['01.json', '20.json', '21.json', '22.j
   if (base[part.part_type]) base[part.part_type].push(...part.data);
 }
 metadata.data.title = '台灣選情劉伯溫：選前支持度與歷史民調資料';
-metadata.data.schema_version = '1.5.0'; metadata.data.verified_at = checkedAt;
+metadata.data.schema_version = '1.5.0'; metadata.data.verified_at = [metadata.data.verified_at, checkedAt].filter(Boolean).sort().at(-1);
+const verified = [...base.polls, ...polls].filter(poll => poll.verification_status === 'verified_primary');
+const verified2026 = polls.filter(poll => poll.verification_status === 'verified_primary').length;
 Object.assign(metadata.data.scope, { total_contests: base.contests.length + contests.length, pre_result_contests: contests.length,
-  total_poll_records: base.polls.length + polls.length, indexed_poll_records: base.polls.filter(p => p.verification_status === 'indexed_secondary').length + polls.length,
+  total_poll_records: base.polls.length + polls.length, indexed_poll_records: [...base.polls, ...polls].filter(p => p.verification_status === 'indexed_secondary').length,
+  verified_poll_records: verified.length, poll_contests_verified: new Set(verified.map(poll => poll.contest_id)).size,
   poll_contests_with_records: new Set([...base.polls, ...polls].map(p => p.contest_id)).size,
   historical_candidate_context_records: base.historical_contexts.length + contexts.length,
-  pre_result_collection: { checked_at: checkedAt, index_leads: snapshot.records.length, direct_primary_waves: zhubei.records.length + supplement.records.filter(row => row.sourceType === 'primary_report').length, voting_intention_records: polls.length, other_question_records: contexts.length, primary_verified: 0, primary_partially_checked: primaryChecks.records.filter(record => record.evidenceLevel !== 'secondary_report').length + supplement.records.filter(row => row.sourceType === 'primary_report').length, secondary_report_partially_checked: primaryChecks.records.filter(record => record.evidenceLevel === 'secondary_report').length + supplement.records.filter(row => row.sourceType === 'secondary_report').length, original_source_access_limited: primaryChecks.accessAttempts?.length ?? 0, publication_date_discrepancies: primaryChecks.publicationDateObservations.length + supplement.records.filter(row => row.publicationNote).length, coverage: `從poll-tw首頁發現22縣市，公開${snapshot.records.length}波逐題比對；另保留美麗島竹北1波及獨立回源補充${supplement.records.length}波。僅標示份數的隱藏紀錄不能與獨立來源確認為同一波；這不是完整2026民調清冊，所有新增紀錄維持待核實。` },
-  coverage_statement: `中選會已核實結果${base.contests.length}場；另收錄2026年${contests.length}場選前民調${polls.length}筆及其他題目${contexts.length}筆，均維持待核實狀態並分列一手核對範圍。歷史民調與官方計算資格不變。`,
+  pre_result_collection: { checked_at: checkedAt, index_leads: snapshot.records.length, direct_primary_waves: zhubei.records.length + supplement.records.filter(row => row.sourceType === 'primary_report').length, voting_intention_records: polls.length, other_question_records: contexts.length, primary_verified: verified2026, primary_partially_checked: primaryChecks.records.filter(record => record.evidenceLevel !== 'secondary_report' && !record.approvedReview).length + supplement.records.filter(row => row.sourceType === 'primary_report').length, secondary_report_partially_checked: primaryChecks.records.filter(record => record.evidenceLevel === 'secondary_report').length + supplement.records.filter(row => row.sourceType === 'secondary_report').length, original_source_access_limited: primaryChecks.accessAttempts?.length ?? 0, publication_date_discrepancies: primaryChecks.publicationDateObservations.length + supplement.records.filter(row => row.publicationNote).length, coverage: `從poll-tw首頁發現22縣市，公開${snapshot.records.length}波逐題比對；另保留美麗島竹北1波及獨立回源補充${supplement.records.length}波。僅標示份數的隱藏紀錄不能與獨立來源確認為同一波；這不是完整2026民調清冊，未經獨立一手核實的紀錄維持待核實。` },
+  coverage_statement: `中選會已核實結果${base.contests.length}場；另收錄2026年${contests.length}場選前民調${polls.length}筆及其他題目${contexts.length}筆，其中${verified2026}筆民調完成一手核實，其餘維持待核實並分列核對範圍。歷史民調與官方計算資格不變。`,
 });
 await writeFile('source-data/parts/01.json', JSON.stringify(metadata, null, 2) + '\n');
+await writeFile(registryPath, JSON.stringify(questionRegistry, null, 2) + '\n');
 console.log(JSON.stringify({ contests: contests.length, polls: polls.length, otherQuestions: contexts.length, missingDates: polls.filter(p => !p.fieldwork_end).map(p => p.id) }));

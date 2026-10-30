@@ -8,6 +8,28 @@ export function filterComparisonBrands(comparison, { minimumFiveElections = true
   return { ...comparison, rows: comparison.mainRows };
 }
 
+export function comparisonHistogramMaximum(comparison) {
+  const rows = comparison.mainRows && comparison.limitedRows
+    ? [...comparison.mainRows, ...comparison.limitedRows] : comparison.rows;
+  const maximum = rows.reduce((largest, row) => row.availablePerElection.reduce(
+    (value, point) => Number.isFinite(point.mae) ? Math.max(value, point.mae) : value, largest), 0);
+  return Math.max(30, Math.ceil(maximum / 10) * 10);
+}
+
+export function buildMaeHistogram(points, maximum = 30) {
+  if (!Number.isFinite(maximum) || maximum < 2 || maximum % 2 !== 0) return null;
+  const bins = Array.from({ length: maximum / 2 }, (_, index) => ({ start: index * 2, end: (index + 1) * 2, count: 0, percentage: 0, points: [] }));
+  for (const point of points) {
+    if (!Number.isFinite(point.mae) || point.mae < 0 || point.mae > maximum) return null;
+    // The final interval includes the shared upper bound; other intervals exclude it.
+    const bin = bins[Math.min(Math.floor(point.mae / 2), bins.length - 1)];
+    bin.points.push(point);
+    bin.count += 1;
+  }
+  for (const bin of bins) bin.percentage = points.length ? bin.count / points.length * 100 : 0;
+  return { bins, total: points.length, maximum };
+}
+
 export function compareInstitutionBrands(data, options = {}) {
   options = { within30Days: true, ...options };
   const completed = new Set(data.elections.filter(election => election.phase !== 'pre_result').map(election => election.id));

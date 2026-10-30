@@ -1,5 +1,27 @@
 import { filterAndSortRows, selectSingleElectionPolls } from './domain.mjs';
-import { electionBrandOptions, filterPublisherRows } from './publisher-brand.mjs';
+import { executorGroupId, executorName, executorSearchName } from './executor-identity.mjs';
+import { electionBrandOptions, filterPublisherRows, publisherBrand, publisherBrandId } from './publisher-brand.mjs';
+
+function compatibleBrandIds(data, electionId, ids, institutions) {
+  const allowed = new Set(electionBrandOptions(data, electionId).map(option => option.id));
+  const legacy = new Map();
+  if (ids.some(id => typeof id === 'string' && id.startsWith('executor:'))) {
+    for (const poll of data.polls.filter(poll => poll.electionId === electionId)) {
+      const institution = institutions.get(poll.institutionId);
+      const id = executorGroupId(executorName(poll, institution));
+      if (!legacy.has(id)) legacy.set(id, new Set());
+      legacy.get(id).add(publisherBrandId(publisherBrand(poll, institution)));
+    }
+  }
+  const valid = new Set();
+  for (const id of ids) {
+    if (allowed.has(id)) valid.add(id);
+    else if (legacy.has(id)) {
+      for (const brandId of legacy.get(id)) if (allowed.has(brandId)) valid.add(brandId);
+    }
+  }
+  return valid.size || !ids.length ? [...valid] : null;
+}
 
 export function defaultView(data, electionId, mode = 'single') {
   const election = data.elections.find(item => item.id === electionId)
@@ -7,7 +29,7 @@ export function defaultView(data, electionId, mode = 'single') {
     || data.elections.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
   const preResult = election?.phase === 'pre_result';
   return { electionId: election?.id || '', mode, pollView: preResult ? 'history' : 'closing',
-    showNormalized: !preResult, within30Days: mode === 'comparison', minimumFiveElections: true, query: '', brandIds: null,
+    showNormalized: !preResult, showTrajectory: true, within30Days: mode === 'comparison', minimumFiveElections: true, query: '', brandIds: null,
     sort: { key: preResult ? 'date' : 'mae', direction: preResult ? 'desc' : 'asc' }, selection: null };
 }
 
@@ -17,6 +39,7 @@ export function validateView(data, value) {
     mode: ['single', 'comparison'].includes(value.mode) ? value.mode : defaults.mode,
     pollView: ['closing', 'history'].includes(value.pollView) ? value.pollView : defaults.pollView,
     showNormalized: typeof value.showNormalized === 'boolean' ? value.showNormalized : defaults.showNormalized,
+    showTrajectory: typeof value.showTrajectory === 'boolean' ? value.showTrajectory : defaults.showTrajectory,
     within30Days: typeof value.within30Days === 'boolean' ? value.within30Days : defaults.within30Days,
     minimumFiveElections: defaults.mode === 'comparison' && typeof value.minimumFiveElections === 'boolean' ? value.minimumFiveElections : true,
     query: typeof value.query === 'string' ? value.query : '', brandIds: null,
@@ -24,16 +47,17 @@ export function validateView(data, value) {
       direction: ['asc', 'desc'].includes(value.sort?.direction) ? value.sort.direction : defaults.sort.direction },
     selection: null };
   const election = data.elections.find(item => item.id === state.electionId);
+  const institutions = new Map(data.institutions.map(item => [item.id, item]));
   if (Array.isArray(value.brandIds)) {
-    const allowed = new Set(electionBrandOptions(data, state.electionId).map(option => option.id));
-    const valid = [...new Set(value.brandIds.filter(id => allowed.has(id)))];
-    state.brandIds = valid.length || !value.brandIds.length ? valid : null;
+    state.brandIds = compatibleBrandIds(data, state.electionId, value.brandIds, institutions);
   }
   if (value.selection?.kind === 'official' && election?.result?.status === 'verified') state.selection = { kind: 'official' };
   if (value.selection?.kind === 'poll' && election) {
-    const institutions = new Map(data.institutions.map(item => [item.id, item]));
-    const rows = selectSingleElectionPolls(data.polls, election, { view: state.pollView, within30Days: state.within30Days }).rows
-      .map(row => ({ ...row, brand: institutions.get(row.poll.institutionId)?.brand || row.poll.institutionId }));
+    const rows = selectSingleElectionPolls(data.polls, election, { view: state.pollView, within30Days: state.within30Days,
+      institutionKey: poll => publisherBrandId(publisherBrand(poll, institutions.get(poll.institutionId))) }).rows
+      .map(row => ({ ...row, brand: publisherBrand(row.poll, institutions.get(row.poll.institutionId)),
+        originalBrand: institutions.get(row.poll.institutionId)?.brand,
+        executorSearchName: executorSearchName(row.poll, institutions.get(row.poll.institutionId)) }));
     if (filterAndSortRows(filterPublisherRows(rows, state.brandIds, institutions), { query: state.query, sortKey: state.sort.key, direction: state.sort.direction })
       .some(row => row.poll.id === value.selection.pollId)) state.selection = { kind: 'poll', pollId: value.selection.pollId };
   }

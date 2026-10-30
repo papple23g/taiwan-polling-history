@@ -1,0 +1,83 @@
+.playback-overlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.playback-overlay svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.playback-overlay-hit {
+  fill: transparent;
+  pointer-events: all;
+  touch-action: pan-y;
+}
+
+.playback-overlay-point {
+  pointer-events: none;
+  outline: none;
+}
+
+.playback-overlay-point:focus-visible .playback-overlay-focus {
+  visibility: visible;
+}
+
+.playback-overlay-focus {
+  visibility: hidden;
+  fill: none;
+  stroke: #253c60;
+  stroke-width: 2;
+}
+
+.playback-overlay-label {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.playback-overlay-tooltip {
+  position: absolute;
+  z-index: 1;
+  left: 8px;
+  top: 8px;
+  width: max-content;
+  max-width: min(280px, calc(100% - 16px));
+  max-height: calc(100% - 16px);
+  overflow: auto;
+  padding: 9px 11px;
+  border: 1px solid var(--control-border, #cbd5e1);
+  border-radius: 5px;
+  color: #253c60;
+  background: #fff;
+  box-shadow: 0 3px 12px #17254715;
+  font-size: 12px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  pointer-events: auto;
+}
+
+.playback-overlay-tooltip section + section {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid #e3e9f1;
+}
+
+.playback-overlay-tooltip strong,
+.playback-overlay-tooltip span {
+  display: block;
+}
+
+.playback-overlay-tooltip-date {
+  margin-bottom: 4px;
+  color: #526580;
+}

@@ -46,13 +46,13 @@ export function InstitutionFilter({ options, brandIds, onChange }) {
     <button ref={button} type="button" className="institution-filter-button" aria-haspopup="dialog" aria-expanded={open} aria-controls={open ? id : undefined} onClick={() => setOpen(value => !value)}>
       <span>機構：{brandIds === null ? '全部' : `已選 ${chosen.size} / ${options.length}`}</span><CaretDown size={16} />
     </button>
-    {open && createPortal(<div ref={panel} id={id} role="dialog" aria-label="篩選發布品牌" className="institution-filter-panel" style={position || { left: 12, top: 12, width: 'calc(100% - 24px)', maxHeight: 'calc(100dvh - 24px)' }}>
-      <div className="institution-filter-heading"><strong>篩選發布品牌</strong><button type="button" className="icon-button" aria-label="關閉機構篩選" onClick={() => close(true)}><X size={18} /></button></div>
-      <label className="institution-option-search"><MagnifyingGlass size={16} /><input ref={input} autoFocus type="search" value={search} onChange={event => setSearch(event.target.value)} aria-label="搜尋品牌或別名" placeholder="搜尋品牌或別名…" /></label>
-      <div className="institution-filter-actions"><button type="button" onClick={() => onChange(null)}>全選</button><button type="button" onClick={() => onChange([])}>取消全選</button><span role="status">已選 {chosen.size} 家</span></div>
-      <div className="institution-filter-options" role="group" aria-label="發布品牌選項">
+    {open && createPortal(<div ref={panel} id={id} role="dialog" aria-label="篩選民調機構" className="institution-filter-panel" style={position || { left: 12, top: 12, width: 'calc(100% - 24px)', maxHeight: 'calc(100dvh - 24px)' }}>
+      <div className="institution-filter-heading"><strong>篩選機構</strong><button type="button" className="icon-button" aria-label="關閉機構篩選" onClick={() => close(true)}><X size={18} /></button></div>
+      <label className="institution-option-search"><MagnifyingGlass size={16} /><input ref={input} autoFocus type="search" value={search} onChange={event => setSearch(event.target.value)} aria-label="搜尋品牌、別名或執行者" placeholder="搜尋品牌、別名或執行者…" /></label>
+      <div className="institution-filter-actions"><button type="button" onClick={() => onChange(null)}>全選</button><button type="button" onClick={() => onChange([])}>取消全選</button><span role="status">已選 {chosen.size} 項</span></div>
+      <div className="institution-filter-options" role="group" aria-label="民調品牌選項">
         {visible.map(option => <label key={option.id}><input type="checkbox" checked={chosen.has(option.id)} onChange={() => toggle(option)} /><span>{option.brand}</span></label>)}
-        {!visible.length && <p className="small muted">沒有符合搜尋的品牌。</p>}
+        {!visible.length && <p className="small muted">沒有符合搜尋的機構。</p>}
       </div>
     </div>, document.body)}
   </>;
